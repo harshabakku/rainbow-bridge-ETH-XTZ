@@ -1,0 +1,92 @@
+{
+  "_from": "rainbow-bridge-cli",
+  "_id": "rainbow-bridge-cli@3.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-0wEwZHTBnuJDfGxmpcPZAEOOqPHljPUWoourCyShmpUv4L0NhDuyh6lV/C2y7gQtcUj4ZAN43IYQ+t1UPDmo5Q==",
+  "_location": "/rainbow-bridge-cli",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "rainbow-bridge-cli",
+    "name": "rainbow-bridge-cli",
+    "escapedName": "rainbow-bridge-cli",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/rainbow-bridge-cli/-/rainbow-bridge-cli-3.0.0.tgz",
+  "_shasum": "ede797e64f89c341df0caac6a1abe860494ec952",
+  "_spec": "rainbow-bridge-cli",
+  "_where": "/home/harsha",
+  "author": {
+    "name": "Near Inc."
+  },
+  "bin": {
+    "rainbow-bridge": "index.js",
+    "rainbow": "index.js"
+  },
+  "bugs": {
+    "url": "https://github.com/near/rainbow-bridge/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "bn.js": "^5.1.3",
+    "commander": "^5.1.0",
+    "eth-object": "github:near/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7",
+    "eth-util-lite": "github:near/eth-util-lite#master",
+    "ethereumjs-util": "^6.2.0",
+    "near-api-js": "^0.26.0",
+    "node-fetch": "^2.6.0",
+    "pm2": "^4.4.0",
+    "pm2-promise": "^2.0.1",
+    "rainbow-bridge-lib": "^3.0.0",
+    "rainbow-bridge-rs": "1.0.2",
+    "rainbow-bridge-sol": "2.0.0",
+    "rainbow-token-connector": "github:near/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6",
+    "request": "^2.88.2",
+    "web3": "=1.2.6"
+  },
+  "deprecated": false,
+  "description": "CLI to set up the environment needed for the bridge to work.",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "typescript": "^3.9.5"
+  },
+  "homepage": "https://github.com/near/rainbow-bridge#readme",
+  "keywords": [
+    "nearprotocol",
+    "decentralized",
+    "blockchain",
+    "ethereum",
+    "bridge"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "rainbow-bridge-cli",
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/near/rainbow-bridge.git"
+  },
+  "scripts": {
+    "check": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "version": "3.0.0"
+}
