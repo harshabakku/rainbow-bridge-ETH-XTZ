@@ -11,6 +11,7 @@ const os = require('os')
 
 class StartEth2NearRelayCommand {
   static async execute() {
+    console.log("testing log here")
     if (RainbowConfig.getParam('daemon') === 'true') {
       ProcessManager.connect((err) => {
         if (err) {
@@ -32,29 +33,38 @@ class StartEth2NearRelayCommand {
         })
       })
     } else {
-      const masterAccount = RainbowConfig.getParam('near-master-account')
-      const masterSk = RainbowConfig.getParam('near-master-sk')
-      const keyStore = new nearlib.keyStores.InMemoryKeyStore()
-      await keyStore.setKey(
-        RainbowConfig.getParam('near-network-id'),
-        masterAccount,
-        nearlib.KeyPair.fromString(masterSk)
-      )
-      const near = await nearlib.connect({
-        nodeUrl: RainbowConfig.getParam('near-node-url'),
-        networkId: RainbowConfig.getParam('near-network-id'),
-        masterAccount: masterAccount,
-        deps: {
-          keyStore: keyStore,
-        },
-      })
+      console.log("test log here ")
 
-      const relay = new Eth2NearRelay()
-      const clientContract = new EthOnNearClientContract(
-        new nearlib.Account(near.connection, masterAccount),
-        RainbowConfig.getParam('near-client-account')
-      )
-      await clientContract.accessKeyInit()
+      // Below are near node details that should be replaced with tezos node details 
+      
+      // const masterAccount = RainbowConfig.getParam('near-master-account')
+      // const masterSk = RainbowConfig.getParam('near-master-sk')
+      // const keyStore = new nearlib.keyStores.InMemoryKeyStore()
+      // await keyStore.setKey(
+        //   RainbowConfig.getParam('near-network-id'),
+        //   masterAccount,
+        //   nearlib.KeyPair.fromString(masterSk)
+        // )
+        // const near = await nearlib.connect({
+          //   nodeUrl: RainbowConfig.getParam('near-node-url'),
+          //   networkId: RainbowConfig.getParam('near-network-id'),
+          //   masterAccount: masterAccount,
+          //   deps: {
+            //     keyStore: keyStore,
+            //   },
+            // })
+            
+            const relay = new Eth2NearRelay()
+            // below should be replaced from  eth-on-near client to eth-on-xtz relay
+            
+            // const clientContract = new EthOnNearClientContract(
+              //   new nearlib.Account(near.connection, masterAccount),
+              //   RainbowConfig.getParam('near-client-account')
+              // )
+              // await clientContract.accessKeyInit()
+              
+      console.log("testing log right here.....")
+      const clientContract = null;
       console.log('Initializing eth2near-relay...')
       relay.initialize(clientContract, RainbowConfig.getParam('eth-node-url'))
       console.log('Starting eth2near-relay...')
