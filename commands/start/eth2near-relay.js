@@ -11,29 +11,29 @@ const os = require('os')
 
 class StartEth2NearRelayCommand {
   static async execute() {
-    console.log("testing log here")
-    if (RainbowConfig.getParam('daemon') === 'true') {
-      ProcessManager.connect((err) => {
-        if (err) {
-          console.log(
-            'Unable to connect to the ProcessManager daemon! Please retry.'
-          )
-          return
-        }
-        spawnProcess('eth2near-relay', {
-          name: 'eth2near-relay',
-          script: path.join(__dirname, '../../index.js'),
-          interpreter: 'node',
-          error_file: '~/.rainbow/logs/eth2near-relay/err.log',
-          out_file: '~/.rainbow/logs/eth2near-relay/out.log',
-          args: ['start', 'eth2near-relay', ...RainbowConfig.getArgsNoDaemon()],
-          wait_ready: true,
-          kill_timeout: 60000,
-          logDateFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
-        })
-      })
-    } else {
-      console.log("test log here ")
+    // if (RainbowConfig.getParam('daemon') === 'true') {
+    //   console.log("rainbow config param daemon true ")
+    //   ProcessManager.connect((err) => {
+    //     if (err) {
+    //       console.log(
+    //         'Unable to connect to the ProcessManager daemon! Please retry.'
+    //       )
+    //       return
+    //     }
+    //     spawnProcess('eth2near-relay', {
+    //       name: 'eth2near-relay',
+    //       script: path.join(__dirname, '../../index.js'),
+    //       interpreter: 'node',
+    //       error_file: '~/.rainbow/logs/eth2near-relay/err.log',
+    //       out_file: '~/.rainbow/logs/eth2near-relay/out.log',
+    //       args: ['start', 'eth2near-relay', ...RainbowConfig.getArgsNoDaemon()],
+    //       wait_ready: true,
+    //       kill_timeout: 60000,
+    //       logDateFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
+    //     })
+    //   })
+    // } else {
+    //   console.log("rainbow config param daemon false ")
 
       // Below are near node details that should be replaced with tezos node details 
       
@@ -53,9 +53,9 @@ class StartEth2NearRelayCommand {
             //     keyStore: keyStore,
             //   },
             // })
-            
-            const relay = new Eth2NearRelay()
-            // below should be replaced from  eth-on-near client to eth-on-xtz relay
+            // 
+             const relay = new Eth2NearRelay()
+            // below should be replaced from  eth-on-near client to eth-on-xtz client contract on tezos
             
             // const clientContract = new EthOnNearClientContract(
               //   new nearlib.Account(near.connection, masterAccount),
@@ -63,7 +63,7 @@ class StartEth2NearRelayCommand {
               // )
               // await clientContract.accessKeyInit()
               
-      console.log("testing log right here.....")
+      
       const clientContract = null;
       console.log('Initializing eth2near-relay...')
       relay.initialize(clientContract, RainbowConfig.getParam('eth-node-url'))
@@ -71,6 +71,6 @@ class StartEth2NearRelayCommand {
       await relay.run()
     }
   }
-}
+// }
 
 exports.StartEth2NearRelayCommand = StartEth2NearRelayCommand
