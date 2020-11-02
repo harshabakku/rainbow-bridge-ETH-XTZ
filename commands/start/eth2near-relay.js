@@ -8,6 +8,9 @@ const {
 const { RainbowConfig } = require('rainbow-bridge-lib/config')
 const path = require('path')
 const os = require('os')
+const { TezosToolkit } = require("@taquito/taquito")
+const BigNumber = require('bignumber.js');
+
 
 class StartEth2NearRelayCommand {
   static async execute() {
@@ -62,9 +65,34 @@ class StartEth2NearRelayCommand {
               //   RainbowConfig.getParam('near-client-account')
               // )
               // await clientContract.accessKeyInit()
-              
       
-      const clientContract = null;
+      const rpcUrl = 'http://localhost:8732';
+      console.log("connecting to Tezos chain: "+ rpcUrl)
+
+      
+      const Tezos = new TezosToolkit(rpcUrl);
+      // Tezos.setProvider({ signer: new InMemorySigner() });  
+      
+    //   Tezos.contract.at('KT1Uwzb9J95r3J6onCAVckZCYpGRjhyRBZes')
+    //   .then(contract => {
+    //     const i = 7;
+    // console.log("connected to contract")
+    //     // println(`Incrementing storage value by ${i}...`);
+    //     return contract.methods.increment(i).send();
+    //   })
+    //   .then(op => {
+    //     // println(`Waiting for ${op.hash} to be confirmed...`);
+    //     return op.confirmation(1).then(() => op.hash);
+    //   })
+    //   // .then(hash => println(`Operation injected: https://carthagenet.tzstats.com/${hash}`))
+    //   .catch(error => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
+
+
+
+     const clientContract = await Tezos.contract.at('KT1Uwzb9J95r3J6onCAVckZCYpGRjhyRBZes')
+     const storage = await clientContract.storage()
+     console.log(new BigNumber(storage).toString())
+
       console.log('Initializing eth2near-relay...')
       relay.initialize(clientContract, RainbowConfig.getParam('eth-node-url'))
       console.log('Starting eth2near-relay...')
