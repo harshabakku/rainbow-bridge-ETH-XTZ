@@ -2,6 +2,3 @@
 	path = vendor/ethashproof
 	url = https://github.com/nearprotocol/ethashproof
 	ignore = dirty
-[submodule "tezos-smartpy-example-box"]
-	path = tezos-smartpy-example-box
-	url = https://github.com/harshabakku/tezos-smartpy-example-box
