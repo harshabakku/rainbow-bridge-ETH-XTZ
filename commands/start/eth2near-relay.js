@@ -66,33 +66,30 @@ class StartEth2NearRelayCommand {
               // )
               // await clientContract.accessKeyInit()
       
-      const rpcUrl = 'http://localhost:8732';
+      const rpcUrl = 'http://localhost:20000';
       console.log("connecting to Tezos chain: "+ rpcUrl)
 
       
       const Tezos = new TezosToolkit(rpcUrl);
       // Tezos.setProvider({ signer: new InMemorySigner() });  
       
-    //   Tezos.contract.at('KT1Uwzb9J95r3J6onCAVckZCYpGRjhyRBZes')
+    //   Tezos.contract.at('KT1HhcQDxNzhKsrVY5oQbUnwGm3LZ3hg2x9i')
     //   .then(contract => {
     //     const i = 7;
     // console.log("connected to contract")
-    //     // println(`Incrementing storage value by ${i}...`);
-    //     return contract.methods.increment(i).send();
-    //   })
-    //   .then(op => {
-    //     // println(`Waiting for ${op.hash} to be confirmed...`);
-    //     return op.confirmation(1).then(() => op.hash);
-    //   })
-    //   // .then(hash => println(`Operation injected: https://carthagenet.tzstats.com/${hash}`))
+    // console.log(contract.storage())
+        
+    //   })      
     //   .catch(error => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
 
 
 
-     const clientContract = await Tezos.contract.at('KT1Uwzb9J95r3J6onCAVckZCYpGRjhyRBZes')
+     const clientContract = await Tezos.contract.at('KT1HhcQDxNzhKsrVY5oQbUnwGm3LZ3hg2x9i')
      const storage = await clientContract.storage()
-     console.log(new BigNumber(storage).toString())
+     console.log(storage)
+     console.log ( "ethClient contract storage value "+ new BigNumber(storage.number).toString())
 
+    // const clientContract = null;
       console.log('Initializing eth2near-relay...')
       relay.initialize(clientContract, RainbowConfig.getParam('eth-node-url'))
       console.log('Starting eth2near-relay...')
