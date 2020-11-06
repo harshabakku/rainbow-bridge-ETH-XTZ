@@ -37,15 +37,15 @@ class EthClientOnTezos(sp.Contract):
     @sp.entry_point
     def add_block_header(self, params):
         
-        parent_hash = params.block_header.parent_hash
-        header_hash = params.block_header.hash
-        header_number = params.block_header.number
+        parent_hash = params.parent_hash
+        header_number = params.number
+        header_hash = params.hash
         #  parent hash is not verified for the first block that is being added to eth client 
         sp.if self.data.latest_block > 0:
             sp.verify(parent_hash==self.data.previous_hash, message ="Invalid Block: Invalid parent hash" )
         
         # self.verify_header()           
-        self.data.latest_block = params.block_header.number
+        self.data.latest_block = header_number
         self.data.canonical_header_hashes[header_number] = header_hash
         self.data.known_hashes[header_number].add(header_hash)
     
@@ -100,4 +100,3 @@ def test():
 
 
 
-7

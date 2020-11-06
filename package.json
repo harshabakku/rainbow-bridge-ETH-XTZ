@@ -35,6 +35,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
+    "@taquito/signer": "^7.0.0-beta.0",
     "@taquito/taquito": "^7.0.0-beta.0",
     "bignumber.js": "^9.0.1",
     "bn.js": "^5.1.3",
