@@ -389,11 +389,12 @@ def add_test(config, is_default = True):
     def test():
         scenario = sp.test_scenario()
         scenario.h1("FA2 Minting")
-#        scenario.table_of_contents()
+        scenario.table_of_contents()
         # sp.test_account generates ED25519 key-pairs deterministically:
         admin = sp.test_account("Administrator")
         alice = sp.test_account("Alice")
         bob   = sp.test_account("Robert")
+        
         # Let's display the accounts:
         scenario.h2("Accounts")
         scenario.show([admin])
@@ -405,6 +406,8 @@ def add_test(config, is_default = True):
                             amount = 10000,
                             symbol = 'ERC20-FA2',
                             token_id = 0).run(sender = admin)
+        c2 = FA2(config, sp.address('tz1UPpoDChZAMNURJPqNcwKi8PCjkqQTeBZn'))
+        scenario += c2
 
 
 
