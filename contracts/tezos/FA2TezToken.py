@@ -423,6 +423,7 @@ class FA2_core(sp.Contract):
             self.add_flag("lazy_entry_points_multiple")
         self.exception_optimization_level = "DefaultLine"
         self.init(
+            test = 0,
             ledger =
                 self.config.my_map(tvalue = Ledger_value.get_type()),
             tokens =
@@ -474,6 +475,23 @@ class FA2_core(sp.Contract):
                          self.data.ledger[to_user] = Ledger_value.make(tx.amount)
                 sp.else:
                     pass
+    
+    @sp.view(sp.TNat)
+    def balance(self, params):
+        # paused may mean that balances are meaningless:
+            sp.verify( ~self.is_paused() )
+            
+            user = self.ledger_key.make(params.owner, params.token_id)
+            sp.verify(self.data.tokens.contains(params.token_id),
+                      message = self.error_message.token_undefined())
+            sp.if self.data.ledger.contains(user):
+                balance = self.data.ledger[user].balance
+                sp.result(balance)
+            sp.else:
+                sp.result(0)
+        
+        
+        
 
     @sp.entry_point
     def balance_of(self, params):
@@ -563,19 +581,37 @@ class FA2_pause(FA2_core):
         self.data.paused = params
 
 class FA2_mint(FA2_core):
+
+     
+    #  is_administrator check is not needed, with merkle proofs of log-state-root  any address can call mint in a truly decentralised trustless fashion( only if they actually transferred their erc20 on ETH chain to erc20-Locker contract  )
+    
+    # also note that in TokenFactory approach adminstrator address concept still exists and TokenFactory contract becomes admin of Token contract, and in that case TokenFactory  implements decentralised_mint validating merkle proofs and then eventually calling FA2.mint function... 
+    
+    # overall simply adding decentralised_mint function communicates the trustlessness and decentralised nature of minting to users in an easier way.
+    @sp.entry_point
+    def decentralised_mint(self,params):
+        merkle_proofs = params.merkle_data      
+        self.mint(self, params)
+        
+    # remove @sp.entry_point mint function should only be internal    
     @sp.entry_point
     def mint(self, params):
-        sp.verify(self.is_administrator(sp.sender))
-        # We don't check for pauseness because we're the admin.
-        if self.config.single_asset:
-            sp.verify(params.token_id == 0, "single-asset: token-id <> 0")
-        if self.config.non_fungible:
-            sp.verify(params.amount == 1, "NFT-asset: amount <> 1")
-            sp.verify(~ self.token_id_set.contains(self.data.all_tokens,
-                                                   params.token_id),
-                      "NFT-asset: cannot mint twice same token")
+        # sp.verify(self.is_administrator(sp.sender))
+        # # We don't check for pauseness because we're the admin.
+        # if self.config.single_asset:
+        #     sp.verify(params.token_id == 0, "single-asset: token-id <> 0")
+        # if self.config.non_fungible:
+        #     sp.verify(params.amount == 1, "NFT-asset: amount <> 1")
+        #     sp.verify(~ self.token_id_set.contains(self.data.all_tokens,
+        #                                           params.token_id),
+        #               "NFT-asset: cannot mint twice same token")
+        #self.token_id_set.add(self.data.all_tokens, params.token_id)
+        
+        # mint only fungible tokens, 
+        # sender is_administrator check is not needed, with merkle proofs anyone can call mint in a truly decentralised trustless fashion
+        
+        
         user = self.ledger_key.make(params.address, params.token_id)
-        self.token_id_set.add(self.data.all_tokens, params.token_id)
         sp.if self.data.ledger.contains(user):
             self.data.ledger[user].balance += params.amount
         sp.else:
@@ -590,6 +626,7 @@ class FA2_mint(FA2_core):
                      decimals = 0,
                      extras = sp.map()
                  )
+        self.data.test = params.amount         
 
 class FA2_token_metadata(FA2_core):
     @sp.entry_point
@@ -668,7 +705,13 @@ def add_test(config, is_default = True):
         admin = sp.test_account("Administrator")
         alice = sp.test_account("Alice")
         bob   = sp.test_account("Robert")
+        
+        # used for contract manual origination for testing bridge-app 
+        c0 = FA2(config, sp.address('tz1UPpoDChZAMNURJPqNcwKi8PCjkqQTeBZn'))
+        scenario += c0
+        
         # Let's display the accounts:
+        
         scenario.h2("Accounts")
         scenario.show([admin, alice, bob])
         c1 = FA2(config, admin.address)
