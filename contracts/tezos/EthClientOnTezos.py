@@ -3,24 +3,25 @@
 import smartpy as sp
 
 # Request parameters
-hash_set_type = sp.TSet(sp.TBytes)
+hash_set_type = sp.TSet(sp.TString)
 
 class EthClientOnTezos(sp.Contract):
     def __init__(self):
         self.init(storedValue = 0,
                   latest_block =0,
-                  previous_hash = sp.bytes('0x'),
+                  sample_hash = sp.string('0x'),
+                  previous_hash = sp.string('0x'),
 
                 #   Hash of the header that has the highest cumulative difficulty. The current head of the canonical chain
-                  header_hash = sp.bytes('0x'),
+                  header_hash = sp.string('0x'),
 
                 #   Hashes of the canonical chain mapped to their numbers. Stores up to `hashes_gc_threshold` entries header number -> header hash  
-                  canonical_header_hashes = sp.map(tkey= sp.TNat , tvalue=sp.TBytes),
+                  canonical_header_hashes = sp.map(tkey= sp.TNat , tvalue=sp.TString),
 
                  # All known header hashes for a block number. Stores up to `finalized_gc_threshold`.
                  # header number -> hashes of all headers with this number.
                  # used in the relayer to backtrack if chain switched the fork.
-                  known_hashes = sp.map(tkey = sp.TNat, tvalue= hash_set_type),
+                  known_hashes = sp.big_map(tkey = sp.TNat, tvalue= hash_set_type),
 
                  #  Number of confirmations that applications can use to consider the transaction safe.For most use cases 25 should be enough, for super safe cases it should be 500.  
                   num_confirmations=2
@@ -35,11 +36,11 @@ class EthClientOnTezos(sp.Contract):
     #  `block_header` -- RLP-encoded Ethereum header;
     #  `dag_nodes` -- dag nodes with their merkle proofs.    
     @sp.entry_point
-    def add_block_header(self, params):
+    def add_block_header(self, params ):
         
-        parent_hash = params.parent_hash
-        header_number = params.number
-        header_hash = params.hash
+        parent_hash = params.block.parent_hash
+        header_number = params.block.header_number
+        header_hash = params.block.header_hash
         #  parent hash is not verified for the first block that is being added to eth client 
         sp.if self.data.latest_block > 0:
             sp.verify(parent_hash==self.data.previous_hash, message ="Invalid Block: Invalid parent hash" )
@@ -47,7 +48,14 @@ class EthClientOnTezos(sp.Contract):
         # self.verify_header()           
         self.data.latest_block = header_number
         self.data.canonical_header_hashes[header_number] = header_hash
-        self.data.known_hashes[header_number].add(header_hash)
+        
+        sp.if self.data.known_hashes.contains(header_number):
+            self
+            self.data.known_hashes[header_number].add(header_hash)
+        sp.else :
+            # self
+            self.data.known_hashes[header_number] = sp.set()
+            self.data.known_hashes[header_number].add(header_hash)
     
     
   
@@ -85,6 +93,12 @@ class EthClientOnTezos(sp.Contract):
     # Returns all hashes known for that height.
     def known_hashes(self, params):
         return self.data.known_hashes[params.index]
+        
+    @sp.entry_point
+    def increment(self, params):
+        
+        self.data.sample_hash = params.block.hash
+ 
    
         
     
@@ -95,8 +109,11 @@ def test():
     scenario.h1("Minimal")
     c1 = EthClientOnTezos()
     scenario += c1
-
-
+    scenario += c1.increment(sp.record(block = sp.record(hash = sp.string('sdhkf')) ))
+    
+    scenario += c1
+    scenario += c1.add_block_header(sp.record(block = sp.record(parent_hash = sp.string('sdfsdf'), header_hash = sp.string('dfsdf'),header_number = 8)))
+    
 
 
 
