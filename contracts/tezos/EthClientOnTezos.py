@@ -10,7 +10,7 @@ class EthClientOnTezos(sp.Contract):
         self.init(storedValue = 0,
                   latest_block =0,
                   sample_hash = sp.string('0x'),
-                  previous_hash = sp.string('0x'),
+                  
 
                 #   Hash of the header that has the highest cumulative difficulty. The current head of the canonical chain
                   header_hash = sp.string('0x'),
@@ -40,14 +40,24 @@ class EthClientOnTezos(sp.Contract):
         
         parent_hash = params.block.parent_hash
         header_number = params.block.header_number
+        
+        #current header_hash recieved from eth client
         header_hash = params.block.header_hash
+        
+        # latest header hash stored in the eth client 
+        prev_hash = self.data.header_hash
+        
+        
+        #  to manage hard forks use all_known_hashes so we can get header_hash of any header_number so we can verify parent_hash in case if canonical chain changes 
+        
         #  parent hash is not verified for the first block that is being added to eth client 
         sp.if self.data.latest_block > 0:
-            sp.verify(parent_hash==self.data.previous_hash, message ="Invalid Block: Invalid parent hash" )
+            sp.verify(parent_hash==prev_hash, message ="Invalid Block: Invalid parent hash" )
         
         # self.verify_header()           
         self.data.latest_block = header_number
         self.data.canonical_header_hashes[header_number] = header_hash
+        self.data.header_hash = header_hash
         
         sp.if self.data.known_hashes.contains(header_number):
             self
