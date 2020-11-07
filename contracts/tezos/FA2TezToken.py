@@ -1,3 +1,6 @@
+
+## note: only two methods  decentralised_mint and balance are added to standard template
+
 ##
 ## ## Introduction
 ##
@@ -423,7 +426,7 @@ class FA2_core(sp.Contract):
             self.add_flag("lazy_entry_points_multiple")
         self.exception_optimization_level = "DefaultLine"
         self.init(
-            test = 0,
+            viewer = 0,
             ledger =
                 self.config.my_map(tvalue = Ledger_value.get_type()),
             tokens =
@@ -476,19 +479,19 @@ class FA2_core(sp.Contract):
                 sp.else:
                     pass
     
-    @sp.view(sp.TNat)
-    def balance(self, params):
+    @sp.entry_point
+    def balance_viewer(self, params):
         # paused may mean that balances are meaningless:
             sp.verify( ~self.is_paused() )
-            
+            self.data.viewer = 0
             user = self.ledger_key.make(params.owner, params.token_id)
             sp.verify(self.data.tokens.contains(params.token_id),
                       message = self.error_message.token_undefined())
             sp.if self.data.ledger.contains(user):
                 balance = self.data.ledger[user].balance
-                sp.result(balance)
+                self.data.viewer = balance
             sp.else:
-                sp.result(0)
+                self.data.viewer = 0
         
         
         
@@ -626,7 +629,6 @@ class FA2_mint(FA2_core):
                      decimals = 0,
                      extras = sp.map()
                  )
-        self.data.test = params.amount         
 
 class FA2_token_metadata(FA2_core):
     @sp.entry_point
@@ -725,6 +727,7 @@ def add_test(config, is_default = True):
                             amount = 100,
                             symbol = 'TK0',
                             token_id = 0).run(sender = admin)
+
         scenario.h2("Transfers Alice -> Bob")
         scenario += c1.transfer(
             [
