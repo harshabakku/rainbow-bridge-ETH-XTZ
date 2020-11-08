@@ -502,8 +502,8 @@ RainbowConfig.addOptions(
       'The secret key of the Ethereum account that will be sending ERC20 token.'
     )
     .option(
-      '--near-receiver-account <near_receiver_account>',
-      'The account on NEAR blockchain that will be receiving the minted token.'
+      '--tezos-receiver-account <tezos_receiver_account>',
+      'The account on TEZOS blockchain that will be receiving the minted token.'
     )
     .option(
       '--token-name <token_name>',
