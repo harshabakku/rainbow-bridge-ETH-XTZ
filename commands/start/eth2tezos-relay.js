@@ -1,9 +1,9 @@
 const ProcessManager = require('pm2')
 const { spawnProcess } = require('./helpers')
 const { Eth2TezosRelay } = require('../../lib/eth2tezos-relay')
-const {
-  EthOnTezosClientContract,
-} = require('rainbow-bridge-lib/eth-on-tezos-client')
+// const {
+//   EthOnTezosClientContract,
+// } = require('rainbow-bridge-lib/eth-on-tezos-client')
 const { RainbowConfig } = require('rainbow-bridge-lib/config')
 const path = require('path')
 const os = require('os')
