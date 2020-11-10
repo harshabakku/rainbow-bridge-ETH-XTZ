@@ -1,7 +1,7 @@
 
 const { expectRevert, time } = require('@openzeppelin/test-helpers');
 const fs = require('fs').promises;
-const { borshify, borshifyInitialValidators } = require('rainbow-bridge-lib/rainbow/borsh')
+const { borshify, borshifyInitialValidators } = require('tez-bridge-lib/tezbridge/borsh')
 
 const Ed25519 = artifacts.require('Ed25519');
 const TezosBridge = artifacts.require('TezosBridge');

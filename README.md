@@ -7,8 +7,8 @@
   </p>
 
   <p>
-    <a href="https://buildkite.com/tezosprotocol/rainbow-bridge-cli"><img src=" https://badge.buildkite.com/93478642b0ddf8e3548c16d2e60c4adbca4fd853520b6a5bca.svg?branch=master" alt="Buildkite Build" /></a>
-    <a href="https://npmjs.com/rainbow-bridge-cli"><img alt="npm" src="https://img.shields.io/npm/v/rainbow-bridge-cli.svg?style=flat-square"></a>
+    <a href="https://buildkite.com/tezosprotocol/tez-bridge-cli"><img src=" https://badge.buildkite.com/93478642b0ddf8e3548c16d2e60c4adbca4fd853520b6a5bca.svg?branch=master" alt="Buildkite Build" /></a>
+    <a href="https://npmjs.com/tez-bridge-cli"><img alt="npm" src="https://img.shields.io/npm/v/tez-bridge-cli.svg?style=flat-square"></a>
   </p>
 </div>
 
@@ -47,16 +47,16 @@ rustup target add wasm32-unknown-unknown
 
 ## Usage
 
-You can install `rainbow-bridge-cli` from npm
+You can install `tez-bridge-cli` from npm
 
 ```
-    npm i -g rainbow-bridge-cli
+    npm i -g tez-bridge-cli
 ```
 
-To learn the commands that you can use with the rainbow bridge run
+To learn the commands that you can use with the tezbridge bridge run
 
 ```
-    rainbow --help
+    tezbridge --help
 ```
 
 Alternatively, clone this repo, `yarn install`, then you can see what commands you can use with:
@@ -65,7 +65,7 @@ Alternatively, clone this repo, `yarn install`, then you can see what commands y
     ./index.js --help
 ```
 
-Parameters of each command can be specified through environment variables, command line arguments, entries in the `~/.rainbow/config.json` config file, or the default value will be used -- in that priority.
+Parameters of each command can be specified through environment variables, command line arguments, entries in the `~/.tezbridge/config.json` config file, or the default value will be used -- in that priority.
 If argument is not provided and there is no default value the program will not execute.
 
 If script successfully executes a command then each parameter provided through the command line argument will be
@@ -95,11 +95,11 @@ As of 2020-07-14 (gas price is 40 gwei) the cost of running bridge on TEZOS main
 
 ### PoA vs PoW Ethereum networks
 
-Rainbow bridge can be deployed either on PoW or PoA networks. However, the main use case of the bridge is Ethereum Mainnet, which makes its design very PoW-centric and it is only trustless and decentralized for PoW networks. Unfortunately, the only popular PoW testnet is Ropsten, which frequently undergoes huge reorgs of more than [16k blocks](https://github.com/tezos/rainbow-bridge-cli/issues/329), because people test 51% attacks on it. 16k reorgs can wipe out entire contracts and revert days of computations. Overall, Ropsten has the following unfortunate specifics that does not exist with Ethereum Mainnet:
+Rainbow bridge can be deployed either on PoW or PoA networks. However, the main use case of the bridge is Ethereum Mainnet, which makes its design very PoW-centric and it is only trustless and decentralized for PoW networks. Unfortunately, the only popular PoW testnet is Ropsten, which frequently undergoes huge reorgs of more than [16k blocks](https://github.com/tezos/tez-bridge-cli/issues/329), because people test 51% attacks on it. 16k reorgs can wipe out entire contracts and revert days of computations. Overall, Ropsten has the following unfortunate specifics that does not exist with Ethereum Mainnet:
 * Extremely long re-orgs;
 * Gas price volatility -- Ropsten blocks might have orders of magnitude different median gas price;
 * Slow block production -- sometimes Ropsten blocks are produced once per several minutes;
-* [Infura is unreliable on Ropsten](https://github.com/tezos/rainbow-bridge-cli/issues/330)
+* [Infura is unreliable on Ropsten](https://github.com/tezos/tez-bridge-cli/issues/330)
 
 Therefore we advise users to not use Ropsten for bridge testing. Instead, we recommend using one of Ethereum's PoA testnet. Unfortunately, PoA networks have a differen header format and are also centralized by nature. Therefore when deploying bridge on PoA network please use `--tezos-client-trusted-signer` parameter. This will force `EthOnTezosClient` to not validate Ethereum headers (since PoA headers are not valid PoW headers) and accept them only from the provided authority.
 
@@ -113,15 +113,15 @@ We assume you have two accounts:
 * One TEZOS account on TEZOS testnet with at least 1 TEZOS token. We denote it as `<tezos_token_holder_account>` and its secret key as `<tezos_token_holder_sk>`;
 * One Ethereum account on Rinkeby testnet with at least 1 ETH and 100 ERC20 tokens (this example uses ERC20 deployed to `0x8151a8F90267bFf183E06921841C5dE774499388` as an example. If you want some of these ERC20 tokens please contact max@tezos.org). We denote it as `<eth_token_holder_address>` and its private key as `<eth_token_holder_sk>`;
 
-Make sure you have rainbow cli installed:
+Make sure you have tezbridge cli installed:
 ```bash
-npm i -g rainbow-bridge-cli
+npm i -g tez-bridge-cli
 ```
 If you have already used the bridge on this machine run a cleanup:
 ```bash
-rainbow clean
+tezbridge clean
 ```
-If you're using rainbow-bridge-cli 1.x, create `~/.rainbow/config.json` file with the following content:
+If you're using tez-bridge-cli 1.x, create `~/.tezbridge/config.json` file with the following content:
 ```json
 {
         "tezosNetworkId": "testnet",
@@ -141,7 +141,7 @@ If you're using rainbow-bridge-cli 1.x, create `~/.rainbow/config.json` file wit
         "tezosFunTokenAccount": "mintablefuntoken11"
 }
 ```
-If you are using rainbow-bridge-cli 2.x, create `~/.rainbow/config.json` file with the following content:
+If you are using tez-bridge-cli 2.x, create `~/.tezbridge/config.json` file with the following content:
 ```json
 {
         "tezosNetworkId": "testnet",
@@ -166,7 +166,7 @@ You can get infura project id, by registering at [infura.io](http://infura.io/).
 
 To transfer ERC20 from ETH to TEZOS run:
 ```bash
-rainbow transfer-eth-erc20-to-tezos --amount 10 --eth-sender-sk <eth_token_holder_address> --tezos-receiver-account <tezos_token_holder_account>
+tezbridge transfer-eth-erc20-to-tezos --amount 10 --eth-sender-sk <eth_token_holder_address> --tezos-receiver-account <tezos_token_holder_account>
 ```
 (If the command interrupts in the middle re-run it and it will resume the transfer. PoA RPC sometimes has issues)
 Wait for the transfer to finish. You should see:
@@ -177,7 +177,7 @@ Balance of <tezos_token_holder_account> after the transfer is 10
 
 To transfer ERC20 back from TEZOS to ETH run:
 ```bash
-rainbow transfer-eth-erc20-from-tezos --amount 1 --tezos-sender-account <tezos_token_holder_account> --tezos-sender-sk <tezos_token_holder_sk> --eth-receiver-address <eth_token_holder_address>
+tezbridge transfer-eth-erc20-from-tezos --amount 1 --tezos-sender-account <tezos_token_holder_account> --tezos-sender-sk <tezos_token_holder_sk> --eth-receiver-address <eth_token_holder_address>
 ```
 
 You should see:
@@ -191,13 +191,13 @@ Congratulations, you have achieved a roundtrip of ERC20 token through the bridge
 If you used bridge before from your machine, then clean up the setup. We recommend using cloud instance for deploying and running the bridge. Go to a cloud instance and install dependencies from [Pre-requisites](#pre-requisites).
 Then run:
 ```bash
-rainbow clean
-rainbow prepare
+tezbridge clean
+tezbridge prepare
 ```
 
 Then initialize `EthOnTezosClient` and `EthOnTezosProver`:
 ```bash
-rainbow init-tezos-contracts --tezos-network-id testnet --tezos-node-url <testnet_nodes_url> --eth-node-url https://ropsten.infura.io/v3/<infura_project_id> --tezos-master-account <tezos_master_account> --tezos-master-sk <tezos_master_sk> --tezos-client-account ethontezosclient01 --tezos-client-init-balance 2000000000000000000000000000 --tezos-prover-account ethontezosprover01
+tezbridge init-tezos-contracts --tezos-network-id testnet --tezos-node-url <testnet_nodes_url> --eth-node-url https://ropsten.infura.io/v3/<infura_project_id> --tezos-master-account <tezos_master_account> --tezos-master-sk <tezos_master_sk> --tezos-client-account ethontezosclient01 --tezos-client-init-balance 2000000000000000000000000000 --tezos-prover-account ethontezosprover01
 ```
 * Make sure `ethontezosclient01` and `ethontezosprover01` do not exist yet. You can check it by going to https://explorer.testnet.tezos.org/accounts/ethontezosclient01 and https://explorer.testnet.tezos.org/accounts/ethontezosprover01 . If they exist, pick different names;
 * You can get `<infura_project_id>` by creating a free [infura](http://infura.io/) account. If you are working in TEZOS organization please ask max@tezos.org;
@@ -228,10 +228,10 @@ node index.js start bride-watchdog --eth-master-sk <watchdog_sk>
 To locally test the bridge run:
 
 ```bash
-rainbow clean
-rainbow prepare
-rainbow start tezos-node
-rainbow start ganache
+tezbridge clean
+tezbridge prepare
+tezbridge start tezos-node
+tezbridge start ganache
 ```
 
 ### Initializing the contracts
@@ -239,23 +239,23 @@ rainbow start ganache
 First let's initialize the contracts that bridge needs to function:
 
 ```bash
-rainbow init-tezos-contracts
-rainbow init-eth-ed25519
-rainbow init-eth-client --eth-client-lock-eth-amount 1000 --eth-client-lock-duration 10
-rainbow init-eth-prover
+tezbridge init-tezos-contracts
+tezbridge init-eth-ed25519
+tezbridge init-eth-client --eth-client-lock-eth-amount 1000 --eth-client-lock-duration 10
+tezbridge init-eth-prover
 ```
 
 Now, let's set up token on Ethereum blockchain that we can transfer to TEZOS blockchain (this can be your own token).
 
 ```bash
-rainbow init-eth-erc20
-rainbow init-eth-locker
+tezbridge init-eth-erc20
+tezbridge init-eth-locker
 ```
 
 Now, let's initialize token factory on TEZOS blockchain.
 
 ```bash
-rainbow init-tezos-token-factory
+tezbridge init-tezos-token-factory
 ```
 
 ### Starting the services
@@ -263,9 +263,9 @@ rainbow init-tezos-token-factory
 Now start the services that will relay the information between the chains:
 
 ```bash
-rainbow start eth2tezos-relay
-rainbow start tezos2eth-relay --eth-master-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501201
-rainbow start bridge-watchdog --eth-master-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501202
+tezbridge start eth2tezos-relay
+tezbridge start tezos2eth-relay --eth-master-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501201
+tezbridge start bridge-watchdog --eth-master-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501202
 ```
 
 Note, you can observe the logs of the relays by running:
@@ -279,7 +279,7 @@ pm2 logs
 Finally, let's transfer some tokens
 
 ```bash
-rainbow transfer-eth-erc20-to-tezos --amount 1000 --eth-sender-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501200 --tezos-receiver-account rainbow_bridge_eth_on_tezos_prover --tezos-master-account tezostokenfactory
+tezbridge transfer-eth-erc20-to-tezos --amount 1000 --eth-sender-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501200 --tezos-receiver-account tez_bridge_eth_on_tezos_prover --tezos-master-account tezostokenfactory
 ```
 
 Note, when we deployed ERC20 to the Ethereum blockchain we have minted a large number of tokens to the default master
@@ -290,31 +290,31 @@ You must observe blocks being submitted.
 Now let's try to transfer one token back to Ethereum
 
 ```bash
-rainbow transfer-eth-erc20-from-tezos --amount 1 --tezos-sender-account rainbow_bridge_eth_on_tezos_prover --tezos-sender-sk ed25519:3D4YudUQRE39Lc4JHghuB5WM8kbgDDa34mnrEP5DdTApVH81af7e2dWgNPEaiQfdJnZq1CNPp5im4Rg5b733oiMP --eth-receiver-address 0xEC8bE1A5630364292E56D01129E8ee8A9578d7D8
+tezbridge transfer-eth-erc20-from-tezos --amount 1 --tezos-sender-account tez_bridge_eth_on_tezos_prover --tezos-sender-sk ed25519:3D4YudUQRE39Lc4JHghuB5WM8kbgDDa34mnrEP5DdTApVH81af7e2dWgNPEaiQfdJnZq1CNPp5im4Rg5b733oiMP --eth-receiver-address 0xEC8bE1A5630364292E56D01129E8ee8A9578d7D8
 ```
 
 You should observe the change of the ERC20 balance as reported by the CLI.
 
 ## Contract Development Workflow
 
-Above steps are ways to run a local bridge and development workflows you need if make any changes to rainbow-bridge-cli. If you want to update any of solidity or rust contracts, they're not in this repo now and workflow is as following.
+Above steps are ways to run a local bridge and development workflows you need if make any changes to tez-bridge-cli. If you want to update any of solidity or rust contracts, they're not in this repo now and workflow is as following.
 
 - Install dependencies:
 ```bash
-rainbow clean
-rainbow prepare
+tezbridge clean
+tezbridge prepare
 ```
 - Start local TEZOS network and Ganache
 ```bash
-rainbow tezos-node
-rainbow ganache
+tezbridge tezos-node
+tezbridge ganache
 ```
-- If you want to modify solidity contracts, go to `node_modules/rainbow-bridge-sol`, make changes there and run `./build_all.sh` to recompile solidity contracts.
+- If you want to modify solidity contracts, go to `node_modules/tez-bridge-sol`, make changes there and run `./build_all.sh` to recompile solidity contracts.
 - If you want to modify rust contracts, go to `node_modules/ranbow-bridge-rs`, make changes there and run `./build_all.sh` to recompile rust contracts.
-- If you want to modify rainbow bridge lib, go to `node_modules/rainbow-bridge-lib` and make changes there
+- If you want to modify tezbridge bridge lib, go to `node_modules/tez-bridge-lib` and make changes there
 - Follow instructions above to init eth contracts and tezos contracts, start services and start testing with bridge
-- For changes to Solidity contract, Rust contract, and rainbow-bridge-lib, please submit PRs to: https://github.com/tezos/rainbow-bridge-sol , https://github.com/tezos/rainbow-bridge-rs , and https://github.com/tezos/rainbow-bridge-lib respectively.
-- After PR merged in contract repos and rainbow-bridge-lib repo, we will periodically publish them as new version of npm packages. And rainbow-bridge-cli will adopt new version of them.
+- For changes to Solidity contract, Rust contract, and tez-bridge-lib, please submit PRs to: https://github.com/tezos/tez-bridge-sol , https://github.com/tezos/tez-bridge-rs , and https://github.com/tezos/tez-bridge-lib respectively.
+- After PR merged in contract repos and tez-bridge-lib repo, we will periodically publish them as new version of npm packages. And tez-bridge-cli will adopt new version of them.
 
 
 <!---
@@ -323,8 +323,8 @@ The following is outdated.
 
 ## Currently we have the following docker options:
 
-1. Rainbow Docker image containing rainbow ready for running
-   - run the rainbow docker image with a custom command
+1. Rainbow Docker image containing tezbridge ready for running
+   - run the tezbridge docker image with a custom command
 2. A development docker compose setup (docker-compose-dev.yml)
    - ganache
    - local tezos node

@@ -6,7 +6,7 @@ ROOT_DIR=$CI_DIR/..
 
 mkdir -p $ROOT_DIR/testdata
 cd $ROOT_DIR/testdata
-curl https://s3-us-west-1.amazonaws.com/rainbow-bridge.tezosprotocol.com/test-data/eth-headers.tar.gz -o eth-headers.tar.gz
+curl https://s3-us-west-1.amazonaws.com/tez-bridge.tezosprotocol.com/test-data/eth-headers.tar.gz -o eth-headers.tar.gz
 tar zxf eth-headers.tar.gz
 
 cd $ROOT_DIR/eth-client

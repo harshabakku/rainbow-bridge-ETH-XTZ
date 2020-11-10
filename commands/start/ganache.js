@@ -1,6 +1,6 @@
 const ProcessManager = require('pm2')
 const { spawnProcess } = require('./helpers')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const path = require('path')
 const os = require('os')
 
@@ -16,8 +16,8 @@ class StartGanacheNodeCommand {
       spawnProcess('ganache', {
         name: 'ganache',
         script: path.join(__dirname, '../../scripts/start_ganache.sh'),
-        error_file: '~/.rainbow/logs/ganache/err.log',
-        out_file: '~/.rainbow/logs/ganache/out.log',
+        error_file: '~/.tezbridge/logs/ganache/err.log',
+        out_file: '~/.tezbridge/logs/ganache/out.log',
         args: [],
         env: process.env,
         logDateFormat: 'YYYY-MM-DD HH:mm:ss.SSS',

@@ -616,8 +616,8 @@ mod tests {
     fn carol() -> AccountId {
         "carol.tezos".to_string()
     }
-    fn rainbow_bridge_eth_on_tezos_prover() -> AccountId {
-        "rainbow_bridge_eth_on_tezos_prover".to_string()
+    fn tez_bridge_eth_on_tezos_prover() -> AccountId {
+        "tez_bridge_eth_on_tezos_prover".to_string()
     }
 
     fn get_context(predecessor_account_id: AccountId) -> VMContext {
@@ -977,7 +977,7 @@ mod tests {
 
     #[test]
     fn test_mint() {
-        mint_common(alice(), alice(), rainbow_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
+        mint_common(alice(), alice(), tez_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
             196, 199, 73, 127, 190, 26, 136, 104, 65, 161, 149, 165, 214, 34, 205, 96, 5, 60, 19,
             118,
         ], proof_from_file("data/proof.json"), false);
@@ -986,7 +986,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "Event cannot be reused for minting.")]
     fn test_mint_no_double_mint() {
-        mint_common(alice(), alice(), rainbow_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
+        mint_common(alice(), alice(), tez_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
             196, 199, 73, 127, 190, 26, 136, 104, 65, 161, 149, 165, 214, 34, 205, 96, 5, 60, 19,
             118,
         ], proof_from_file("data/proof.json"), true);
@@ -995,7 +995,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "does not match locker address of this token")]
     fn test_mint_wrong_locker_address() {
-        mint_common(alice(), alice(), rainbow_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
+        mint_common(alice(), alice(), tez_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
             100; 20
         ], proof_from_file("data/proof.json"), false);
     }
@@ -1005,7 +1005,7 @@ mod tests {
         expected = "Finish transfer is only allowed to be called by the contract itself"
     )]
     fn test_mint_wrong_sender() {
-        mint_common(carol(), carol(), rainbow_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
+        mint_common(carol(), carol(), tez_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
             196, 199, 73, 127, 190, 26, 136, 104, 65, 161, 149, 165, 214, 34, 205, 96, 5, 60, 19,
             118,
         ], proof_from_file("data/proof.json"), false);

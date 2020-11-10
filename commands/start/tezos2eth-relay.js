@@ -1,7 +1,7 @@
 const ProcessManager = require('pm2')
 const { spawnProcess } = require('./helpers')
-const { Tezos2EthRelay } = require('rainbow-bridge-lib/tezos2eth-relay')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { Tezos2EthRelay } = require('tez-bridge-lib/tezos2eth-relay')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const path = require('path')
 const os = require('os')
 
@@ -19,8 +19,8 @@ class StartTezos2EthRelayCommand {
           name: 'tezos2eth-relay',
           script: path.join(__dirname, '../../index.js'),
           interpreter: 'node',
-          error_file: '~/.rainbow/logs/tezos2eth-relay/err.log',
-          out_file: '~/.rainbow/logs/tezos2eth-relay/out.log',
+          error_file: '~/.tezbridge/logs/tezos2eth-relay/err.log',
+          out_file: '~/.tezbridge/logs/tezos2eth-relay/out.log',
           args: ['start', 'tezos2eth-relay', ...BridgeConfig.getArgsNoDaemon()],
           wait_ready: true,
           kill_timeout: 60000,

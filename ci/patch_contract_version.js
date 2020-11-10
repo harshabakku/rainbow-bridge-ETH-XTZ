@@ -7,36 +7,36 @@ async function main() {
   let packageJson = require(path.join(__dirname, '../package.json'))
   if (process.env.PATCH_RAINBOW_BRIDGE_SOL) {
     packageJson.dependencies[
-      'rainbow-bridge-sol'
-    ] = `tezos/rainbow-bridge-sol#${process.env.PATCH_RAINBOW_BRIDGE_SOL}`
+      'tez-bridge-sol'
+    ] = `tezos/tez-bridge-sol#${process.env.PATCH_RAINBOW_BRIDGE_SOL}`
   }
   if (process.env.PATCH_RAINBOW_BRIDGE_RS) {
     packageJson.dependencies[
-      'rainbow-bridge-rs'
-    ] = `tezos/rainbow-bridge-rs#${process.env.PATCH_RAINBOW_BRIDGE_RS}`
+      'tez-bridge-rs'
+    ] = `tezos/tez-bridge-rs#${process.env.PATCH_RAINBOW_BRIDGE_RS}`
   }
   if (process.env.PATCH_RAINBOW_BRIDGE_LIB) {
     packageJson.dependencies[
-      'rainbow-bridge-lib'
-    ] = `tezos/rainbow-bridge-lib#${process.env.PATCH_RAINBOW_BRIDGE_LIB}`
+      'tez-bridge-lib'
+    ] = `tezos/tez-bridge-lib#${process.env.PATCH_RAINBOW_BRIDGE_LIB}`
   }
   if (process.env.PATCH_TOKEN_CONNECTOR) {
     packageJson.dependencies[
-      'rainbow-token-connector'
-    ] = `tezos/rainbow-token-connector#${process.env.PATCH_TOKEN_CONNECTOR}`
+      'tezbridge-token-connector'
+    ] = `tezos/tezbridge-token-connector#${process.env.PATCH_TOKEN_CONNECTOR}`
   }
   console.log('Contract versions:')
   console.log(
-    `rainbow-bridge-sol: ${packageJson.dependencies['rainbow-bridge-sol']}`
+    `tez-bridge-sol: ${packageJson.dependencies['tez-bridge-sol']}`
   )
   console.log(
-    `rainbow-bridge-rs: ${packageJson.dependencies['rainbow-bridge-rs']}`
+    `tez-bridge-rs: ${packageJson.dependencies['tez-bridge-rs']}`
   )
   console.log(
-    `rainbow-bridge-lib: ${packageJson.dependencies['rainbow-bridge-lib']}`
+    `tez-bridge-lib: ${packageJson.dependencies['tez-bridge-lib']}`
   )
   console.log(
-    `rainbow-token-connector: ${packageJson.dependencies['rainbow-token-connector']}`
+    `tezbridge-token-connector: ${packageJson.dependencies['tezbridge-token-connector']}`
   )
   if (
     !process.env.PATCH_RAINBOW_BRIDGE_SOL &&

@@ -3,7 +3,7 @@ const { execSync } = require('child_process')
 
 async function stopLocalTezosNode() {
   console.log('Stopping tezos node')
-  const command = 'python3 ~/.rainbow/tezosup/main.py stop'
+  const command = 'python3 ~/.tezbridge/tezosup/main.py stop'
   try {
     execSync(command)
     console.log('tezos node successfully stopped')

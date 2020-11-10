@@ -1,16 +1,16 @@
 {
-  "_from": "rainbow-bridge-cli",
-  "_id": "rainbow-bridge-cli@3.0.0",
+  "_from": "tez-bridge-cli",
+  "_id": "tez-bridge-cli@3.0.0",
   "_inBundle": false,
   "_integrity": "sha512-0wEwZHTBnuJDfGxmpcPZAEOOqPHljPUWoourCyShmpUv4L0NhDuyh6lV/C2y7gQtcUj4ZAN43IYQ+t1UPDmo5Q==",
-  "_location": "/rainbow-bridge-cli",
+  "_location": "/tez-bridge-cli",
   "_phantomChildren": {},
   "_requested": {
     "type": "tag",
     "registry": true,
-    "raw": "rainbow-bridge-cli",
-    "name": "rainbow-bridge-cli",
-    "escapedName": "rainbow-bridge-cli",
+    "raw": "tez-bridge-cli",
+    "name": "tez-bridge-cli",
+    "escapedName": "tez-bridge-cli",
     "rawSpec": "",
     "saveSpec": null,
     "fetchSpec": "latest"
@@ -19,19 +19,19 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/rainbow-bridge-cli/-/rainbow-bridge-cli-3.0.0.tgz",
+  "_resolved": "https://registry.npmjs.org/tez-bridge-cli/-/tez-bridge-cli-3.0.0.tgz",
   "_shasum": "ede797e64f89c341df0caac6a1abe860494ec952",
-  "_spec": "rainbow-bridge-cli",
+  "_spec": "tez-bridge-cli",
   "_where": "/home/harsha",
   "author": {
     "name": "Tezos Inc."
   },
   "bin": {
-    "rainbow-bridge": "index.js",
-    "rainbow": "index.js"
+    "tez-bridge": "index.js",
+    "tezbridge": "index.js"
   },
   "bugs": {
-    "url": "https://github.com/tezos/rainbow-bridge/issues"
+    "url": "https://github.com/tezos/tez-bridge/issues"
   },
   "bundleDependencies": false,
   "dependencies": {
@@ -47,10 +47,10 @@
     "node-fetch": "^2.6.0",
     "pm2": "^4.4.0",
     "pm2-promise": "^2.0.1",
-    "rainbow-bridge-lib": "^3.0.0",
-    "rainbow-bridge-rs": "1.0.2",
-    "rainbow-bridge-sol": "2.0.0",
-    "rainbow-token-connector": "github:tezos/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6",
+    "tez-bridge-lib": "^3.0.0",
+    "tez-bridge-rs": "1.0.2",
+    "tez-bridge-sol": "2.0.0",
+    "tezbridge-token-connector": "github:tezos/tezbridge-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6",
     "request": "^2.88.2",
     "web3": "=1.2.6"
   },
@@ -65,7 +65,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "typescript": "^3.9.5"
   },
-  "homepage": "https://github.com/tezos/rainbow-bridge#readme",
+  "homepage": "https://github.com/tezos/tez-bridge#readme",
   "keywords": [
     "tezosprotocol",
     "decentralized",
@@ -75,7 +75,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "name": "rainbow-bridge-cli",
+  "name": "tez-bridge-cli",
   "prettier": {
     "trailingComma": "es5",
     "tabWidth": 2,
@@ -84,7 +84,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tezos/rainbow-bridge.git"
+    "url": "git+https://github.com/tezos/tez-bridge.git"
   },
   "scripts": {
     "check": "tsc",

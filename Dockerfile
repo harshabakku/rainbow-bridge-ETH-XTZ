@@ -28,7 +28,7 @@ RUN curl https://sh.rustup.rs -sSf | \
     sh -s -- -y --no-modify-path --default-toolchain nightly-2020-05-15
 
 COPY . /usr/src/
-COPY config* ~/.rainbow
+COPY config* ~/.tezbridge
 
 WORKDIR /usr/src
 RUN node index.js prepare

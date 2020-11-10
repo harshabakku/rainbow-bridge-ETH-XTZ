@@ -1,4 +1,4 @@
-const { borshifyOutcomeProof } = require(`rainbow-bridge-lib/rainbow/borsh`);
+const { borshifyOutcomeProof } = require(`tez-bridge-lib/tezbridge/borsh`);
 const bs58 = require('bs58');
 const fs = require('fs').promises;
 

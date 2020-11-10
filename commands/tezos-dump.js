@@ -1,6 +1,6 @@
 const fs = require('fs').promises
 const Path = require('path')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const fetch = require('node-fetch')
 
 async function getLatestBlock(tezosNodeUrl) {

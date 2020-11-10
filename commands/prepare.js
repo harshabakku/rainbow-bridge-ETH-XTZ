@@ -1,6 +1,6 @@
 const { exec } = require('child_process')
 const path = require('path')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 
 class PrepareCommand {
   static execute() {

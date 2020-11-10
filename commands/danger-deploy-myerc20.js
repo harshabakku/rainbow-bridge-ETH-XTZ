@@ -1,8 +1,8 @@
 const Web3 = require('web3')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const { BN } = require('ethereumjs-util')
 const fs = require('fs')
-const { normalizeEthKey } = require('rainbow-bridge-lib/rainbow/robust')
+const { normalizeEthKey } = require('tez-bridge-lib/tezbridge/robust')
 
 class DangerDeployMyERC20 {
   static async execute() {

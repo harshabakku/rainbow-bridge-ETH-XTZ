@@ -1,13 +1,13 @@
 const Web3 = require('web3')
 const Path = require('path')
 const fs = require('fs').promises
-const { web3BlockToRlp } = require('rainbow-bridge-lib/eth2tezos-relay')
+const { web3BlockToRlp } = require('tez-bridge-lib/eth2tezos-relay')
 const { execute } = require('../lib/eth2tezos-relay')
 const {
   EthProofExtractor,
   receiptFromWeb3,
   logFromWeb3,
-} = require('rainbow-bridge-lib/eth-proof-extractor')
+} = require('tez-bridge-lib/eth-proof-extractor')
 const utils = require('ethereumjs-util')
 
 class ETHDump {

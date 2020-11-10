@@ -1,5 +1,5 @@
 function finish {
-    cp -r ~/.rainbow/logs .
+    cp -r ~/.tezbridge/logs .
     cp ~/.pm2/pm2.log .
 }
 trap finish ERR

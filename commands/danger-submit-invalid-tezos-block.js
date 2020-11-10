@@ -1,5 +1,5 @@
 const ProcessManager = require('pm2')
-const { Tezos2EthRelay } = require('rainbow-bridge-lib/tezos2eth-relay')
+const { Tezos2EthRelay } = require('tez-bridge-lib/tezos2eth-relay')
 
 class DangerSubmitInvalidTezosBlock {
   static async execute() {

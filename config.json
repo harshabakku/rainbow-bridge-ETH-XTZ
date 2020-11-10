@@ -1,10 +1,10 @@
 {
-  "eth2tezosClientContractPath": "~/.rainbow/bridge/libs-rs/res/eth_client.wasm",
+  "eth2tezosClientContractPath": "~/.tezbridge/bridge/libs-rs/res/eth_client.wasm",
   "eth2tezosClientValidateEthash": "false",
-  "eth2tezosProverContractPath": "~/.rainbow/bridge/libs-rs/res/eth_prover.wasm",
-  "tezosFunTokenContractPath": "~/.rainbow/bridge/libs-rs/res/bridge_token_factory.wasm",
-  "ethLockerAbiPath": "~/.rainbow/bridge/node_modules/rainbow-token-connector/res/BridgeTokenFactory.full.abi",
-  "ethLockerBinPath": "~/.rainbow/bridge/node_modules/rainbow-token-connector/res/BridgeTokenFactory.full.bin",
-  "ethErc20AbiPath": "~/.rainbow/bridge/node_modules/rainbow-token-connector/res/TToken.full.abi",
-  "ethErc20BinPath": "~/.rainbow/bridge/node_modules/rainbow-token-connector/res/TToken.full.bin"
+  "eth2tezosProverContractPath": "~/.tezbridge/bridge/libs-rs/res/eth_prover.wasm",
+  "tezosFunTokenContractPath": "~/.tezbridge/bridge/libs-rs/res/bridge_token_factory.wasm",
+  "ethLockerAbiPath": "~/.tezbridge/bridge/node_modules/tezbridge-token-connector/res/BridgeTokenFactory.full.abi",
+  "ethLockerBinPath": "~/.tezbridge/bridge/node_modules/tezbridge-token-connector/res/BridgeTokenFactory.full.bin",
+  "ethErc20AbiPath": "~/.tezbridge/bridge/node_modules/tezbridge-token-connector/res/TToken.full.abi",
+  "ethErc20BinPath": "~/.tezbridge/bridge/node_modules/tezbridge-token-connector/res/TToken.full.bin"
 }

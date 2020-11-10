@@ -18,16 +18,16 @@ class CleanCommand {
           process.exit(1)
         }
         ProcessManager.disconnect()
-        if (existsSync(path.join(homedir(), '.rainbow', 'tezosup', 'main.py'))) {
+        if (existsSync(path.join(homedir(), '.tezbridge', 'tezosup', 'main.py'))) {
           try {
             console.log('Stopping tezosup')
-            execSync('python3 ~/.rainbow/tezosup/main.py stop')
+            execSync('python3 ~/.tezbridge/tezosup/main.py stop')
           } catch (err) {
             console.log(`Error stopping tezosup ${err}`)
           }
         }
-        console.log('Cleaning ~/.rainbow and ~/.tezos/localnet directory...')
-        execSync('rm -rf ~/.rainbow ~/.tezos/localnet')
+        console.log('Cleaning ~/.tezbridge and ~/.tezos/localnet directory...')
+        execSync('rm -rf ~/.tezbridge ~/.tezos/localnet')
         execSync('rm -f /tmp/tezos2ethtransfer.out /tmp/eth2tezostransfer.out')
         console.log('Cleaning done...')
         process.exit(0)

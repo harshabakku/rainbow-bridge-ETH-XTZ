@@ -3,8 +3,8 @@ const { spawnProcess } = require('./helpers')
 const { Eth2TezosRelay } = require('../../lib/eth2tezos-relay')
 // const {
 //   EthOnTezosClientContract,
-// } = require('rainbow-bridge-lib/eth-on-tezos-client')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+// } = require('tez-bridge-lib/eth-on-tezos-client')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const path = require('path')
 const os = require('os')
 const { TezosToolkit } = require("@taquito/taquito")
@@ -14,7 +14,7 @@ const BigNumber = require('bignumber.js');
 class StartEth2TezosRelayCommand {
   static async execute() {
     // if (BridgeConfig.getParam('daemon') === 'true') {
-    //   console.log("rainbow config param daemon true ")
+    //   console.log("tezbridge config param daemon true ")
     //   ProcessManager.connect((err) => {
     //     if (err) {
     //       console.log(
@@ -26,8 +26,8 @@ class StartEth2TezosRelayCommand {
     //       name: 'eth2tezos-relay',
     //       script: path.join(__dirname, '../../index.js'),
     //       interpreter: 'node',
-    //       error_file: '~/.rainbow/logs/eth2tezos-relay/err.log',
-    //       out_file: '~/.rainbow/logs/eth2tezos-relay/out.log',
+    //       error_file: '~/.tezbridge/logs/eth2tezos-relay/err.log',
+    //       out_file: '~/.tezbridge/logs/eth2tezos-relay/out.log',
     //       args: ['start', 'eth2tezos-relay', ...BridgeConfig.getArgsNoDaemon()],
     //       wait_ready: true,
     //       kill_timeout: 60000,
@@ -35,7 +35,7 @@ class StartEth2TezosRelayCommand {
     //     })
     //   })
     // } else {
-    //   console.log("rainbow config param daemon false ")
+    //   console.log("tezbridge config param daemon false ")
 
       // Below are tezos node details that should be replaced with tezos node details 
       

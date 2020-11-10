@@ -54,8 +54,8 @@ steps:
     agents:
       - 'queue=medium'
 
-  - trigger: "rainbow-bridge"
-    label: "rainbow bridge cli tests"
+  - trigger: "tez-bridge"
+    label: "tezbridge bridge cli tests"
     build:
       env:
         PATCH_RAINBOW_BRIDGE_SOL: "${BUILDKITE_COMMIT}"

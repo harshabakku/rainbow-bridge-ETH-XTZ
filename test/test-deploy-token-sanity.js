@@ -1,21 +1,21 @@
 const Web3 = require('web3')
-const { tezoslib } = require('rainbow-bridge-lib')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { tezoslib } = require('tez-bridge-lib')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const { BN } = require('ethereumjs-util')
 const fs = require('fs')
 const path = require('path')
-const { normalizeEthKey } = require('rainbow-bridge-lib/rainbow/robust')
-const { DeployToken } = require('rainbow-bridge-lib/transfer-eth-erc20')
+const { normalizeEthKey } = require('tez-bridge-lib/tezbridge/robust')
+const { DeployToken } = require('tez-bridge-lib/transfer-eth-erc20')
 
 const TEST_DIR = __dirname
 const BRIDGE_SRC_DIR = path.join(TEST_DIR, '..')
 const LIBS_SOL_SRC_DIR = path.join(
   BRIDGE_SRC_DIR,
-  'node_modules/rainbow-bridge-sol'
+  'node_modules/tez-bridge-sol'
 )
 const LIBS_TC_SRC_DIR = path.join(
   BRIDGE_SRC_DIR,
-  'node_modules/rainbow-token-connector'
+  'node_modules/tezbridge-token-connector'
 )
 
 async function init() {
@@ -90,7 +90,7 @@ async function init() {
   BridgeConfig.declareOption(
     'tezos-prover-account',
     'The account of the Tezos Prover contract that can be used to accept ETH headers.',
-    'rainbow_bridge_eth_on_tezos_prover'
+    'tez_bridge_eth_on_tezos_prover'
   )
   BridgeConfig.saveConfig()
 }

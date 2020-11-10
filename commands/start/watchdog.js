@@ -1,7 +1,7 @@
 const ProcessManager = require('pm2')
 const { spawnProcess } = require('./helpers')
-const { Watchdog } = require('rainbow-bridge-lib/watchdog')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { Watchdog } = require('tez-bridge-lib/watchdog')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const path = require('path')
 const os = require('os')
 
@@ -19,8 +19,8 @@ class StartWatchdogCommand {
           name: 'bridge-watchdog',
           script: path.join(__dirname, '../../index.js'),
           interpreter: 'node',
-          error_file: '~/.rainbow/logs/watchdog/err.log',
-          out_file: '~/.rainbow/logs/watchdog/out.log',
+          error_file: '~/.tezbridge/logs/watchdog/err.log',
+          out_file: '~/.tezbridge/logs/watchdog/out.log',
           args: [
             'start',
             'bridge-watchdog',

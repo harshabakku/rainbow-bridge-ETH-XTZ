@@ -19,14 +19,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     ],
     "dependencyTreeRoots": [
       {
-        "name": "rainbow-bridge-cli",
+        "name": "tez-bridge-cli",
         "reference": "workspace:."
       }
     ],
     "enableTopLevelFallback": true,
     "ignorePatternData": "(^(?:\\.vscode\\/pnpify(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)",
     "fallbackExclusionList": [
-      ["rainbow-bridge-cli", ["workspace:."]]
+      ["tez-bridge-cli", ["workspace:."]]
     ],
     "locationBlacklistData": [
     ],
@@ -113,10 +113,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node-fetch", "npm:2.6.1"],
             ["pm2", "npm:4.5.0"],
             ["pm2-promise", "npm:2.0.1"],
-            ["rainbow-bridge-lib", "npm:3.0.0"],
-            ["rainbow-bridge-rs", "npm:1.0.2"],
-            ["rainbow-bridge-sol", "npm:2.0.0"],
-            ["rainbow-token-connector", "github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"],
+            ["tez-bridge-lib", "npm:3.0.0"],
+            ["tez-bridge-rs", "npm:1.0.2"],
+            ["tez-bridge-sol", "npm:2.0.0"],
+            ["tezbridge-token-connector", "github:tezos/tezbridge-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"],
             ["request", "npm:2.88.2"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=226bd1"],
             ["web3", "npm:1.2.6"]
@@ -6237,11 +6237,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"
         }]
       ]],
-      ["rainbow-bridge-cli", [
+      ["tez-bridge-cli", [
         ["workspace:.", {
           "packageLocation": "./",
           "packageDependencies": [
-            ["rainbow-bridge-cli", "workspace:."],
+            ["tez-bridge-cli", "workspace:."],
             ["bn.js", "npm:5.1.3"],
             ["commander", "npm:5.1.0"],
             ["eslint", "npm:6.8.0"],
@@ -6258,10 +6258,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node-fetch", "npm:2.6.1"],
             ["pm2", "npm:4.5.0"],
             ["pm2-promise", "npm:2.0.1"],
-            ["rainbow-bridge-lib", "npm:3.0.0"],
-            ["rainbow-bridge-rs", "npm:1.0.2"],
-            ["rainbow-bridge-sol", "npm:2.0.0"],
-            ["rainbow-token-connector", "github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"],
+            ["tez-bridge-lib", "npm:3.0.0"],
+            ["tez-bridge-rs", "npm:1.0.2"],
+            ["tez-bridge-sol", "npm:2.0.0"],
+            ["tezbridge-token-connector", "github:tezos/tezbridge-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"],
             ["request", "npm:2.88.2"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=226bd1"],
             ["web3", "npm:1.2.6"]
@@ -6269,11 +6269,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"
         }]
       ]],
-      ["rainbow-bridge-lib", [
+      ["tez-bridge-lib", [
         ["npm:3.0.0", {
-          "packageLocation": "./.yarn/cache/rainbow-bridge-lib-npm-3.0.0-e73533433b-1.zip/node_modules/rainbow-bridge-lib/",
+          "packageLocation": "./.yarn/cache/tez-bridge-lib-npm-3.0.0-e73533433b-1.zip/node_modules/tez-bridge-lib/",
           "packageDependencies": [
-            ["rainbow-bridge-lib", "npm:3.0.0"],
+            ["tez-bridge-lib", "npm:3.0.0"],
             ["bn.js", "npm:5.1.3"],
             ["bs58", "npm:4.0.1"],
             ["bsert", "npm:0.0.10"],
@@ -6295,29 +6295,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"
         }]
       ]],
-      ["rainbow-bridge-rs", [
+      ["tez-bridge-rs", [
         ["npm:1.0.2", {
-          "packageLocation": "./.yarn/cache/rainbow-bridge-rs-npm-1.0.2-b4584936c7-1.zip/node_modules/rainbow-bridge-rs/",
+          "packageLocation": "./.yarn/cache/tez-bridge-rs-npm-1.0.2-b4584936c7-1.zip/node_modules/tez-bridge-rs/",
           "packageDependencies": [
-            ["rainbow-bridge-rs", "npm:1.0.2"]
+            ["tez-bridge-rs", "npm:1.0.2"]
           ],
           "linkType": "HARD"
         }]
       ]],
-      ["rainbow-bridge-sol", [
+      ["tez-bridge-sol", [
         ["npm:2.0.0", {
-          "packageLocation": "./.yarn/cache/rainbow-bridge-sol-npm-2.0.0-6930475f75-1.zip/node_modules/rainbow-bridge-sol/",
+          "packageLocation": "./.yarn/cache/tez-bridge-sol-npm-2.0.0-6930475f75-1.zip/node_modules/tez-bridge-sol/",
           "packageDependencies": [
-            ["rainbow-bridge-sol", "npm:2.0.0"]
+            ["tez-bridge-sol", "npm:2.0.0"]
           ],
           "linkType": "HARD"
         }]
       ]],
-      ["rainbow-token-connector", [
-        ["github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6", {
-          "packageLocation": "./.yarn/cache/rainbow-token-connector-https-56fb33e8fd-1.zip/node_modules/rainbow-token-connector/",
+      ["tezbridge-token-connector", [
+        ["github:tezos/tezbridge-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6", {
+          "packageLocation": "./.yarn/cache/tezbridge-token-connector-https-56fb33e8fd-1.zip/node_modules/tezbridge-token-connector/",
           "packageDependencies": [
-            ["rainbow-token-connector", "github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"]
+            ["tezbridge-token-connector", "github:tezos/tezbridge-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"]
           ],
           "linkType": "HARD"
         }]

@@ -1,4 +1,4 @@
-const { tezoslib } = require('rainbow-bridge-lib')
+const { tezoslib } = require('tez-bridge-lib')
 const {
   InitEthEd25519,
   InitEthErc20,
@@ -6,12 +6,12 @@ const {
   InitEthClient,
   InitEthProver,
   InitTezosContracts,
-} = require('rainbow-bridge-lib/init')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+} = require('tez-bridge-lib/init')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const {
   maybeCreateAccount,
   verifyAccount,
-} = require('rainbow-bridge-lib/rainbow/helpers')
+} = require('tez-bridge-lib/tezbridge/helpers')
 const { BN } = require('ethereumjs-util')
 const path = require('path')
 
@@ -19,11 +19,11 @@ const TEST_DIR = __dirname
 const BRIDGE_SRC_DIR = path.join(TEST_DIR, '..')
 const LIBS_SOL_SRC_DIR = path.join(
   BRIDGE_SRC_DIR,
-  'node_modules/rainbow-bridge-sol'
+  'node_modules/tez-bridge-sol'
 )
 const LIBS_TC_SRC_DIR = path.join(
   BRIDGE_SRC_DIR,
-  'node_modules/rainbow-token-connector'
+  'node_modules/tezbridge-token-connector'
 )
 
 async function init() {
@@ -103,7 +103,7 @@ async function init() {
   BridgeConfig.declareOption(
     'tezos-prover-account',
     'The account of the Tezos Prover contract that can be used to accept ETH headers.',
-    'rainbow_bridge_eth_on_tezos_prover'
+    'tez_bridge_eth_on_tezos_prover'
   )
   await InitTezosContracts.execute()
   BridgeConfig.saveConfig()

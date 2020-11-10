@@ -1,17 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
-eval RAINBOW_DIR=~/.rainbow
+eval RAINBOW_DIR=~/.tezbridge
 
 export LOCAL_CORE_SRC
 export LOCAL_TEZOSUP_SRC
 
-eval CORE_SRC=~/.rainbow/core
+eval CORE_SRC=~/.tezbridge/core
 SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" 2>&1 && pwd )"
 eval BRIDGE_SRC=${SCRIPTS_DIR}/..
-eval LIBS_SOL_SRC=${BRIDGE_SRC}/node_modules/rainbow-bridge-sol
-eval LIBS_RS_SRC=${BRIDGE_SRC}/node_modules/rainbow-bridge-rs
-eval TEZOSUP_SRC=~/.rainbow/tezosup
+eval LIBS_SOL_SRC=${BRIDGE_SRC}/node_modules/tez-bridge-sol
+eval LIBS_RS_SRC=${BRIDGE_SRC}/node_modules/tez-bridge-rs
+eval TEZOSUP_SRC=~/.tezbridge/tezosup
 eval TEZOSUP_LOGS=~/.tezosup/localnet-logs
 
 mkdir -p $RAINBOW_DIR

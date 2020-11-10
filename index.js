@@ -24,10 +24,10 @@ const {
   TransferETHERC20ToTezos,
   TransferEthERC20FromTezos,
   DeployToken,
-} = require('rainbow-bridge-lib/transfer-eth-erc20')
+} = require('tez-bridge-lib/transfer-eth-erc20')
 const { ETHDump } = require('./commands/eth-dump')
-const { TezosDump } = require('rainbow-bridge-lib/rainbow/tezos-dump')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { TezosDump } = require('tez-bridge-lib/tezbridge/tezos-dump')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 const {
   InitTezosContracts,
   InitTezosTokenFactory,
@@ -36,21 +36,21 @@ const {
   InitEthLocker,
   InitEthClient,
   InitEthProver,
-} = require('rainbow-bridge-lib/init')
+} = require('tez-bridge-lib/init')
 
-// source dir or where rainbow cli is installed (when install with npm)
+// source dir or where tezbridge cli is installed (when install with npm)
 const BRIDGE_SRC_DIR = __dirname
 const LIBS_SOL_SRC_DIR = path.join(
   BRIDGE_SRC_DIR,
-  'node_modules/rainbow-bridge-sol'
+  'node_modules/tez-bridge-sol'
 )
 const LIBS_RS_SRC_DIR = path.join(
   BRIDGE_SRC_DIR,
-  'node_modules/rainbow-bridge-rs'
+  'node_modules/tez-bridge-rs'
 )
 const LIBS_TC_SRC_DIR = path.join(
   BRIDGE_SRC_DIR,
-  'node_modules/rainbow-token-connector'
+  'node_modules/tezbridge-token-connector'
 )
 
 BridgeConfig.declareOption(
@@ -75,7 +75,7 @@ BridgeConfig.declareOption(
 BridgeConfig.declareOption(
   'tezos-client-account',
   'The account of the Tezos Client contract that can be used to accept ETH headers.',
-  'rainbow_bridge_eth_on_tezos_client'
+  'tez_bridge_eth_on_tezos_client'
 )
 BridgeConfig.declareOption(
   'tezos-client-sk',
@@ -104,7 +104,7 @@ BridgeConfig.declareOption(
 BridgeConfig.declareOption(
   'tezos-prover-account',
   'The account of the Tezos Prover contract that can be used to accept ETH headers.',
-  'rainbow_bridge_eth_on_tezos_prover'
+  'tez_bridge_eth_on_tezos_prover'
 )
 BridgeConfig.declareOption(
   'tezos-prover-sk',

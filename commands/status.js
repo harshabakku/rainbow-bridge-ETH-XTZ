@@ -3,9 +3,9 @@ const fetch = require('node-fetch')
 const fs = require('fs')
 const ProcessManager = require('pm2-promise')
 
-const { verifyAccountGently } = require('rainbow-bridge-lib/rainbow/helpers')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
-const { normalizeEthKey } = require('rainbow-bridge-lib/rainbow/robust')
+const { verifyAccountGently } = require('tez-bridge-lib/tezbridge/helpers')
+const { BridgeConfig } = require('tez-bridge-lib/config')
+const { normalizeEthKey } = require('tez-bridge-lib/tezbridge/robust')
 
 // Verdicts
 const Ok = 'ok'

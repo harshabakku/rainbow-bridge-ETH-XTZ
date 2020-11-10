@@ -4,7 +4,7 @@
     "description": "",
     "repository": {
         "type": "git",
-        "url": "git@github.com:tezosprotocol/tezos-bridge.git"
+        "url": "git@github.com:tezosprotocol/tez-bridge.git"
     },
     "license": "MIT",
     "dependencies": {
@@ -25,7 +25,7 @@
         "eslint-plugin-standard": "^4.0.0",
         "eth-gas-reporter": "^0.2.11",
         "ganache-cli": "^6.4.1",
-        "rainbow-bridge-lib": "^2.0.0",
+        "tez-bridge-lib": "^2.0.0",
         "solc": "^0.6",
         "solidity-coverage": "^0.7.0",
         "solium": "^1.2.3",

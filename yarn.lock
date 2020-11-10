@@ -5508,9 +5508,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"rainbow-bridge-cli@workspace:.":
+"tez-bridge-cli@workspace:.":
   version: 0.0.0-use.local
-  resolution: "rainbow-bridge-cli@workspace:."
+  resolution: "tez-bridge-cli@workspace:."
   dependencies:
     bn.js: ^5.1.3
     commander: ^5.1.0
@@ -5528,22 +5528,22 @@ fsevents@~2.1.2:
     node-fetch: ^2.6.0
     pm2: ^4.5.0
     pm2-promise: ^2.0.1
-    rainbow-bridge-lib: ^3.0.0
-    rainbow-bridge-rs: 1.0.2
-    rainbow-bridge-sol: 2.0.0
-    rainbow-token-connector: "github:tezos/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"
+    tez-bridge-lib: ^3.0.0
+    tez-bridge-rs: 1.0.2
+    tez-bridge-sol: 2.0.0
+    tezbridge-token-connector: "github:tezos/tezbridge-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"
     request: ^2.88.2
     typescript: ^3.9.5
     web3: =1.2.6
   bin:
-    rainbow: index.js
-    rainbow-bridge: index.js
+    tezbridge: index.js
+    tez-bridge: index.js
   languageName: unknown
   linkType: soft
 
-"rainbow-bridge-lib@npm:^3.0.0":
+"tez-bridge-lib@npm:^3.0.0":
   version: 3.0.0
-  resolution: "rainbow-bridge-lib@npm:3.0.0"
+  resolution: "tez-bridge-lib@npm:3.0.0"
   dependencies:
     bn.js: ^5.1.3
     bs58: ^4.0.1
@@ -5566,23 +5566,23 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"rainbow-bridge-rs@npm:1.0.2":
+"tez-bridge-rs@npm:1.0.2":
   version: 1.0.2
-  resolution: "rainbow-bridge-rs@npm:1.0.2"
+  resolution: "tez-bridge-rs@npm:1.0.2"
   checksum: aa28bf19c6c7373a2e89a337092939f2cf4ed9be603b1cf43a9e5d220d5e5474638cde2f740fc0bcf7b045df304491f35898a5ca7ad54f313994741a4895bc14
   languageName: node
   linkType: hard
 
-"rainbow-bridge-sol@npm:2.0.0":
+"tez-bridge-sol@npm:2.0.0":
   version: 2.0.0
-  resolution: "rainbow-bridge-sol@npm:2.0.0"
+  resolution: "tez-bridge-sol@npm:2.0.0"
   checksum: 16ee34c309222b161476ec525fc420a2ff66b2cf43a50bffea5bf09beab24c13b1d5258511058cf46812608fed59104222ea5a1d46f8c0d68aa10c7f6b6c6b76
   languageName: node
   linkType: hard
 
-"rainbow-token-connector@github:tezos/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6":
+"tezbridge-token-connector@github:tezos/tezbridge-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6":
   version: 1.0.0
-  resolution: "rainbow-token-connector@github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"
+  resolution: "tezbridge-token-connector@github:tezos/tezbridge-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"
   checksum: fbd021f6b3e58a77a1be8bfd6c957c34c18ed6aafff3f0fb7e6f91ba925e7fe7465e081e4caf057de6bef52d7d37400e301709c7030b9360ed7f97d8bdd8a648
   languageName: node
   linkType: hard

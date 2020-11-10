@@ -1,18 +1,18 @@
 version: "3.3"
 services:
   tezos-node:
-    image: rainbow-image
+    image: tezbridge-image
     build: .
     command: bash -c "node index.js start tezos-node; node index.js start tezos-node && while true; do sleep 30; done;"
     ports:
       - 3030:3030
   ganache:
-    image: rainbow-image
+    image: tezbridge-image
     network_mode: host
     command: bash -c "node index.js start ganache --daemon false"
     ports:
       - 9545:9545
   eth2tezos-relay:
-    image: rainbow-image
+    image: tezbridge-image
     network_mode: host
     command: bash -c "node index.js start eth2tezos-relay --daemon false"

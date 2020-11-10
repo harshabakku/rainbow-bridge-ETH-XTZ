@@ -2,13 +2,13 @@ const util = require('util')
 const { execSync } = require('child_process')
 const request = require('request')
 const { getLocalTezosNodeURL } = require('./helpers')
-const { BridgeConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('tez-bridge-lib/config')
 
 class StartLocalTezosNodeCommand {
   static execute() {
     const command = util.format(
-      'python3 ~/.rainbow/tezosup/main.py localnet --num-nodes 1 --binary-path %s',
-      '~/.rainbow/core/target/debug'
+      'python3 ~/.tezbridge/tezosup/main.py localnet --num-nodes 1 --binary-path %s',
+      '~/.tezbridge/core/target/debug'
     )
     request(getLocalTezosNodeURL(), { json: true }, (err, _res, _body) => {
       if (err) {
