@@ -151,7 +151,7 @@ fn rlp_append<TX>(header: &Block<TX>, stream: &mut RlpStream) {
 
 // TESTS
 
-use near_sdk::{testing_env, MockedBlockchain, VMContext};
+use tezos_sdk::{testing_env, MockedBlockchain, VMContext};
 
 lazy_static! {
     static ref WEB3RS: web3::Web3<web3::transports::Http> = {
@@ -166,10 +166,10 @@ lazy_static! {
 
 fn get_context(input: Vec<u8>, is_view: bool) -> VMContext {
     VMContext {
-        current_account_id: "alice.near".to_string(),
-        signer_account_id: "bob.near".to_string(),
+        current_account_id: "alice.tezos".to_string(),
+        signer_account_id: "bob.tezos".to_string(),
         signer_account_pk: vec![0, 1, 2],
-        predecessor_account_id: "carol.near".to_string(),
+        predecessor_account_id: "carol.tezos".to_string(),
         input,
         block_index: 0,
         block_timestamp: 0,
@@ -402,7 +402,7 @@ fn add_2_blocks_from_400000() {
 #[test]
 fn predumped_block_can_be_added() {
     use indicatif::{ProgressBar, ProgressStyle};
-    use near_sdk::VMConfig;
+    use tezos_sdk::VMConfig;
     use std::env;
     use std::fs;
 

@@ -159,12 +159,12 @@ library SafeMath {
     }
 }
 
-// File: contracts/INearBridge.sol
+// File: contracts/ITezosBridge.sol
 
 pragma solidity ^0.6;
 
 
-interface INearBridge {
+interface ITezosBridge {
     event BlockHashAdded(
         uint64 indexed height,
         bytes32 blockHash
@@ -373,17 +373,17 @@ library Borsh {
     }
 }
 
-// File: contracts/NearDecoder.sol
+// File: contracts/TezosDecoder.sol
 
 pragma solidity ^0.6;
 
 
 
 
-library NearDecoder {
+library TezosDecoder {
 
     using Borsh for Borsh.Data;
-    using NearDecoder for Borsh.Data;
+    using TezosDecoder for Borsh.Data;
 
     struct PublicKey {
         uint8 enumIndex;
@@ -402,7 +402,7 @@ library NearDecoder {
             key.secp256k1 = data.decodeSECP256K1PublicKey();
         }
         else {
-            revert("NearBridge: Only ED25519 and SECP256K1 public keys are supported");
+            revert("TezosBridge: Only ED25519 and SECP256K1 public keys are supported");
         }
     }
 
@@ -459,7 +459,7 @@ library NearDecoder {
             sig.secp256k1 = data.decodeSECP256K1Signature();
         }
         else {
-            revert("NearBridge: Only ED25519 and SECP256K1 signatures are supported");
+            revert("TezosBridge: Only ED25519 and SECP256K1 signatures are supported");
         }
     }
 
@@ -1702,7 +1702,7 @@ contract Ed25519 {
     }
 }
 
-// File: contracts/NearBridge.sol
+// File: contracts/TezosBridge.sol
 
 pragma solidity ^0.6;
 pragma experimental ABIEncoderV2;
@@ -1712,13 +1712,13 @@ pragma experimental ABIEncoderV2;
 
 
 
-contract NearBridge is INearBridge {
+contract TezosBridge is ITezosBridge {
     using SafeMath for uint256;
     using Borsh for Borsh.Data;
-    using NearDecoder for Borsh.Data;
+    using TezosDecoder for Borsh.Data;
 
     struct BlockProducer {
-        NearDecoder.PublicKey publicKey;
+        TezosDecoder.PublicKey publicKey;
         uint128 stake;
     }
 
@@ -1746,7 +1746,7 @@ contract NearBridge is INearBridge {
     address payable burner;
     uint256 public lockEthAmount;
     uint256 public lockDuration;
-    // replaceDuration is in nanoseconds, because it is a difference between NEAR timestamps.
+    // replaceDuration is in nanoseconds, because it is a difference between TEZOS timestamps.
     uint256 public replaceDuration;
     Ed25519 edwards;
 
@@ -1762,7 +1762,7 @@ contract NearBridge is INearBridge {
     BlockInfo untrustedHead;
     // Approvals on the block following untrustedHead.
     uint untrustedApprovalCount;
-    mapping (uint => NearDecoder.OptionalSignature) untrustedApprovals;
+    mapping (uint => TezosDecoder.OptionalSignature) untrustedApprovals;
     // True if untrustedHead is from the following epoch of currentHead.
     // False if it is from the same epoch.
     bool untrustedHeadIsFromNextEpoch;
@@ -1847,45 +1847,45 @@ contract NearBridge is INearBridge {
 
     // The first part of initialization -- setting the validators of the current epoch.
     function initWithValidators(bytes memory initialValidators_) override public {
-        require(!initialized, "NearBridge: already initialized");
+        require(!initialized, "TezosBridge: already initialized");
 
         Borsh.Data memory initialValidatorsBorsh = Borsh.from(initialValidators_);
-        NearDecoder.InitialValidators memory initialValidators = initialValidatorsBorsh.decodeInitialValidators();
-        require(initialValidatorsBorsh.finished(), "NearBridge: only initial validators should be passed as second argument");
+        TezosDecoder.InitialValidators memory initialValidators = initialValidatorsBorsh.decodeInitialValidators();
+        require(initialValidatorsBorsh.finished(), "TezosBridge: only initial validators should be passed as second argument");
 
         setBlockProducers(initialValidators.validator_stakes, currentBlockProducers);
     }
 
     // The second part of the initialization -- setting the current head.
     function initWithBlock(bytes memory data) override public {
-        require(currentBlockProducers.totalStake > 0, "NearBridge: validators need to be initialized first");
-        require(!initialized, "NearBridge: already initialized");
+        require(currentBlockProducers.totalStake > 0, "TezosBridge: validators need to be initialized first");
+        require(!initialized, "TezosBridge: already initialized");
         initialized = true;
 
         Borsh.Data memory borsh = Borsh.from(data);
-        NearDecoder.LightClientBlock memory nearBlock = borsh.decodeLightClientBlock();
-        require(borsh.finished(), "NearBridge: only light client block should be passed as first argument");
+        TezosDecoder.LightClientBlock memory tezosBlock = borsh.decodeLightClientBlock();
+        require(borsh.finished(), "TezosBridge: only light client block should be passed as first argument");
 
-        require(!nearBlock.next_bps.none, "NearBridge: Initialization block should contain next_bps.");
-        setBlock(nearBlock, head);
-        setBlockProducers(nearBlock.next_bps.validatorStakes, nextBlockProducers);
+        require(!tezosBlock.next_bps.none, "TezosBridge: Initialization block should contain next_bps.");
+        setBlock(tezosBlock, head);
+        setBlockProducers(tezosBlock.next_bps.validatorStakes, nextBlockProducers);
         blockHashes_[head.height] = head.hash;
         blockMerkleRoots_[head.height] = head.merkleRoot;
     }
 
-    function _checkBp(NearDecoder.LightClientBlock memory nearBlock, BlockProducerInfo storage bpInfo) internal {
-        require(nearBlock.approvals_after_next.length >= bpInfo.bpsLength, "NearBridge: number of approvals should be at least as large as number of BPs");
+    function _checkBp(TezosDecoder.LightClientBlock memory tezosBlock, BlockProducerInfo storage bpInfo) internal {
+        require(tezosBlock.approvals_after_next.length >= bpInfo.bpsLength, "TezosBridge: number of approvals should be at least as large as number of BPs");
 
         uint256 votedFor = 0;
         for (uint i = 0; i < bpInfo.bpsLength; i++) {
-            if (!nearBlock.approvals_after_next[i].none) {
+            if (!tezosBlock.approvals_after_next[i].none) {
                 // Assume presented signatures are valid, but this could be challenged
                 votedFor = votedFor.add(bpInfo.bps[i].stake);
             }
         }
         // Last block in the epoch might contain extra approvals that light client can ignore.
 
-        require(votedFor > bpInfo.totalStake.mul(2).div(3), "NearBridge: Less than 2/3 voted by the block after next");
+        require(votedFor > bpInfo.totalStake.mul(2).div(3), "TezosBridge: Less than 2/3 voted by the block after next");
     }
 
     struct BridgeState {
@@ -1910,12 +1910,12 @@ contract NearBridge is INearBridge {
     }
 
     function addLightClientBlock(bytes memory data) override public {
-        require(initialized, "NearBridge: Contract is not initialized.");
+        require(initialized, "TezosBridge: Contract is not initialized.");
         require(balanceOf[msg.sender] >= lockEthAmount, "Balance is not enough");
 
         Borsh.Data memory borsh = Borsh.from(data);
-        NearDecoder.LightClientBlock memory nearBlock = borsh.decodeLightClientBlock();
-        require(borsh.finished(), "NearBridge: only light client block should be passed");
+        TezosDecoder.LightClientBlock memory tezosBlock = borsh.decodeLightClientBlock();
+        require(borsh.finished(), "TezosBridge: only light client block should be passed");
 
         // Commit the previous block, or make sure that it is OK to replace it.
         if (block.timestamp >= lastValidAt) {
@@ -1923,54 +1923,54 @@ contract NearBridge is INearBridge {
                 commitBlock();
             }
         } else {
-            require(nearBlock.inner_lite.timestamp >= untrustedHead.timestamp.add(replaceDuration), "NearBridge: can only replace with a sufficiently newer block");
+            require(tezosBlock.inner_lite.timestamp >= untrustedHead.timestamp.add(replaceDuration), "TezosBridge: can only replace with a sufficiently newer block");
         }
 
         // Check that the new block's height is greater than the current one's.
         require(
-            nearBlock.inner_lite.height > head.height,
-            "NearBridge: Height of the block is not valid"
+            tezosBlock.inner_lite.height > head.height,
+            "TezosBridge: Height of the block is not valid"
         );
 
         // Check that the new block is from the same epoch as the current one, or from the next one.
-        bool nearBlockIsFromNextEpoch;
-        if (nearBlock.inner_lite.epoch_id == head.epochId) {
-            nearBlockIsFromNextEpoch = false;
-        } else if (nearBlock.inner_lite.epoch_id == head.nextEpochId) {
-            nearBlockIsFromNextEpoch = true;
+        bool tezosBlockIsFromNextEpoch;
+        if (tezosBlock.inner_lite.epoch_id == head.epochId) {
+            tezosBlockIsFromNextEpoch = false;
+        } else if (tezosBlock.inner_lite.epoch_id == head.nextEpochId) {
+            tezosBlockIsFromNextEpoch = true;
         } else {
-            revert("NearBridge: Epoch id of the block is not valid");
+            revert("TezosBridge: Epoch id of the block is not valid");
         }
 
         // Check that the new block is signed by more than 2/3 of the validators.
-        _checkBp(nearBlock, nearBlockIsFromNextEpoch ? nextBlockProducers : currentBlockProducers);
+        _checkBp(tezosBlock, tezosBlockIsFromNextEpoch ? nextBlockProducers : currentBlockProducers);
 
         // If the block is from the next epoch, make sure that next_bps is supplied and has a correct hash.
-        if (nearBlockIsFromNextEpoch) {
+        if (tezosBlockIsFromNextEpoch) {
             require(
-                !nearBlock.next_bps.none,
-                "NearBridge: Next next_bps should not be None"
+                !tezosBlock.next_bps.none,
+                "TezosBridge: Next next_bps should not be None"
             );
             require(
-                nearBlock.next_bps.hash == nearBlock.inner_lite.next_bp_hash,
-                "NearBridge: Hash of block producers does not match"
+                tezosBlock.next_bps.hash == tezosBlock.inner_lite.next_bp_hash,
+                "TezosBridge: Hash of block producers does not match"
             );
         }
 
-        setBlock(nearBlock, untrustedHead);
-        untrustedApprovalCount = nearBlock.approvals_after_next.length;
-        for (uint i = 0; i < nearBlock.approvals_after_next.length; i++) {
-            untrustedApprovals[i] = nearBlock.approvals_after_next[i];
+        setBlock(tezosBlock, untrustedHead);
+        untrustedApprovalCount = tezosBlock.approvals_after_next.length;
+        for (uint i = 0; i < tezosBlock.approvals_after_next.length; i++) {
+            untrustedApprovals[i] = tezosBlock.approvals_after_next[i];
         }
-        untrustedHeadIsFromNextEpoch = nearBlockIsFromNextEpoch;
-        if (nearBlockIsFromNextEpoch) {
-            setBlockProducers(nearBlock.next_bps.validatorStakes, untrustedNextBlockProducers);
+        untrustedHeadIsFromNextEpoch = tezosBlockIsFromNextEpoch;
+        if (tezosBlockIsFromNextEpoch) {
+            setBlockProducers(tezosBlock.next_bps.validatorStakes, untrustedNextBlockProducers);
         }
         lastSubmitter = msg.sender;
         lastValidAt = block.timestamp.add(lockDuration);
     }
 
-    function setBlock(NearDecoder.LightClientBlock memory src, BlockInfo storage dest) internal {
+    function setBlock(TezosDecoder.LightClientBlock memory src, BlockInfo storage dest) internal {
         dest.height = src.inner_lite.height;
         dest.timestamp = src.inner_lite.timestamp;
         dest.epochId = src.inner_lite.epoch_id;
@@ -1985,7 +1985,7 @@ contract NearBridge is INearBridge {
         );
     }
 
-    function setBlockProducers(NearDecoder.ValidatorStake[] memory src, BlockProducerInfo storage dest) internal {
+    function setBlockProducers(TezosDecoder.ValidatorStake[] memory src, BlockProducerInfo storage dest) internal {
         dest.bpsLength = src.length;
         uint256 totalStake = 0;
         for (uint i = 0; i < src.length; i++) {
@@ -2025,8 +2025,8 @@ contract NearBridge is INearBridge {
     function _checkValidatorSignature(
         uint64 height,
         bytes32 next_block_hash,
-        NearDecoder.Signature memory signature,
-        NearDecoder.PublicKey storage publicKey
+        TezosDecoder.Signature memory signature,
+        TezosDecoder.PublicKey storage publicKey
     ) internal view returns(bool) {
         bytes memory message = abi.encodePacked(uint8(0), next_block_hash, _reversedUint64(height + 2), bytes23(0));
 

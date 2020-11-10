@@ -28,7 +28,7 @@ class StartGanacheNodeCommand {
       'eth-master-sk',
       '0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501200'
     )
-    RainbowConfig.setParam('near-client-validate-ethash', 'false')
+    RainbowConfig.setParam('tezos-client-validate-ethash', 'false')
     RainbowConfig.saveConfig()
   }
 }

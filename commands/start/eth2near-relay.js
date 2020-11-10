@@ -1,5 +1,4 @@
 const ProcessManager = require('pm2')
-const tezoslib = require('tezos-api-js')
 const { spawnProcess } = require('./helpers')
 const { Eth2TezosRelay } = require('../../lib/eth2tezos-relay')
 const {

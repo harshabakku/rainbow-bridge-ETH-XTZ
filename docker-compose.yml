@@ -1,9 +1,9 @@
 version: '3.3'
 services:
-  near-node:
+  tezos-node:
     build: .
     network_mode: host
-    command: bash -c "node index.js start near-node; node index.js start near-node && while true; do sleep 30; done;"
+    command: bash -c "node index.js start tezos-node; node index.js start tezos-node && while true; do sleep 30; done;"
   ganache:
     build: .
     network_mode: host
@@ -14,7 +14,7 @@ services:
         done
         ganache-cli --port 9545 --blockTime 12 --gasLimit 10000000 --account='0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501200,10000000000000000000000000000'
       "
-  eth2near-relay:
+  eth2tezos-relay:
     build: .
     network_mode: host
     depends_on:
@@ -24,6 +24,6 @@ services:
         while ! nc -z localhost 9545; do
           sleep 1
         done
-        node index.js init-near-contracts &&
-        node index.js start eth2near-relay --daemon false
+        node index.js init-tezos-contracts &&
+        node index.js start eth2tezos-relay --daemon false
       "

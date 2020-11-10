@@ -8,22 +8,22 @@ async function main() {
   if (process.env.PATCH_RAINBOW_BRIDGE_SOL) {
     packageJson.dependencies[
       'rainbow-bridge-sol'
-    ] = `near/rainbow-bridge-sol#${process.env.PATCH_RAINBOW_BRIDGE_SOL}`
+    ] = `tezos/rainbow-bridge-sol#${process.env.PATCH_RAINBOW_BRIDGE_SOL}`
   }
   if (process.env.PATCH_RAINBOW_BRIDGE_RS) {
     packageJson.dependencies[
       'rainbow-bridge-rs'
-    ] = `near/rainbow-bridge-rs#${process.env.PATCH_RAINBOW_BRIDGE_RS}`
+    ] = `tezos/rainbow-bridge-rs#${process.env.PATCH_RAINBOW_BRIDGE_RS}`
   }
   if (process.env.PATCH_RAINBOW_BRIDGE_LIB) {
     packageJson.dependencies[
       'rainbow-bridge-lib'
-    ] = `near/rainbow-bridge-lib#${process.env.PATCH_RAINBOW_BRIDGE_LIB}`
+    ] = `tezos/rainbow-bridge-lib#${process.env.PATCH_RAINBOW_BRIDGE_LIB}`
   }
   if (process.env.PATCH_TOKEN_CONNECTOR) {
     packageJson.dependencies[
       'rainbow-token-connector'
-    ] = `near/rainbow-token-connector#${process.env.PATCH_TOKEN_CONNECTOR}`
+    ] = `tezos/rainbow-token-connector#${process.env.PATCH_TOKEN_CONNECTOR}`
   }
   console.log('Contract versions:')
   console.log(

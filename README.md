@@ -3,11 +3,11 @@
   <h1><code>Rainbow Bridge CLI</code></h1>
 
   <p>
-    <strong>OPS tool to Rainbow Bridge, an Ethereum to Near trustless, fully decentralized, bidirectional bridge</strong>
+    <strong>OPS tool to Rainbow Bridge, an Ethereum to Tezos trustless, fully decentralized, bidirectional bridge</strong>
   </p>
 
   <p>
-    <a href="https://buildkite.com/nearprotocol/rainbow-bridge-cli"><img src=" https://badge.buildkite.com/93478642b0ddf8e3548c16d2e60c4adbca4fd853520b6a5bca.svg?branch=master" alt="Buildkite Build" /></a>
+    <a href="https://buildkite.com/tezosprotocol/rainbow-bridge-cli"><img src=" https://badge.buildkite.com/93478642b0ddf8e3548c16d2e60c4adbca4fd853520b6a5bca.svg?branch=master" alt="Buildkite Build" /></a>
     <a href="https://npmjs.com/rainbow-bridge-cli"><img alt="npm" src="https://img.shields.io/npm/v/rainbow-bridge-cli.svg?style=flat-square"></a>
   </p>
 </div>
@@ -31,9 +31,9 @@ need CLI only for the token transfer you need to install all testing dependencie
 - yarn
 - docker, for deterministic compile rust contracts
 
-### If you want to test with a local near node:
+### If you want to test with a local tezos node:
 
-- You would also need to install resources needed to compile nearcore (in the future this will only be required for the testing CLI):
+- You would also need to install resources needed to compile tezoscore (in the future this will only be required for the testing CLI):
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -42,8 +42,8 @@ rustup default stable
 rustup target add wasm32-unknown-unknown
 ```
 
-- Then install dependencies needed for the compilation of nearcore, [see](https://docs.near.org/docs/local-setup/running-testnet#compiling-and-running-official-node-without-docker).
-- python3, for nearup
+- Then install dependencies needed for the compilation of tezoscore, [see](https://docs.tezos.org/docs/local-setup/running-testnet#compiling-and-running-official-node-without-docker).
+- python3, for tezosup
 
 ## Usage
 
@@ -76,42 +76,42 @@ Note, you can use environment variables to pass sensitive data which will not le
 
 ## Security
 
-Bridge is secure as long as majority (1/2) of Etherem mining power is honest and supermajority (2/3) of NEAR stake is honest.
+Bridge is secure as long as majority (1/2) of Etherem mining power is honest and supermajority (2/3) of TEZOS stake is honest.
 There are no additional security requirements, except that Ethereum should be able to accept 1 transaction within 4 hour period even in the worst congestion scenario.
 
 ## Gas costs
 
-NEAR fees are negligible, both for bridge maintenance and for token transfer.
+TEZOS fees are negligible, both for bridge maintenance and for token transfer.
 Ethereum fees are the following:
 
-- To transfer ERC20 token from ETH to NEAR: Approx 43,989 gas to set allowance and approx 37,407 gas to lock it;
-- To transfer ERC20 token back from NEAR to ETH: Approx 240,531 gas to unlock the token;
-- To submit a NEAR block header: approx 697,140 gas;
-- To challenge a NEAR block header: approx 700k gas.
+- To transfer ERC20 token from ETH to TEZOS: Approx 43,989 gas to set allowance and approx 37,407 gas to lock it;
+- To transfer ERC20 token back from TEZOS to ETH: Approx 240,531 gas to unlock the token;
+- To submit a TEZOS block header: approx 697,140 gas;
+- To challenge a TEZOS block header: approx 700k gas.
 
-As of 2020-07-14 (gas price is 40 gwei) the cost of running bridge on NEAR mainnnet and Ethereum mainnet is approx 42 USD/day. The cost of ETH->NEAR transfer of ERC20 token is 1 USD. The cost of NEAR->ETH transfer of ERC20 token is 2 USD.
+As of 2020-07-14 (gas price is 40 gwei) the cost of running bridge on TEZOS mainnnet and Ethereum mainnet is approx 42 USD/day. The cost of ETH->TEZOS transfer of ERC20 token is 1 USD. The cost of TEZOS->ETH transfer of ERC20 token is 2 USD.
 
 ## Using Bridge on Testnet
 
 ### PoA vs PoW Ethereum networks
 
-Rainbow bridge can be deployed either on PoW or PoA networks. However, the main use case of the bridge is Ethereum Mainnet, which makes its design very PoW-centric and it is only trustless and decentralized for PoW networks. Unfortunately, the only popular PoW testnet is Ropsten, which frequently undergoes huge reorgs of more than [16k blocks](https://github.com/near/rainbow-bridge-cli/issues/329), because people test 51% attacks on it. 16k reorgs can wipe out entire contracts and revert days of computations. Overall, Ropsten has the following unfortunate specifics that does not exist with Ethereum Mainnet:
+Rainbow bridge can be deployed either on PoW or PoA networks. However, the main use case of the bridge is Ethereum Mainnet, which makes its design very PoW-centric and it is only trustless and decentralized for PoW networks. Unfortunately, the only popular PoW testnet is Ropsten, which frequently undergoes huge reorgs of more than [16k blocks](https://github.com/tezos/rainbow-bridge-cli/issues/329), because people test 51% attacks on it. 16k reorgs can wipe out entire contracts and revert days of computations. Overall, Ropsten has the following unfortunate specifics that does not exist with Ethereum Mainnet:
 * Extremely long re-orgs;
 * Gas price volatility -- Ropsten blocks might have orders of magnitude different median gas price;
 * Slow block production -- sometimes Ropsten blocks are produced once per several minutes;
-* [Infura is unreliable on Ropsten](https://github.com/near/rainbow-bridge-cli/issues/330)
+* [Infura is unreliable on Ropsten](https://github.com/tezos/rainbow-bridge-cli/issues/330)
 
-Therefore we advise users to not use Ropsten for bridge testing. Instead, we recommend using one of Ethereum's PoA testnet. Unfortunately, PoA networks have a differen header format and are also centralized by nature. Therefore when deploying bridge on PoA network please use `--near-client-trusted-signer` parameter. This will force `EthOnNearClient` to not validate Ethereum headers (since PoA headers are not valid PoW headers) and accept them only from the provided authority.
+Therefore we advise users to not use Ropsten for bridge testing. Instead, we recommend using one of Ethereum's PoA testnet. Unfortunately, PoA networks have a differen header format and are also centralized by nature. Therefore when deploying bridge on PoA network please use `--tezos-client-trusted-signer` parameter. This will force `EthOnTezosClient` to not validate Ethereum headers (since PoA headers are not valid PoW headers) and accept them only from the provided authority.
 
 The documenation below assumes Rinkeby testnet.
 
 ### Using existing bridge on Rinkeby
 
-This section explains how to use existing bridge with mock ERC20 token that was already deployed. You would need to have some amount of this token on Rinkeby, so reach out to max@near.org if you want to give it a try.
+This section explains how to use existing bridge with mock ERC20 token that was already deployed. You would need to have some amount of this token on Rinkeby, so reach out to max@tezos.org if you want to give it a try.
 
 We assume you have two accounts:
-* One NEAR account on NEAR testnet with at least 1 NEAR token. We denote it as `<near_token_holder_account>` and its secret key as `<near_token_holder_sk>`;
-* One Ethereum account on Rinkeby testnet with at least 1 ETH and 100 ERC20 tokens (this example uses ERC20 deployed to `0x8151a8F90267bFf183E06921841C5dE774499388` as an example. If you want some of these ERC20 tokens please contact max@near.org). We denote it as `<eth_token_holder_address>` and its private key as `<eth_token_holder_sk>`;
+* One TEZOS account on TEZOS testnet with at least 1 TEZOS token. We denote it as `<tezos_token_holder_account>` and its secret key as `<tezos_token_holder_sk>`;
+* One Ethereum account on Rinkeby testnet with at least 1 ETH and 100 ERC20 tokens (this example uses ERC20 deployed to `0x8151a8F90267bFf183E06921841C5dE774499388` as an example. If you want some of these ERC20 tokens please contact max@tezos.org). We denote it as `<eth_token_holder_address>` and its private key as `<eth_token_holder_sk>`;
 
 Make sure you have rainbow cli installed:
 ```bash
@@ -124,60 +124,60 @@ rainbow clean
 If you're using rainbow-bridge-cli 1.x, create `~/.rainbow/config.json` file with the following content:
 ```json
 {
-        "nearNetworkId": "testnet",
-        "nearNodeUrl": "https://rpc.testnet.near.org/",
+        "tezosNetworkId": "testnet",
+        "tezosNodeUrl": "https://rpc.testnet.tezos.org/",
         "ethNodeUrl": "https://rinkeby.infura.io/v3/<project_id>",
-        "nearMasterAccount": "<near_token_holder_account>",
-        "nearMasterSk": "<near_token_holder_sk>",
-        "nearClientAccount": "ethonnearclient10",
-        "nearProverAccount": "ethonnearprover10",
-        "nearClientTrustedSigner": "eth2nearrelay10.testnet",
+        "tezosMasterAccount": "<tezos_token_holder_account>",
+        "tezosMasterSk": "<tezos_token_holder_sk>",
+        "tezosClientAccount": "ethontezosclient10",
+        "tezosProverAccount": "ethontezosprover10",
+        "tezosClientTrustedSigner": "eth2tezosrelay10.testnet",
         "ethMasterSk": "<eth_token_holder_sk>",
         "ethEd25519Address": "0x9003342d15B21b4C42e1702447fE2f39FfAF55C2",
         "ethClientAddress": "0xF721c979db97413AA9D0F91ad531FaBF769bb09C",
         "ethProverAddress": "0xc5D62d66B8650E6242D9936c7e50E959BA0F9E37",
         "ethErc20Address": "0x8151a8F90267bFf183E06921841C5dE774499388",
         "ethLockerAddress": "0x5f7Cc23F90b5264a083dcB3b171c7111Dc32dD00",
-        "nearFunTokenAccount": "mintablefuntoken11"
+        "tezosFunTokenAccount": "mintablefuntoken11"
 }
 ```
 If you are using rainbow-bridge-cli 2.x, create `~/.rainbow/config.json` file with the following content:
 ```json
 {
-        "nearNetworkId": "testnet",
-        "nearNodeUrl": "https://rpc.testnet.near.org/",
+        "tezosNetworkId": "testnet",
+        "tezosNodeUrl": "https://rpc.testnet.tezos.org/",
         "ethNodeUrl": "https://rinkeby.infura.io/v3/<project_id>",
-        "nearMasterAccount": "<near_token_holder_account>",
-        "nearMasterSk": "<near_token_holder_sk>",
-        "nearClientAccount": "ethonnearclient10",
-        "nearProverAccount": "ethonnearprover10",
-        "nearClientTrustedSigner": "eth2nearrelay10.testnet",
+        "tezosMasterAccount": "<tezos_token_holder_account>",
+        "tezosMasterSk": "<tezos_token_holder_sk>",
+        "tezosClientAccount": "ethontezosclient10",
+        "tezosProverAccount": "ethontezosprover10",
+        "tezosClientTrustedSigner": "eth2tezosrelay10.testnet",
         "ethMasterSk": "<eth_token_holder_sk>",
         "ethEd25519Address": "0x9003342d15B21b4C42e1702447fE2f39FfAF55C2",
         "ethClientAddress": "0xF721c979db97413AA9D0F91ad531FaBF769bb09C",
         "ethProverAddress": "0xc5D62d66B8650E6242D9936c7e50E959BA0F9E37",
-        "nearTokenFactoryAccount": "ntf4.bridge2.testnet",
+        "tezosTokenFactoryAccount": "ntf4.bridge2.testnet",
         "ethErc20Address": "0x21e7381368baa3f3e9640fe19780c4271ad96f37",
         "ethLockerAddress": "0x7f66c116a4f51e43e7c1c33d3714a4acfa9c40fb",
-        "nearErc20Account": "21e7381368baa3f3e9640fe19780c4271ad96f37.ntf4.bridge2.testnet"
+        "tezosErc20Account": "21e7381368baa3f3e9640fe19780c4271ad96f37.ntf4.bridge2.testnet"
 }
 ```
 You can get infura project id, by registering at [infura.io](http://infura.io/).
 
-To transfer ERC20 from ETH to NEAR run:
+To transfer ERC20 from ETH to TEZOS run:
 ```bash
-rainbow transfer-eth-erc20-to-near --amount 10 --eth-sender-sk <eth_token_holder_address> --near-receiver-account <near_token_holder_account>
+rainbow transfer-eth-erc20-to-tezos --amount 10 --eth-sender-sk <eth_token_holder_address> --tezos-receiver-account <tezos_token_holder_account>
 ```
 (If the command interrupts in the middle re-run it and it will resume the transfer. PoA RPC sometimes has issues)
 Wait for the transfer to finish. You should see:
 ```
 Transferred
-Balance of <near_token_holder_account> after the transfer is 10
+Balance of <tezos_token_holder_account> after the transfer is 10
 ```
 
-To transfer ERC20 back from NEAR to ETH run:
+To transfer ERC20 back from TEZOS to ETH run:
 ```bash
-rainbow transfer-eth-erc20-from-near --amount 1 --near-sender-account <near_token_holder_account> --near-sender-sk <near_token_holder_sk> --eth-receiver-address <eth_token_holder_address>
+rainbow transfer-eth-erc20-from-tezos --amount 1 --tezos-sender-account <tezos_token_holder_account> --tezos-sender-sk <tezos_token_holder_sk> --eth-receiver-address <eth_token_holder_address>
 ```
 
 You should see:
@@ -195,20 +195,20 @@ rainbow clean
 rainbow prepare
 ```
 
-Then initialize `EthOnNearClient` and `EthOnNearProver`:
+Then initialize `EthOnTezosClient` and `EthOnTezosProver`:
 ```bash
-rainbow init-near-contracts --near-network-id testnet --near-node-url <testnet_nodes_url> --eth-node-url https://ropsten.infura.io/v3/<infura_project_id> --near-master-account <near_master_account> --near-master-sk <near_master_sk> --near-client-account ethonnearclient01 --near-client-init-balance 2000000000000000000000000000 --near-prover-account ethonnearprover01
+rainbow init-tezos-contracts --tezos-network-id testnet --tezos-node-url <testnet_nodes_url> --eth-node-url https://ropsten.infura.io/v3/<infura_project_id> --tezos-master-account <tezos_master_account> --tezos-master-sk <tezos_master_sk> --tezos-client-account ethontezosclient01 --tezos-client-init-balance 2000000000000000000000000000 --tezos-prover-account ethontezosprover01
 ```
-* Make sure `ethonnearclient01` and `ethonnearprover01` do not exist yet. You can check it by going to https://explorer.testnet.near.org/accounts/ethonnearclient01 and https://explorer.testnet.near.org/accounts/ethonnearprover01 . If they exist, pick different names;
-* You can get `<infura_project_id>` by creating a free [infura](http://infura.io/) account. If you are working in NEAR organization please ask max@near.org;
-* For `<testnet_nodes_url>` you can use `http://rpc.testnet.near.org/`. If you are working in NEAR organization please ask max@near.org;
+* Make sure `ethontezosclient01` and `ethontezosprover01` do not exist yet. You can check it by going to https://explorer.testnet.tezos.org/accounts/ethontezosclient01 and https://explorer.testnet.tezos.org/accounts/ethontezosprover01 . If they exist, pick different names;
+* You can get `<infura_project_id>` by creating a free [infura](http://infura.io/) account. If you are working in TEZOS organization please ask max@tezos.org;
+* For `<testnet_nodes_url>` you can use `http://rpc.testnet.tezos.org/`. If you are working in TEZOS organization please ask max@tezos.org;
 
-Then start `eth2near-relay`:
+Then start `eth2tezos-relay`:
 ```bash
-node index.js start eth2near-relay --near-master-account <eth2nearrelay_account> --near-master-sk <eth2nearrelay_sk>
+node index.js start eth2tezos-relay --tezos-master-account <eth2tezosrelay_account> --tezos-master-sk <eth2tezosrelay_sk>
 ```
 
-Now initialize `NearOnEthClient` and `NearOnEthProver`:
+Now initialize `TezosOnEthClient` and `TezosOnEthProver`:
 ```bash
 node index.js init-eth-ed25519 --eth-master-sk <eth_master_sk>
 node index.js init-eth-client --eth-client-lock-eth-amount 100000000000000000 --eth-client-lock-duration 600
@@ -216,9 +216,9 @@ node index.js init-eth-prover
 ```
 This will set the bond to 0.1 ETH and challenge period to 10 minutes. **Do not use these settings on Mainnet!** Mainnet should be using 20ETH bond and 4 hour challenge period.
 
-Then start the `near2eth-relay` and watchdog:
+Then start the `tezos2eth-relay` and watchdog:
 ```bash
-node index.js start near2eth-relay --eth-master-sk <near2ethrelay_sk>
+node index.js start tezos2eth-relay --eth-master-sk <tezos2ethrelay_sk>
 node index.js start bride-watchdog --eth-master-sk <watchdog_sk>
 ```
 -->
@@ -230,7 +230,7 @@ To locally test the bridge run:
 ```bash
 rainbow clean
 rainbow prepare
-rainbow start near-node
+rainbow start tezos-node
 rainbow start ganache
 ```
 
@@ -239,23 +239,23 @@ rainbow start ganache
 First let's initialize the contracts that bridge needs to function:
 
 ```bash
-rainbow init-near-contracts
+rainbow init-tezos-contracts
 rainbow init-eth-ed25519
 rainbow init-eth-client --eth-client-lock-eth-amount 1000 --eth-client-lock-duration 10
 rainbow init-eth-prover
 ```
 
-Now, let's set up token on Ethereum blockchain that we can transfer to NEAR blockchain (this can be your own token).
+Now, let's set up token on Ethereum blockchain that we can transfer to TEZOS blockchain (this can be your own token).
 
 ```bash
 rainbow init-eth-erc20
 rainbow init-eth-locker
 ```
 
-Now, let's initialize token factory on NEAR blockchain.
+Now, let's initialize token factory on TEZOS blockchain.
 
 ```bash
-rainbow init-near-token-factory
+rainbow init-tezos-token-factory
 ```
 
 ### Starting the services
@@ -263,8 +263,8 @@ rainbow init-near-token-factory
 Now start the services that will relay the information between the chains:
 
 ```bash
-rainbow start eth2near-relay
-rainbow start near2eth-relay --eth-master-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501201
+rainbow start eth2tezos-relay
+rainbow start tezos2eth-relay --eth-master-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501201
 rainbow start bridge-watchdog --eth-master-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501202
 ```
 
@@ -279,18 +279,18 @@ pm2 logs
 Finally, let's transfer some tokens
 
 ```bash
-rainbow transfer-eth-erc20-to-near --amount 1000 --eth-sender-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501200 --near-receiver-account rainbow_bridge_eth_on_near_prover --near-master-account neartokenfactory
+rainbow transfer-eth-erc20-to-tezos --amount 1000 --eth-sender-sk 0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501200 --tezos-receiver-account rainbow_bridge_eth_on_tezos_prover --tezos-master-account tezostokenfactory
 ```
 
 Note, when we deployed ERC20 to the Ethereum blockchain we have minted a large number of tokens to the default master
-key of Ganache, so we have transferred ERC20 tokens from it to `alice.test.near`.
-Notice that we are using `neartokenfactory` account here to pay for the NEAR gas fees, any account for which we know a secret key would've worked too.
+key of Ganache, so we have transferred ERC20 tokens from it to `alice.test.tezos`.
+Notice that we are using `tezostokenfactory` account here to pay for the TEZOS gas fees, any account for which we know a secret key would've worked too.
 You must observe blocks being submitted.
 
 Now let's try to transfer one token back to Ethereum
 
 ```bash
-rainbow transfer-eth-erc20-from-near --amount 1 --near-sender-account rainbow_bridge_eth_on_near_prover --near-sender-sk ed25519:3D4YudUQRE39Lc4JHghuB5WM8kbgDDa34mnrEP5DdTApVH81af7e2dWgNPEaiQfdJnZq1CNPp5im4Rg5b733oiMP --eth-receiver-address 0xEC8bE1A5630364292E56D01129E8ee8A9578d7D8
+rainbow transfer-eth-erc20-from-tezos --amount 1 --tezos-sender-account rainbow_bridge_eth_on_tezos_prover --tezos-sender-sk ed25519:3D4YudUQRE39Lc4JHghuB5WM8kbgDDa34mnrEP5DdTApVH81af7e2dWgNPEaiQfdJnZq1CNPp5im4Rg5b733oiMP --eth-receiver-address 0xEC8bE1A5630364292E56D01129E8ee8A9578d7D8
 ```
 
 You should observe the change of the ERC20 balance as reported by the CLI.
@@ -304,16 +304,16 @@ Above steps are ways to run a local bridge and development workflows you need if
 rainbow clean
 rainbow prepare
 ```
-- Start local NEAR network and Ganache
+- Start local TEZOS network and Ganache
 ```bash
-rainbow near-node
+rainbow tezos-node
 rainbow ganache
 ```
 - If you want to modify solidity contracts, go to `node_modules/rainbow-bridge-sol`, make changes there and run `./build_all.sh` to recompile solidity contracts.
 - If you want to modify rust contracts, go to `node_modules/ranbow-bridge-rs`, make changes there and run `./build_all.sh` to recompile rust contracts.
 - If you want to modify rainbow bridge lib, go to `node_modules/rainbow-bridge-lib` and make changes there
-- Follow instructions above to init eth contracts and near contracts, start services and start testing with bridge
-- For changes to Solidity contract, Rust contract, and rainbow-bridge-lib, please submit PRs to: https://github.com/near/rainbow-bridge-sol , https://github.com/near/rainbow-bridge-rs , and https://github.com/near/rainbow-bridge-lib respectively.
+- Follow instructions above to init eth contracts and tezos contracts, start services and start testing with bridge
+- For changes to Solidity contract, Rust contract, and rainbow-bridge-lib, please submit PRs to: https://github.com/tezos/rainbow-bridge-sol , https://github.com/tezos/rainbow-bridge-rs , and https://github.com/tezos/rainbow-bridge-lib respectively.
 - After PR merged in contract repos and rainbow-bridge-lib repo, we will periodically publish them as new version of npm packages. And rainbow-bridge-cli will adopt new version of them.
 
 
@@ -327,10 +327,10 @@ The following is outdated.
    - run the rainbow docker image with a custom command
 2. A development docker compose setup (docker-compose-dev.yml)
    - ganache
-   - local near node
-   - eth2near-relay
+   - local tezos node
+   - eth2tezos-relay
 3. A production docker compose setup (docker-compose-prod.yml)
-   - eth2near-relay
+   - eth2tezos-relay
 
 ## Running the docker setup:
 

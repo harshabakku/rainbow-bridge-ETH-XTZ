@@ -4,12 +4,12 @@ const fs = require('fs').promises;
 const { borshify, borshifyInitialValidators } = require('rainbow-bridge-lib/rainbow/borsh')
 
 const Ed25519 = artifacts.require('Ed25519');
-const NearBridge = artifacts.require('NearBridge');
-const NearDecoder = artifacts.require('NearDecoder');
+const TezosBridge = artifacts.require('TezosBridge');
+const TezosDecoder = artifacts.require('TezosDecoder');
 
-contract('NearBridge', function ([_, addr1]) {
+contract('TezosBridge', function ([_, addr1]) {
     it('should be ok', async function () {
-        const bridge = await NearBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(3600), web3.utils.toBN(7200));
+        const bridge = await TezosBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(3600), web3.utils.toBN(7200));
         await bridge.deposit({ value: web3.utils.toWei('1') });
 
         const block120998 = borshify(require('./block_120998.json'));
@@ -29,7 +29,7 @@ contract('NearBridge', function ([_, addr1]) {
 
         await expectRevert(
             bridge.addLightClientBlock(block121998),
-            'NearBridge: Epoch id of the block is not valid',
+            'TezosBridge: Epoch id of the block is not valid',
         );
 
         await time.increase(3600);
@@ -46,14 +46,14 @@ contract('NearBridge', function ([_, addr1]) {
         );
     });
 
-    if (process.env.NEAR_HEADERS_DIR) {
+    if (process.env.TEZOS_HEADERS_DIR) {
         it('ok with many block headers', async function () {
-            this.bridge = await NearBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(10), web3.utils.toBN(20));
+            this.bridge = await TezosBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(10), web3.utils.toBN(20));
             await this.bridge.deposit({ value: web3.utils.toWei('1') });
             this.timeout(0);
-            const blockFiles = await fs.readdir(process.env.NEAR_HEADERS_DIR);
+            const blockFiles = await fs.readdir(process.env.TEZOS_HEADERS_DIR);
             blockFiles.sort((a, b) => a.split('.')[0] - b.split('.')[0]);
-            const firstBlock = require(process.env.NEAR_HEADERS_DIR + '/' + blockFiles[0]);
+            const firstBlock = require(process.env.TEZOS_HEADERS_DIR + '/' + blockFiles[0]);
             const firstBlockBorsh = borshify(firstBlock);
             // current bps happens to equal to next_bps
             await this.bridge.initWithValidators(borshifyInitialValidators(firstBlock.next_bps));
@@ -62,7 +62,7 @@ contract('NearBridge', function ([_, addr1]) {
             expect(await this.bridge.blockHashes(firstBlock.inner_lite.height)).to.be.a('string');
 
             for (let i = 1; i < blockFiles.length; i++) {
-                const block = require(process.env.NEAR_HEADERS_DIR + '/' + blockFiles[i]);
+                const block = require(process.env.TEZOS_HEADERS_DIR + '/' + blockFiles[i]);
                 const blockBorsh = borshify(block);
                 console.log('adding block ' + block.inner_lite.height);
                 await this.bridge.addLightClientBlock(blockBorsh);

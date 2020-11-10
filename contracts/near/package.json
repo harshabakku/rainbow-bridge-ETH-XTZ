@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/near/rainbow-bridge.git"
+    "url": "git+https://github.com/tezos/rainbow-bridge.git"
   },
-  "author": "Near Inc",
+  "author": "Tezos Inc",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/near/rainbow-bridge-rs/issues"
+    "url": "https://github.com/tezos/rainbow-bridge-rs/issues"
   },
-  "homepage": "https://github.com/near/rainbow-bridge-rs#readme"
+  "homepage": "https://github.com/tezos/rainbow-bridge-rs#readme"
 }

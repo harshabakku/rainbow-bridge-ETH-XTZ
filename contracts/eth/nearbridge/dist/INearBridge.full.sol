@@ -1,9 +1,9 @@
-// File: contracts/INearBridge.sol
+// File: contracts/ITezosBridge.sol
 
 pragma solidity ^0.6;
 
 
-interface INearBridge {
+interface ITezosBridge {
     event BlockHashAdded(
         uint64 indexed height,
         bytes32 blockHash

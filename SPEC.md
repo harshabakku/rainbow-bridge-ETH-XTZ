@@ -8,17 +8,17 @@ The Rainbow bridge is a composition of software applications allowing smart cont
 
 ```
     +------------------------+     +------------------------+
-    | Ethereum Blockchain    |     |        NEAR Blockchain |
+    | Ethereum Blockchain    |     |        TEZOS Blockchain |
     |                        |     |                        |
     |        +------------+  | (1) |  +-----------+         |
     |        |            |  |=======>|           |         |
-    |    (A) | NearBridge |  |     |  | EthBridge | (B)     |
+    |    (A) | TezosBridge |  |     |  | EthBridge | (B)     |
     |        |            |<=======|  |           |         |
     |        +------------+  | (2) |  +-----------+         |
     |              / \       |     |       / \              |
     |              |3|       |     |       |4|              |
     |        +------------+  |     |  +-----------+         |
-    |    (C) | NearProver |  |     |  | EthProver | (D)     |
+    |    (C) | TezosProver |  |     |  | EthProver | (D)     |
     |        +------------+  |     |  +-----------+         |
     |              / \       |     |       / \              |
     |              |5|       |     |       |6|              |
@@ -32,13 +32,13 @@ The Rainbow bridge is a composition of software applications allowing smart cont
 ```
 
 Software:
-- **A.** *NearBridge* – smart contract of Near light client hosted in Ethereum network. It receives Near block headers, verifies and stores block hashes only.
-- **B.** *EthBridge* – smart contract of Ethereum light client hosted in Near network. It receives Ethereum block headers, verifies ethash and longest chain rule and stores block hashes only.
-- **C.** *NearProver* - smart contract in Ethereum network performing verification of Near transaction result was included into Near block. Uses Merkle trees and hash preimages for verification.
-- **D.** *EthProver* - smart contract in Near network performing verification of Ethereum event was included into Ethereum block. Uses Merkle trees and hash preimages for verification.
+- **A.** *TezosBridge* – smart contract of Tezos light client hosted in Ethereum network. It receives Tezos block headers, verifies and stores block hashes only.
+- **B.** *EthBridge* – smart contract of Ethereum light client hosted in Tezos network. It receives Ethereum block headers, verifies ethash and longest chain rule and stores block hashes only.
+- **C.** *TezosProver* - smart contract in Ethereum network performing verification of Tezos transaction result was included into Tezos block. Uses Merkle trees and hash preimages for verification.
+- **D.** *EthProver* - smart contract in Tezos network performing verification of Ethereum event was included into Ethereum block. Uses Merkle trees and hash preimages for verification.
 
 Relations:
-1. Non-trusted and non-authorized Ethereum relayer software (aka *EthRelayer*) could forward Ethereum block headers into *EthBridge* smart contract hosted in Near blockchain.
-2. Non-trusted and non-authorized Near relayer software (aka *NearRelayer*) could forward Near block headers into *NearBridge* smart contract hosted in Ethereum network.
-3. *NearProver* verifies Near transaction result was included into Near bloc. And then checks if this block image exisits in *NearBridge*.
+1. Non-trusted and non-authorized Ethereum relayer software (aka *EthRelayer*) could forward Ethereum block headers into *EthBridge* smart contract hosted in Tezos blockchain.
+2. Non-trusted and non-authorized Tezos relayer software (aka *TezosRelayer*) could forward Tezos block headers into *TezosBridge* smart contract hosted in Ethereum network.
+3. *TezosProver* verifies Tezos transaction result was included into Tezos bloc. And then checks if this block image exisits in *TezosBridge*.
 4. *EthProver* verifies Ethereum event/log was included into Ethereum transaction receipt which was included into Ethereum block. And then checks if this block image exisits in *EthBridge*.

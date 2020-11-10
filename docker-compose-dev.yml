@@ -1,9 +1,9 @@
 version: "3.3"
 services:
-  near-node:
+  tezos-node:
     image: rainbow-image
     build: .
-    command: bash -c "node index.js start near-node; node index.js start near-node && while true; do sleep 30; done;"
+    command: bash -c "node index.js start tezos-node; node index.js start tezos-node && while true; do sleep 30; done;"
     ports:
       - 3030:3030
   ganache:
@@ -12,7 +12,7 @@ services:
     command: bash -c "node index.js start ganache --daemon false"
     ports:
       - 9545:9545
-  eth2near-relay:
+  eth2tezos-relay:
     image: rainbow-image
     network_mode: host
-    command: bash -c "node index.js start eth2near-relay --daemon false"
+    command: bash -c "node index.js start eth2tezos-relay --daemon false"

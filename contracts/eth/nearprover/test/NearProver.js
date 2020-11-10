@@ -2,13 +2,13 @@ const { borshifyOutcomeProof } = require(`rainbow-bridge-lib/rainbow/borsh`);
 const bs58 = require('bs58');
 const fs = require('fs').promises;
 
-const NearProver = artifacts.require('NearProver');
-const NearBridgeMock = artifacts.require('NearBridgeMock');
+const TezosProver = artifacts.require('TezosProver');
+const TezosBridgeMock = artifacts.require('TezosBridgeMock');
 
-contract('NearProver', function ([_, addr1]) {
+contract('TezosProver', function ([_, addr1]) {
     beforeEach(async function () {
-        this.bridge = await NearBridgeMock.new();
-        this.prover = await NearProver.new(this.bridge.address);
+        this.bridge = await TezosBridgeMock.new();
+        this.prover = await TezosProver.new(this.bridge.address);
     });
 
     it('should be ok', async function () {
@@ -37,13 +37,13 @@ contract('NearProver', function ([_, addr1]) {
         expect(await this.prover.proveOutcome(borshifyOutcomeProof(proof6), 377)).to.be.true;
     });
 
-    if (process.env['NEAR_PROOFS_DIR']) {
+    if (process.env['TEZOS_PROOFS_DIR']) {
         it('should able to verify proofs from dump', async function () {
             this.timeout(0);
-            let proofFiles = await fs.readdir(process.env['NEAR_PROOFS_DIR']);
+            let proofFiles = await fs.readdir(process.env['TEZOS_PROOFS_DIR']);
 
             for (let i = 1; i < proofFiles.length; i++) {
-                let proof = require(process.env['NEAR_PROOFS_DIR'] + '/' + proofFiles[i]);
+                let proof = require(process.env['TEZOS_PROOFS_DIR'] + '/' + proofFiles[i]);
                 let height = proof.block_header_lite.inner_lite.height;
                 await this.bridge.setBlockMerkleRoot(height, '0x' + bs58.decode(proof.block_header_lite.inner_lite.block_merkle_root).toString('hex'));
                 proof = borshifyOutcomeProof(proof);

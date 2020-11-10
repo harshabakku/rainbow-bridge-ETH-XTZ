@@ -16,7 +16,7 @@
     "next_block_inner_hash": "3jAcGGBL1AUweRS38wV5EBhsf7zfJVQDxHUZuhDSFJUy",
     "next_bps": [
         {
-            "account_id": "test.near",
+            "account_id": "test.tezos",
             "public_key": "ed25519:BnnC1A3aQpnVLuYcn6sxY6PpNdUSpMyzLR5J3pJRnVJL",
             "stake": "50352328493762631912743342409743"
         }

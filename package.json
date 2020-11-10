@@ -24,14 +24,14 @@
   "_spec": "rainbow-bridge-cli",
   "_where": "/home/harsha",
   "author": {
-    "name": "Near Inc."
+    "name": "Tezos Inc."
   },
   "bin": {
     "rainbow-bridge": "index.js",
     "rainbow": "index.js"
   },
   "bugs": {
-    "url": "https://github.com/near/rainbow-bridge/issues"
+    "url": "https://github.com/tezos/rainbow-bridge/issues"
   },
   "bundleDependencies": false,
   "dependencies": {
@@ -40,17 +40,17 @@
     "bignumber.js": "^9.0.1",
     "bn.js": "^5.1.3",
     "commander": "^5.1.0",
-    "eth-object": "github:near/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7",
-    "eth-util-lite": "github:near/eth-util-lite#master",
+    "eth-object": "github:tezos/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7",
+    "eth-util-lite": "github:tezos/eth-util-lite#master",
     "ethereumjs-util": "^6.2.0",
-    "near-api-js": "^0.26.0",
+    "tezos-api-js": "^0.26.0",
     "node-fetch": "^2.6.0",
     "pm2": "^4.4.0",
     "pm2-promise": "^2.0.1",
     "rainbow-bridge-lib": "^3.0.0",
     "rainbow-bridge-rs": "1.0.2",
     "rainbow-bridge-sol": "2.0.0",
-    "rainbow-token-connector": "github:near/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6",
+    "rainbow-token-connector": "github:tezos/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6",
     "request": "^2.88.2",
     "web3": "=1.2.6"
   },
@@ -65,9 +65,9 @@
     "eslint-plugin-standard": "^4.0.0",
     "typescript": "^3.9.5"
   },
-  "homepage": "https://github.com/near/rainbow-bridge#readme",
+  "homepage": "https://github.com/tezos/rainbow-bridge#readme",
   "keywords": [
-    "nearprotocol",
+    "tezosprotocol",
     "decentralized",
     "blockchain",
     "ethereum",
@@ -84,7 +84,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/near/rainbow-bridge.git"
+    "url": "git+https://github.com/tezos/rainbow-bridge.git"
   },
   "scripts": {
     "check": "tsc",

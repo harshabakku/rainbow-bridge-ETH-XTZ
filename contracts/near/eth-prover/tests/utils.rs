@@ -2,17 +2,17 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 use eth_types::*;
 use hex::FromHex;
-use near_crypto::{InMemorySigner, KeyType, Signer};
-use near_primitives::{
+use tezos_crypto::{InMemorySigner, KeyType, Signer};
+use tezos_primitives::{
     account::{AccessKey, Account},
     errors::{RuntimeError, TxExecutionError},
     hash::CryptoHash,
     transaction::{ExecutionOutcome, ExecutionStatus, Transaction},
     types::{AccountId, Balance},
 };
-use near_runtime_standalone::init_runtime_and_signer;
-pub use near_runtime_standalone::RuntimeStandalone;
-pub use near_sdk::VMContext;
+use tezos_runtime_standalone::init_runtime_and_signer;
+pub use tezos_runtime_standalone::RuntimeStandalone;
+pub use tezos_sdk::VMContext;
 use serde::{Deserialize, Deserializer};
 
 type TxResult = Result<ExecutionOutcome, ExecutionOutcome>;
@@ -69,8 +69,8 @@ lazy_static::lazy_static! {
     static ref ETH_CLIENT_WASM_BYTES: &'static [u8] = include_bytes!("../../res/eth_client.wasm").as_ref();
 }
 
-pub fn ntoy(near_amount: Balance) -> Balance {
-    near_amount * 10u128.pow(24)
+pub fn ntoy(tezos_amount: Balance) -> Balance {
+    tezos_amount * 10u128.pow(24)
 }
 
 pub struct ExternalUser {
@@ -382,10 +382,10 @@ pub struct AssertEthbridgeHashArgs {
 
 pub fn get_context(input: Vec<u8>, is_view: bool) -> VMContext {
     VMContext {
-        current_account_id: "alice.near".to_string(),
-        signer_account_id: "bob.near".to_string(),
+        current_account_id: "alice.tezos".to_string(),
+        signer_account_id: "bob.tezos".to_string(),
         signer_account_pk: vec![0, 1, 2],
-        predecessor_account_id: "carol.near".to_string(),
+        predecessor_account_id: "carol.tezos".to_string(),
         input,
         block_index: 0,
         block_timestamp: 0,

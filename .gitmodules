@@ -1,4 +1,4 @@
 [submodule "vendor/ethashproof"]
 	path = vendor/ethashproof
-	url = https://github.com/nearprotocol/ethashproof
+	url = https://github.com/tezosprotocol/ethashproof
 	ignore = dirty

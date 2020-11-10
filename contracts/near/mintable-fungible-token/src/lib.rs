@@ -3,7 +3,7 @@
 * NOTES:
 
 Properties specific to Mintable Fungible Token:
-*  - It is an extension of the standard Fungible token that can be found here: https://github.com/near/near-sdk-rs/tree/master/examples/fungible-token
+*  - It is an extension of the standard Fungible token that can be found here: https://github.com/tezos/tezos-sdk-rs/tree/master/examples/fungible-token
 *  - The total balance is not fixed, and is initially 0. When valid proof is submitted the total
 *    balance increases, when the tokens are burnt the balance decreases.
 *  - The contract permanently memorizes the hashes of the events that were used for
@@ -13,7 +13,7 @@ Properties inherited from the standard Fungible Token:
 *  - The maximum balance value is limited by U128 (2**128 - 1).
 *  - JSON calls should pass U128 as a base-10 string. E.g. "100".
 *  - The contract optimizes the inner trie structure by hashing account IDs. It will prevent some
-*    abuse of deep tries. Shouldn't be an issue, once NEAR clients implement full hashing of keys.
+*    abuse of deep tries. Shouldn't be an issue, once TEZOS clients implement full hashing of keys.
 *  - The contract tracks the change in storage before and after the call. If the storage increases,
 *    the contract requires the caller of the contract to attach enough deposit to the function call
 *    to cover the storage cost.
@@ -25,10 +25,10 @@ Properties inherited from the standard Fungible Token:
 *    keys on its account.
 */
 use borsh::{BorshDeserialize, BorshSerialize};
-use near_sdk::collections::{UnorderedMap, UnorderedSet};
-use near_sdk::json_types::U128;
-use near_sdk::{
-    env, ext_contract, near_bindgen, AccountId, Balance, Promise, PromiseOrValue, StorageUsage,
+use tezos_sdk::collections::{UnorderedMap, UnorderedSet};
+use tezos_sdk::json_types::U128;
+use tezos_sdk::{
+    env, ext_contract, tezos_bindgen, AccountId, Balance, Promise, PromiseOrValue, StorageUsage,
 };
 #[cfg(test)]
 use serde::Deserialize;
@@ -76,7 +76,7 @@ impl Account {
     }
 }
 
-#[near_bindgen]
+#[tezos_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct MintableFungibleToken {
     /// sha256(AccountID) -> Account details.
@@ -228,10 +228,10 @@ pub trait ExtFungibleToken {
     ) -> Promise;
 }
 
-#[near_bindgen]
+#[tezos_bindgen]
 impl MintableFungibleToken {
     /// Initializes the contract without total supply.
-    /// `prover_account`: NEAR account of the Near Prover contract;
+    /// `prover_account`: TEZOS account of the Tezos Prover contract;
     /// `locker_address`: Ethereum address of the locker contract, in hex.
     #[init]
     pub fn new(prover_account: AccountId, locker_address: String) -> Self {
@@ -600,24 +600,24 @@ impl MintableFungibleToken {
 #[cfg(not(target_arch = "wasm32"))]
 #[cfg(test)]
 mod tests {
-    use near_sdk::MockedBlockchain;
-    use near_sdk::{testing_env, VMContext};
+    use tezos_sdk::MockedBlockchain;
+    use tezos_sdk::{testing_env, VMContext};
 
     use super::*;
 
     const BURN_AMOUNT: u128 = 1000;
 
     fn alice() -> AccountId {
-        "alice.near".to_string()
+        "alice.tezos".to_string()
     }
     fn bob() -> AccountId {
-        "bob.near".to_string()
+        "bob.tezos".to_string()
     }
     fn carol() -> AccountId {
-        "carol.near".to_string()
+        "carol.tezos".to_string()
     }
-    fn rainbow_bridge_eth_on_near_prover() -> AccountId {
-        "rainbow_bridge_eth_on_near_prover".to_string()
+    fn rainbow_bridge_eth_on_tezos_prover() -> AccountId {
+        "rainbow_bridge_eth_on_tezos_prover".to_string()
     }
 
     fn get_context(predecessor_account_id: AccountId) -> VMContext {
@@ -977,7 +977,7 @@ mod tests {
 
     #[test]
     fn test_mint() {
-        mint_common(alice(), alice(), rainbow_bridge_eth_on_near_prover(), 1_000_000_000_000_000u128, [
+        mint_common(alice(), alice(), rainbow_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
             196, 199, 73, 127, 190, 26, 136, 104, 65, 161, 149, 165, 214, 34, 205, 96, 5, 60, 19,
             118,
         ], proof_from_file("data/proof.json"), false);
@@ -986,7 +986,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "Event cannot be reused for minting.")]
     fn test_mint_no_double_mint() {
-        mint_common(alice(), alice(), rainbow_bridge_eth_on_near_prover(), 1_000_000_000_000_000u128, [
+        mint_common(alice(), alice(), rainbow_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
             196, 199, 73, 127, 190, 26, 136, 104, 65, 161, 149, 165, 214, 34, 205, 96, 5, 60, 19,
             118,
         ], proof_from_file("data/proof.json"), true);
@@ -995,7 +995,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "does not match locker address of this token")]
     fn test_mint_wrong_locker_address() {
-        mint_common(alice(), alice(), rainbow_bridge_eth_on_near_prover(), 1_000_000_000_000_000u128, [
+        mint_common(alice(), alice(), rainbow_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
             100; 20
         ], proof_from_file("data/proof.json"), false);
     }
@@ -1005,7 +1005,7 @@ mod tests {
         expected = "Finish transfer is only allowed to be called by the contract itself"
     )]
     fn test_mint_wrong_sender() {
-        mint_common(carol(), carol(), rainbow_bridge_eth_on_near_prover(), 1_000_000_000_000_000u128, [
+        mint_common(carol(), carol(), rainbow_bridge_eth_on_tezos_prover(), 1_000_000_000_000_000u128, [
             196, 199, 73, 127, 190, 26, 136, 104, 65, 161, 149, 165, 214, 34, 205, 96, 5, 60, 19,
             118,
         ], proof_from_file("data/proof.json"), false);

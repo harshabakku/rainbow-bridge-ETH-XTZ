@@ -1,9 +1,9 @@
-// File: ../nearbridge/contracts/INearBridge.sol
+// File: ../tezosbridge/contracts/ITezosBridge.sol
 
 pragma solidity ^0.6;
 
 
-interface INearBridge {
+interface ITezosBridge {
     event BlockHashAdded(
         uint64 indexed height,
         bytes32 blockHash
@@ -28,13 +28,13 @@ interface INearBridge {
     function checkBlockProducerSignatureInHead(uint256 signatureIndex) external view returns(bool);
 }
 
-// File: contracts/NearBridgeMock.sol
+// File: contracts/TezosBridgeMock.sol
 
 pragma solidity ^0.6;
 
 
 
-contract NearBridgeMock is INearBridge {
+contract TezosBridgeMock is ITezosBridge {
     mapping(uint64 => bytes32) override public blockHashes;
     mapping(uint64 => bytes32) override public blockMerkleRoots;
 

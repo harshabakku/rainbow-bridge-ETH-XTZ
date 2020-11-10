@@ -1,6 +1,6 @@
 # EthBridge
 
-Ethereum Light Client built on top of NearProtocol with Rust
+Ethereum Light Client built on top of TezosProtocol with Rust
 
 ## Testing
 

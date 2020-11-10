@@ -1,8 +1,8 @@
 const Web3 = require('web3')
 const Path = require('path')
 const fs = require('fs').promises
-const { web3BlockToRlp } = require('rainbow-bridge-lib/eth2near-relay')
-const { execute } = require('../lib/eth2near-relay')
+const { web3BlockToRlp } = require('rainbow-bridge-lib/eth2tezos-relay')
+const { execute } = require('../lib/eth2tezos-relay')
 const {
   EthProofExtractor,
   receiptFromWeb3,

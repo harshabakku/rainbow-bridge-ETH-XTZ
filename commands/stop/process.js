@@ -1,14 +1,14 @@
 const ProcessManager = require('pm2-promise')
 const { execSync } = require('child_process')
 
-async function stopLocalNearNode() {
-  console.log('Stopping near node')
-  const command = 'python3 ~/.rainbow/nearup/main.py stop'
+async function stopLocalTezosNode() {
+  console.log('Stopping tezos node')
+  const command = 'python3 ~/.rainbow/tezosup/main.py stop'
   try {
     execSync(command)
-    console.log('near node successfully stopped')
+    console.log('tezos node successfully stopped')
   } catch (err) {
-    console.log('Error stopping local near node', err)
+    console.log('Error stopping local tezos node', err)
   }
 }
 
@@ -41,14 +41,14 @@ class StopManagedProcessCommand {
     // A cool hack to avoid annoying pm2 printing to stderr
     console.error = function() {}
 
-    if (serviceName === 'near-node') {
-      await stopLocalNearNode()
+    if (serviceName === 'tezos-node') {
+      await stopLocalTezosNode()
     } else if (serviceName === 'all') {
-      await stopLocalNearNode()
+      await stopLocalTezosNode()
       for (const serviceName of [
         'ganache',
-        'eth2near-relay',
-        'near2eth-relay',
+        'eth2tezos-relay',
+        'tezos2eth-relay',
         'bridge-watchdog',
       ]) {
         await stop(serviceName)

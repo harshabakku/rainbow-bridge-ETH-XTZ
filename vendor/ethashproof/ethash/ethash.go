@@ -173,7 +173,7 @@ func newlru(what string, maxItems int, new func(epoch uint64) interface{}) *lru 
 
 // get retrieves or creates an item for the given epoch. The first return value is always
 // non-nil. The second return value is non-nil if lru thinks that an item will be useful in
-// the near future.
+// the tezos future.
 func (lru *lru) get(epoch uint64) (item, future interface{}) {
 	lru.mu.Lock()
 	defer lru.mu.Unlock()

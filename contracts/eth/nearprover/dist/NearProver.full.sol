@@ -159,12 +159,12 @@ library SafeMath {
     }
 }
 
-// File: ../nearbridge/contracts/INearBridge.sol
+// File: ../tezosbridge/contracts/ITezosBridge.sol
 
 pragma solidity ^0.6;
 
 
-interface INearBridge {
+interface ITezosBridge {
     event BlockHashAdded(
         uint64 indexed height,
         bytes32 blockHash
@@ -189,7 +189,7 @@ interface INearBridge {
     function checkBlockProducerSignatureInHead(uint256 signatureIndex) external view returns(bool);
 }
 
-// File: ../nearbridge/contracts/Borsh.sol
+// File: ../tezosbridge/contracts/Borsh.sol
 
 pragma solidity ^0.6;
 
@@ -373,17 +373,17 @@ library Borsh {
     }
 }
 
-// File: ../nearbridge/contracts/NearDecoder.sol
+// File: ../tezosbridge/contracts/TezosDecoder.sol
 
 pragma solidity ^0.6;
 
 
 
 
-library NearDecoder {
+library TezosDecoder {
 
     using Borsh for Borsh.Data;
-    using NearDecoder for Borsh.Data;
+    using TezosDecoder for Borsh.Data;
 
     struct PublicKey {
         uint8 enumIndex;
@@ -402,7 +402,7 @@ library NearDecoder {
             key.secp256k1 = data.decodeSECP256K1PublicKey();
         }
         else {
-            revert("NearBridge: Only ED25519 and SECP256K1 public keys are supported");
+            revert("TezosBridge: Only ED25519 and SECP256K1 public keys are supported");
         }
     }
 
@@ -459,7 +459,7 @@ library NearDecoder {
             sig.secp256k1 = data.decodeSECP256K1Signature();
         }
         else {
-            revert("NearBridge: Only ED25519 and SECP256K1 signatures are supported");
+            revert("TezosBridge: Only ED25519 and SECP256K1 signatures are supported");
         }
     }
 
@@ -560,7 +560,7 @@ pragma solidity ^0.6;
 library ProofDecoder {
     using Borsh for Borsh.Data;
     using ProofDecoder for Borsh.Data;
-    using NearDecoder for Borsh.Data;
+    using TezosDecoder for Borsh.Data;
 
     struct FullOutcomeProof {
         ExecutionOutcomeWithIdAndProof outcome_proof;
@@ -579,7 +579,7 @@ library ProofDecoder {
     struct BlockHeaderLight {
         bytes32 prev_block_hash;
         bytes32 inner_rest_hash;
-        NearDecoder.BlockHeaderInnerLite inner_lite;
+        TezosDecoder.BlockHeaderInnerLite inner_lite;
 
         bytes32 hash; // Computable
     }
@@ -613,7 +613,7 @@ library ProofDecoder {
             executionStatus.unknown = true;
         } else
         if (executionStatus.enumIndex == 1) {
-            //revert("NearDecoder: decodeExecutionStatus failure case not implemented yet");
+            //revert("TezosDecoder: decodeExecutionStatus failure case not implemented yet");
             // Can avoid revert since ExecutionStatus is latest field in all parent structures
             executionStatus.failed = true;
         } else
@@ -623,7 +623,7 @@ library ProofDecoder {
         if (executionStatus.enumIndex == 3) {
             executionStatus.successReceiptId = data.decodeBytes32();
         } else {
-            revert("NearDecoder: decodeExecutionStatus index out of range");
+            revert("TezosDecoder: decodeExecutionStatus index out of range");
         }
     }
 
@@ -727,15 +727,15 @@ library ProofDecoder {
     }
 }
 
-// File: contracts/INearProver.sol
+// File: contracts/ITezosProver.sol
 
 pragma solidity ^0.6;
 
-interface INearProver {
+interface ITezosProver {
     function proveOutcome(bytes calldata proofData, uint64 blockHeight) external view returns(bool);
 }
 
-// File: contracts/NearProver.sol
+// File: contracts/TezosProver.sol
 
 pragma solidity ^0.6;
 
@@ -745,22 +745,22 @@ pragma solidity ^0.6;
 
 
 
-contract NearProver is INearProver {
+contract TezosProver is ITezosProver {
     using SafeMath for uint256;
     using Borsh for Borsh.Data;
-    using NearDecoder for Borsh.Data;
+    using TezosDecoder for Borsh.Data;
     using ProofDecoder for Borsh.Data;
 
-    INearBridge public bridge;
+    ITezosBridge public bridge;
 
-    constructor(INearBridge _bridge) public {
+    constructor(ITezosBridge _bridge) public {
         bridge = _bridge;
     }
 
     function proveOutcome(bytes memory proofData, uint64 blockHeight) override public view returns(bool) {
         Borsh.Data memory borshData = Borsh.from(proofData);
         ProofDecoder.FullOutcomeProof memory fullOutcomeProof = borshData.decodeFullOutcomeProof();
-        require(borshData.finished(), "NearProver: argument should be exact borsh serialization");
+        require(borshData.finished(), "TezosProver: argument should be exact borsh serialization");
 
         bytes32 hash = _computeRoot(
             fullOutcomeProof.outcome_proof.outcome_with_id.hash,
@@ -776,13 +776,13 @@ contract NearProver is INearProver {
 
         require(
             hash == fullOutcomeProof.block_header_lite.inner_lite.outcome_root,
-            "NearProver: outcome merkle proof is not valid"
+            "TezosProver: outcome merkle proof is not valid"
         );
 
         bytes32 expectedBlockMerkleRoot = bridge.blockMerkleRoots(blockHeight);
 
         require(
-            _computeRoot(fullOutcomeProof.block_header_lite.hash, fullOutcomeProof.block_proof) == expectedBlockMerkleRoot, "NearProver: block proof is not valid"
+            _computeRoot(fullOutcomeProof.block_header_lite.hash, fullOutcomeProof.block_proof) == expectedBlockMerkleRoot, "TezosProver: block proof is not valid"
         );
 
         return true;

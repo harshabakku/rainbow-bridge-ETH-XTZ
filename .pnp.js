@@ -105,18 +105,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-node", "virtual:0b4858c84df37999ad80955a3aebe68f8135859924c3d698df58cf0010e6cebfc8b64844747061c17217789277c3ee71603066a26f5d46bfd73709a38e07f1d4#npm:11.1.0"],
             ["eslint-plugin-promise", "npm:4.2.1"],
             ["eslint-plugin-standard", "virtual:0b4858c84df37999ad80955a3aebe68f8135859924c3d698df58cf0010e6cebfc8b64844747061c17217789277c3ee71603066a26f5d46bfd73709a38e07f1d4#npm:4.0.2"],
-            ["eth-object", "github:near/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"],
-            ["eth-util-lite", "github:near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
+            ["eth-object", "github:tezos/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"],
+            ["eth-util-lite", "github:tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
             ["ethereumjs-util", "npm:6.2.1"],
             ["global", "npm:4.4.0"],
-            ["near-api-js", "npm:0.26.0"],
+            ["tezos-api-js", "npm:0.26.0"],
             ["node-fetch", "npm:2.6.1"],
             ["pm2", "npm:4.5.0"],
             ["pm2-promise", "npm:2.0.1"],
             ["rainbow-bridge-lib", "npm:3.0.0"],
             ["rainbow-bridge-rs", "npm:1.0.2"],
             ["rainbow-bridge-sol", "npm:2.0.0"],
-            ["rainbow-token-connector", "github:near/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"],
+            ["rainbow-token-connector", "github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"],
             ["request", "npm:2.88.2"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=226bd1"],
             ["web3", "npm:1.2.6"]
@@ -2939,11 +2939,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["eth-object", [
-        ["github:near/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7", {
+        ["github:tezos/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7", {
           "packageLocation": "./.yarn/cache/eth-object-https-639b39b4fb-1.zip/node_modules/eth-object/",
           "packageDependencies": [
-            ["eth-object", "github:near/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"],
-            ["eth-util-lite", "near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
+            ["eth-object", "github:tezos/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"],
+            ["eth-util-lite", "tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
             ["ethereumjs-util", "npm:7.0.7"],
             ["web3", "npm:1.3.0"]
           ],
@@ -2951,10 +2951,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["eth-util-lite", [
-        ["github:near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a", {
+        ["github:tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a", {
           "packageLocation": "./.yarn/cache/eth-util-lite-https-5bcf5c5088-1.zip/node_modules/eth-util-lite/",
           "packageDependencies": [
-            ["eth-util-lite", "github:near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
+            ["eth-util-lite", "github:tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
             ["bn.js", "npm:4.11.9"],
             ["js-sha3", "npm:0.8.0"],
             ["rlp", "npm:2.2.6"],
@@ -2962,10 +2962,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD"
         }],
-        ["near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a", {
+        ["tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a", {
           "packageLocation": "./.yarn/cache/eth-util-lite-https-5bcf5c5088-1.zip/node_modules/eth-util-lite/",
           "packageDependencies": [
-            ["eth-util-lite", "near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
+            ["eth-util-lite", "tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
             ["bn.js", "npm:4.11.9"],
             ["js-sha3", "npm:0.8.0"],
             ["rlp", "npm:2.2.6"],
@@ -5219,11 +5219,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"
         }]
       ]],
-      ["near-api-js", [
+      ["tezos-api-js", [
         ["npm:0.26.0", {
-          "packageLocation": "./.yarn/cache/near-api-js-npm-0.26.0-fc7d56f7f4-1.zip/node_modules/near-api-js/",
+          "packageLocation": "./.yarn/cache/tezos-api-js-npm-0.26.0-fc7d56f7f4-1.zip/node_modules/tezos-api-js/",
           "packageDependencies": [
-            ["near-api-js", "npm:0.26.0"],
+            ["tezos-api-js", "npm:0.26.0"],
             ["@types/bn.js", "npm:4.11.6"],
             ["bn.js", "npm:5.1.3"],
             ["bs58", "npm:4.0.1"],
@@ -6250,18 +6250,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-node", "virtual:0b4858c84df37999ad80955a3aebe68f8135859924c3d698df58cf0010e6cebfc8b64844747061c17217789277c3ee71603066a26f5d46bfd73709a38e07f1d4#npm:11.1.0"],
             ["eslint-plugin-promise", "npm:4.2.1"],
             ["eslint-plugin-standard", "virtual:0b4858c84df37999ad80955a3aebe68f8135859924c3d698df58cf0010e6cebfc8b64844747061c17217789277c3ee71603066a26f5d46bfd73709a38e07f1d4#npm:4.0.2"],
-            ["eth-object", "github:near/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"],
-            ["eth-util-lite", "github:near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
+            ["eth-object", "github:tezos/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"],
+            ["eth-util-lite", "github:tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
             ["ethereumjs-util", "npm:6.2.1"],
             ["global", "npm:4.4.0"],
-            ["near-api-js", "npm:0.26.0"],
+            ["tezos-api-js", "npm:0.26.0"],
             ["node-fetch", "npm:2.6.1"],
             ["pm2", "npm:4.5.0"],
             ["pm2-promise", "npm:2.0.1"],
             ["rainbow-bridge-lib", "npm:3.0.0"],
             ["rainbow-bridge-rs", "npm:1.0.2"],
             ["rainbow-bridge-sol", "npm:2.0.0"],
-            ["rainbow-token-connector", "github:near/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"],
+            ["rainbow-token-connector", "github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"],
             ["request", "npm:2.88.2"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=226bd1"],
             ["web3", "npm:1.2.6"]
@@ -6279,14 +6279,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["bsert", "npm:0.0.10"],
             ["change-case", "npm:4.1.1"],
             ["configstore", "npm:5.0.1"],
-            ["eth-object", "github:near/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"],
-            ["eth-util-lite", "github:near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
+            ["eth-object", "github:tezos/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"],
+            ["eth-util-lite", "github:tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"],
             ["ethereumjs-block", "npm:2.2.2"],
             ["ethereumjs-tx", "npm:2.1.2"],
             ["ethereumjs-util", "npm:6.2.1"],
             ["lodash", "npm:4.17.20"],
             ["merkle-patricia-tree", "npm:3.0.0"],
-            ["near-api-js", "npm:0.26.0"],
+            ["tezos-api-js", "npm:0.26.0"],
             ["node-fetch", "npm:2.6.1"],
             ["promisfy", "npm:1.2.0"],
             ["tweetnacl", "npm:1.0.3"],
@@ -6314,10 +6314,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["rainbow-token-connector", [
-        ["github:near/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6", {
+        ["github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6", {
           "packageLocation": "./.yarn/cache/rainbow-token-connector-https-56fb33e8fd-1.zip/node_modules/rainbow-token-connector/",
           "packageDependencies": [
-            ["rainbow-token-connector", "github:near/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"]
+            ["rainbow-token-connector", "github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"]
           ],
           "linkType": "HARD"
         }]

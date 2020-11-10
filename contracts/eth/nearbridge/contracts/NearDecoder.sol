@@ -4,10 +4,10 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./Borsh.sol";
 
 
-library NearDecoder {
+library TezosDecoder {
 
     using Borsh for Borsh.Data;
-    using NearDecoder for Borsh.Data;
+    using TezosDecoder for Borsh.Data;
 
     struct PublicKey {
         uint8 enumIndex;
@@ -26,7 +26,7 @@ library NearDecoder {
             key.secp256k1 = data.decodeSECP256K1PublicKey();
         }
         else {
-            revert("NearBridge: Only ED25519 and SECP256K1 public keys are supported");
+            revert("TezosBridge: Only ED25519 and SECP256K1 public keys are supported");
         }
     }
 
@@ -83,7 +83,7 @@ library NearDecoder {
             sig.secp256k1 = data.decodeSECP256K1Signature();
         }
         else {
-            revert("NearBridge: Only ED25519 and SECP256K1 signatures are supported");
+            revert("TezosBridge: Only ED25519 and SECP256K1 signatures are supported");
         }
     }
 

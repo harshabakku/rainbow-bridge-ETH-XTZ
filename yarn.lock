@@ -2535,20 +2535,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eth-object@github:near/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7":
+"eth-object@github:tezos/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7":
   version: 1.0.3
-  resolution: "eth-object@github:near/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"
+  resolution: "eth-object@github:tezos/eth-object#commit:54e03b8aac8208cf724e206d49ffb8bdd30451d7"
   dependencies:
-    eth-util-lite: "near/eth-util-lite#master"
+    eth-util-lite: "tezos/eth-util-lite#master"
     ethereumjs-util: ^7.0.3
     web3: ^1.2.9
   checksum: 95ee11fb617910e67e8f64d953afe4131809b04122a13bac7374c66b7c8e07f9ac48f0b6fce6bc7be886ee238eb2ca9ad810d5d062adde93b8a76c95b53aa19e
   languageName: node
   linkType: hard
 
-"eth-util-lite@github:near/eth-util-lite#master":
+"eth-util-lite@github:tezos/eth-util-lite#master":
   version: 1.0.1
-  resolution: "eth-util-lite@github:near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"
+  resolution: "eth-util-lite@github:tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"
   dependencies:
     bn.js: ^4.11.8
     js-sha3: ^0.8.0
@@ -2558,9 +2558,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eth-util-lite@near/eth-util-lite#master":
+"eth-util-lite@tezos/eth-util-lite#master":
   version: 1.0.1
-  resolution: "eth-util-lite@near/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"
+  resolution: "eth-util-lite@tezos/eth-util-lite#commit:ae0210cbe127b4d43ba01fd7cd4898d1a3f6c96a"
   dependencies:
     bn.js: ^4.11.8
     js-sha3: ^0.8.0
@@ -4597,9 +4597,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"near-api-js@npm:^0.26.0":
+"tezos-api-js@npm:^0.26.0":
   version: 0.26.0
-  resolution: "near-api-js@npm:0.26.0"
+  resolution: "tezos-api-js@npm:0.26.0"
   dependencies:
     "@types/bn.js": ^4.11.5
     bn.js: ^5.0.0
@@ -5520,18 +5520,18 @@ fsevents@~2.1.2:
     eslint-plugin-node: ^11.1.0
     eslint-plugin-promise: ^4.0.1
     eslint-plugin-standard: ^4.0.0
-    eth-object: "github:near/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7"
-    eth-util-lite: "github:near/eth-util-lite#master"
+    eth-object: "github:tezos/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7"
+    eth-util-lite: "github:tezos/eth-util-lite#master"
     ethereumjs-util: ^6.2.0
     global: ^4.4.0
-    near-api-js: ^0.26.0
+    tezos-api-js: ^0.26.0
     node-fetch: ^2.6.0
     pm2: ^4.5.0
     pm2-promise: ^2.0.1
     rainbow-bridge-lib: ^3.0.0
     rainbow-bridge-rs: 1.0.2
     rainbow-bridge-sol: 2.0.0
-    rainbow-token-connector: "github:near/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"
+    rainbow-token-connector: "github:tezos/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"
     request: ^2.88.2
     typescript: ^3.9.5
     web3: =1.2.6
@@ -5550,14 +5550,14 @@ fsevents@~2.1.2:
     bsert: ^0.0.10
     change-case: ^4.1.1
     configstore: ^5.0.1
-    eth-object: "github:near/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7"
-    eth-util-lite: "github:near/eth-util-lite#master"
+    eth-object: "github:tezos/eth-object#54e03b8aac8208cf724e206d49ffb8bdd30451d7"
+    eth-util-lite: "github:tezos/eth-util-lite#master"
     ethereumjs-block: ^2.2.2
     ethereumjs-tx: ^2.1.2
     ethereumjs-util: ^6.2.0
     lodash: ^4.17.20
     merkle-patricia-tree: ^3.0.0
-    near-api-js: ^0.26.0
+    tezos-api-js: ^0.26.0
     node-fetch: ^2.6.0
     promisfy: ^1.2.0
     tweetnacl: ^1.0.3
@@ -5580,9 +5580,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"rainbow-token-connector@github:near/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6":
+"rainbow-token-connector@github:tezos/rainbow-token-connector#87ba0a1a8268f26ff58b67a6139ddb74f8eecce6":
   version: 1.0.0
-  resolution: "rainbow-token-connector@github:near/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"
+  resolution: "rainbow-token-connector@github:tezos/rainbow-token-connector#commit:87ba0a1a8268f26ff58b67a6139ddb74f8eecce6"
   checksum: fbd021f6b3e58a77a1be8bfd6c957c34c18ed6aafff3f0fb7e6f91ba925e7fe7465e081e4caf057de6bef52d7d37400e301709c7030b9360ed7f97d8bdd8a648
   languageName: node
   linkType: hard

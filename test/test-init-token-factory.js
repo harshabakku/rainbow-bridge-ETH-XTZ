@@ -1,11 +1,11 @@
-const { nearlib } = require('rainbow-bridge-lib')
+const { tezoslib } = require('rainbow-bridge-lib')
 const {
   InitEthEd25519,
   InitEthErc20,
   InitEthLocker,
   InitEthClient,
   InitEthProver,
-  InitNearContracts,
+  InitTezosContracts,
 } = require('rainbow-bridge-lib/init')
 const { RainbowConfig } = require('rainbow-bridge-lib/config')
 const {
@@ -28,13 +28,13 @@ const LIBS_TC_SRC_DIR = path.join(
 
 async function init() {
   RainbowConfig.declareOption(
-    'near-token-factory-contract-path',
+    'tezos-token-factory-contract-path',
     'The path to the Wasm file containing the fungible contract. Note, this version of fungible contract should support minting.',
     path.join(LIBS_TC_SRC_DIR, 'res/bridge_token_factory.wasm')
   )
   RainbowConfig.declareOption(
-    'near-token-factory-init-balance',
-    'The initial balance of fungible token contract in femtoNEAR.',
+    'tezos-token-factory-init-balance',
+    'The initial balance of fungible token contract in femtoTEZOS.',
     '1000000000000000000000000000'
   )
   RainbowConfig.declareOption('eth-gas-multiplier', '', '1')
@@ -52,12 +52,12 @@ async function init() {
   RainbowConfig.declareOption(
     'eth-ed25519-abi-path',
     '',
-    path.join(LIBS_SOL_SRC_DIR, 'nearbridge/dist/Ed25519.full.abi')
+    path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/Ed25519.full.abi')
   )
   RainbowConfig.declareOption(
     'eth-ed25519-bin-path',
     '',
-    path.join(LIBS_SOL_SRC_DIR, 'nearbridge/dist/Ed25519.full.bin')
+    path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/Ed25519.full.bin')
   )
   await InitEthEd25519.execute()
   RainbowConfig.declareOption('eth-client-lock-eth-amount', '', '1e18')
@@ -65,108 +65,108 @@ async function init() {
   RainbowConfig.declareOption(
     'eth-client-abi-path',
     'Path to the .abi file defining Ethereum Client contract.',
-    path.join(LIBS_SOL_SRC_DIR, 'nearbridge/dist/NearBridge.full.abi')
+    path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/TezosBridge.full.abi')
   )
   RainbowConfig.declareOption(
     'eth-client-bin-path',
     'Path to the .bin file defining Ethereum Client contract.',
-    path.join(LIBS_SOL_SRC_DIR, 'nearbridge/dist/NearBridge.full.bin')
+    path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/TezosBridge.full.bin')
   )
   await InitEthClient.execute()
   RainbowConfig.declareOption(
     'eth-prover-abi-path',
     'Path to the .abi file defining Ethereum Prover contract.',
-    path.join(LIBS_SOL_SRC_DIR, 'nearprover/dist/NearProver.full.abi')
+    path.join(LIBS_SOL_SRC_DIR, 'tezosprover/dist/TezosProver.full.abi')
   )
   RainbowConfig.declareOption(
     'eth-prover-bin-path',
     'Path to the .bin file defining Ethereum Prover contract.',
-    path.join(LIBS_SOL_SRC_DIR, 'nearprover/dist/NearProver.full.bin')
+    path.join(LIBS_SOL_SRC_DIR, 'tezosprover/dist/TezosProver.full.bin')
   )
   await InitEthProver.execute()
   RainbowConfig.declareOption(
-    'near-token-factory-account',
+    'tezos-token-factory-account',
     '',
-    'neartokenfactory'
+    'tezostokenfactory'
   )
   RainbowConfig.declareOption(
     'eth-locker-abi-path',
-    'Path to the .abi file defining Ethereum locker contract. This contract works in pair with mintable fungible token on NEAR blockchain.',
+    'Path to the .abi file defining Ethereum locker contract. This contract works in pair with mintable fungible token on TEZOS blockchain.',
     path.join(LIBS_TC_SRC_DIR, 'res/BridgeTokenFactory.full.abi')
   )
   RainbowConfig.declareOption(
     'eth-locker-bin-path',
-    'Path to the .bin file defining Ethereum locker contract. This contract works in pair with mintable fungible token on NEAR blockchain.',
+    'Path to the .bin file defining Ethereum locker contract. This contract works in pair with mintable fungible token on TEZOS blockchain.',
     path.join(LIBS_TC_SRC_DIR, 'res/BridgeTokenFactory.full.bin')
   )
   await InitEthLocker.execute()
   RainbowConfig.declareOption(
-    'near-prover-account',
-    'The account of the Near Prover contract that can be used to accept ETH headers.',
-    'rainbow_bridge_eth_on_near_prover'
+    'tezos-prover-account',
+    'The account of the Tezos Prover contract that can be used to accept ETH headers.',
+    'rainbow_bridge_eth_on_tezos_prover'
   )
-  await InitNearContracts.execute()
+  await InitTezosContracts.execute()
   RainbowConfig.saveConfig()
 }
 
 async function testInitTokenFactory() {
   await init()
-  const masterAccount = RainbowConfig.getParam('near-master-account')
-  const masterSk = RainbowConfig.getParam('near-master-sk')
+  const masterAccount = RainbowConfig.getParam('tezos-master-account')
+  const masterSk = RainbowConfig.getParam('tezos-master-sk')
   const tokenFactoryAccount = RainbowConfig.getParam(
-    'near-token-factory-account'
+    'tezos-token-factory-account'
   )
-  let tokenSk = RainbowConfig.maybeGetParam('near-token-factory-sk')
+  let tokenSk = RainbowConfig.maybeGetParam('tezos-token-factory-sk')
   if (!tokenSk) {
     console.log(
       'Secret key for fungible token is not specified. Reusing master secret key.'
     )
     tokenSk = masterSk
-    RainbowConfig.setParam('near-token-factory-sk', tokenSk)
+    RainbowConfig.setParam('tezos-token-factory-sk', tokenSk)
   }
   const tokenContractPath = RainbowConfig.getParam(
-    'near-token-factory-contract-path'
+    'tezos-token-factory-contract-path'
   )
   const tokenInitBalance = RainbowConfig.getParam(
-    'near-token-factory-init-balance'
+    'tezos-token-factory-init-balance'
   )
-  const proverAccount = RainbowConfig.getParam('near-prover-account')
+  const proverAccount = RainbowConfig.getParam('tezos-prover-account')
 
-  const nearNodeUrl = RainbowConfig.getParam('near-node-url')
-  const nearNetworkId = RainbowConfig.getParam('near-network-id')
+  const tezosNodeUrl = RainbowConfig.getParam('tezos-node-url')
+  const tezosNetworkId = RainbowConfig.getParam('tezos-network-id')
 
-  const tokenPk = nearlib.KeyPair.fromString(tokenSk).getPublicKey()
+  const tokenPk = tezoslib.KeyPair.fromString(tokenSk).getPublicKey()
 
-  const keyStore = new nearlib.keyStores.InMemoryKeyStore()
+  const keyStore = new tezoslib.keyStores.InMemoryKeyStore()
   await keyStore.setKey(
-    nearNetworkId,
+    tezosNetworkId,
     masterAccount,
-    nearlib.KeyPair.fromString(masterSk)
+    tezoslib.KeyPair.fromString(masterSk)
   )
   await keyStore.setKey(
-    nearNetworkId,
+    tezosNetworkId,
     tokenFactoryAccount,
-    nearlib.KeyPair.fromString(tokenSk)
+    tezoslib.KeyPair.fromString(tokenSk)
   )
-  const near = await nearlib.connect({
-    nodeUrl: nearNodeUrl,
-    networkId: nearNetworkId,
+  const tezos = await tezoslib.connect({
+    nodeUrl: tezosNodeUrl,
+    networkId: tezosNetworkId,
     masterAccount: masterAccount,
     deps: { keyStore: keyStore },
   })
 
-  await verifyAccount(near, masterAccount)
+  await verifyAccount(tezos, masterAccount)
   console.log('Deploying token contract.')
   await maybeCreateAccount(
-    near,
+    tezos,
     masterAccount,
     tokenFactoryAccount,
     tokenPk,
     tokenInitBalance,
     tokenContractPath
   )
-  const tokenFactoryContract = new nearlib.Contract(
-    new nearlib.Account(near.connection, tokenFactoryAccount),
+  const tokenFactoryContract = new tezoslib.Contract(
+    new tezoslib.Account(tezos.connection, tokenFactoryAccount),
     tokenFactoryAccount,
     {
       changeMethods: ['new', 'deploy_bridge_token'],

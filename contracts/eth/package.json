@@ -1,15 +1,15 @@
 {
   "name": "rainbow-bridge-sol",
   "version": "2.0.1",
-  "description": "Solidity contracts for NEAR Rainbow Bridge",
-  "author": "Near Inc.",
+  "description": "Solidity contracts for TEZOS Rainbow Bridge",
+  "author": "Tezos Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/near/rainbow-bridge.git"
+    "url": "git+https://github.com/tezos/rainbow-bridge.git"
   },
   "license": "MIT",
   "keywords": [
-    "nearprotocol",
+    "tezosprotocol",
     "contracts",
     "decentralized",
     "blockchain",
@@ -20,7 +20,7 @@
     "build": "./build_all.sh"
   },
   "files": [
-    "nearbridge/contracts/*",
-    "nearprover/contracts/*"
+    "tezosbridge/contracts/*",
+    "tezosprover/contracts/*"
   ]
 }

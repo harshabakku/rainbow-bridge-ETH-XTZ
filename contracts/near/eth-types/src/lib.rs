@@ -253,12 +253,12 @@ impl RlpDecodable for BlockHeader {
             extra_data: serialized.val_at(12)?,
             mix_hash: serialized.val_at(13)?,
             nonce: serialized.val_at(14)?,
-            hash: Some(near_keccak256(serialized.as_raw()).into()),
+            hash: Some(tezos_keccak256(serialized.as_raw()).into()),
             partial_hash: None,
         };
 
         block_header.partial_hash = Some(
-            near_keccak256({
+            tezos_keccak256({
                 let mut stream = RlpStream::new();
                 block_header.stream_rlp(&mut stream, true);
                 stream.out().as_slice()
@@ -309,20 +309,20 @@ pub struct Receipt {
     pub logs: Vec<LogEntry>,
 }
 
-pub fn near_sha256(data: &[u8]) -> [u8; 32] {
+pub fn tezos_sha256(data: &[u8]) -> [u8; 32] {
     let mut buffer = [0u8; 32];
-    buffer.copy_from_slice(&near_sdk::env::sha256(data).as_slice());
+    buffer.copy_from_slice(&tezos_sdk::env::sha256(data).as_slice());
     buffer
 }
 
-pub fn near_keccak256(data: &[u8]) -> [u8; 32] {
+pub fn tezos_keccak256(data: &[u8]) -> [u8; 32] {
     let mut buffer = [0u8; 32];
-    buffer.copy_from_slice(&near_sdk::env::keccak256(data).as_slice());
+    buffer.copy_from_slice(&tezos_sdk::env::keccak256(data).as_slice());
     buffer
 }
 
-pub fn near_keccak512(data: &[u8]) -> [u8; 64] {
+pub fn tezos_keccak512(data: &[u8]) -> [u8; 64] {
     let mut buffer = [0u8; 64];
-    buffer.copy_from_slice(&near_sdk::env::keccak512(data).as_slice());
+    buffer.copy_from_slice(&tezos_sdk::env::keccak512(data).as_slice());
     buffer
 }

@@ -16,9 +16,9 @@ class PrepareCommand {
     env.LOCAL_CORE_SRC =
       RainbowConfig.getParam('core-src') &&
       path.resolve(RainbowConfig.getParam('core-src'))
-    env.LOCAL_NEARUP_SRC =
-      RainbowConfig.getParam('nearup-src') &&
-      path.resolve(RainbowConfig.getParam('nearup-src'))
+    env.LOCAL_TEZOSUP_SRC =
+      RainbowConfig.getParam('tezosup-src') &&
+      path.resolve(RainbowConfig.getParam('tezosup-src'))
 
     // @ts-ignore
     var prepareScript = exec(shell, { env: env })

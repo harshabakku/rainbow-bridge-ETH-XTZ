@@ -1,10 +1,10 @@
 {
-    "name": "NearProver",
+    "name": "TezosProver",
     "version": "0.0.1",
     "description": "",
     "repository": {
         "type": "git",
-        "url": "git@github.com:nearprotocol/near-bridge.git"
+        "url": "git@github.com:tezosprotocol/tezos-bridge.git"
     },
     "license": "MIT",
     "dependencies": {

@@ -10,7 +10,7 @@
             ],
             "gas_burnt": 4328442536275,
             "tokens_burnt": "4328442536275000000000",
-            "executor_id": "nearfuntoken",
+            "executor_id": "tezosfuntoken",
             "status": {
                 "SuccessValue": "AQAAAAAAAAAAAAAAAAAAAOyL4aVjA2QpLlbQESno7oqVeNfY"
             }

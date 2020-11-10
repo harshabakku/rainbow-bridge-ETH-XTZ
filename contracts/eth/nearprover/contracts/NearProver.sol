@@ -1,28 +1,28 @@
 pragma solidity ^0.6;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "../../nearbridge/contracts/INearBridge.sol";
-import "../../nearbridge/contracts/NearDecoder.sol";
+import "../../tezosbridge/contracts/ITezosBridge.sol";
+import "../../tezosbridge/contracts/TezosDecoder.sol";
 import "./ProofDecoder.sol";
-import "./INearProver.sol";
+import "./ITezosProver.sol";
 
 
-contract NearProver is INearProver {
+contract TezosProver is ITezosProver {
     using SafeMath for uint256;
     using Borsh for Borsh.Data;
-    using NearDecoder for Borsh.Data;
+    using TezosDecoder for Borsh.Data;
     using ProofDecoder for Borsh.Data;
 
-    INearBridge public bridge;
+    ITezosBridge public bridge;
 
-    constructor(INearBridge _bridge) public {
+    constructor(ITezosBridge _bridge) public {
         bridge = _bridge;
     }
 
     function proveOutcome(bytes memory proofData, uint64 blockHeight) override public view returns(bool) {
         Borsh.Data memory borshData = Borsh.from(proofData);
         ProofDecoder.FullOutcomeProof memory fullOutcomeProof = borshData.decodeFullOutcomeProof();
-        require(borshData.finished(), "NearProver: argument should be exact borsh serialization");
+        require(borshData.finished(), "TezosProver: argument should be exact borsh serialization");
 
         bytes32 hash = _computeRoot(
             fullOutcomeProof.outcome_proof.outcome_with_id.hash,
@@ -38,13 +38,13 @@ contract NearProver is INearProver {
 
         require(
             hash == fullOutcomeProof.block_header_lite.inner_lite.outcome_root,
-            "NearProver: outcome merkle proof is not valid"
+            "TezosProver: outcome merkle proof is not valid"
         );
 
         bytes32 expectedBlockMerkleRoot = bridge.blockMerkleRoots(blockHeight);
 
         require(
-            _computeRoot(fullOutcomeProof.block_header_lite.hash, fullOutcomeProof.block_proof) == expectedBlockMerkleRoot, "NearProver: block proof is not valid"
+            _computeRoot(fullOutcomeProof.block_header_lite.hash, fullOutcomeProof.block_proof) == expectedBlockMerkleRoot, "TezosProver: block proof is not valid"
         );
 
         return true;

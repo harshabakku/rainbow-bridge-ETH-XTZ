@@ -6,12 +6,12 @@ ROOT_DIR=$CI_DIR/..
 
 mkdir -p $ROOT_DIR/testdata
 cd $ROOT_DIR/testdata
-curl https://s3-us-west-1.amazonaws.com/rainbow-bridge.nearprotocol.com/test-data/near-headers.tar.gz -o near-headers.tar.gz
-tar zxf near-headers.tar.gz
+curl https://s3-us-west-1.amazonaws.com/rainbow-bridge.tezosprotocol.com/test-data/tezos-headers.tar.gz -o tezos-headers.tar.gz
+tar zxf tezos-headers.tar.gz
 
 cd $ROOT_DIR
 yarn
 
-cd $ROOT_DIR/nearbridge
+cd $ROOT_DIR/tezosbridge
 yarn
-NEAR_HEADERS_DIR=$ROOT_DIR/testdata/near-headers yarn test
+TEZOS_HEADERS_DIR=$ROOT_DIR/testdata/tezos-headers yarn test

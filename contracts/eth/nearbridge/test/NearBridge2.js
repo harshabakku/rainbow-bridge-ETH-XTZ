@@ -3,13 +3,13 @@ const { time } = require('@openzeppelin/test-helpers');
 const { borshify, borshifyInitialValidators } = require('rainbow-bridge-lib/rainbow/borsh')
 
 const Ed25519 = artifacts.require('Ed25519');
-const NearBridge = artifacts.require('NearBridge');
-const NearDecoder = artifacts.require('NearDecoder');
+const TezosBridge = artifacts.require('TezosBridge');
+const TezosDecoder = artifacts.require('TezosDecoder');
 
-contract('NearBridge2', function ([_, addr1]) {
+contract('TezosBridge2', function ([_, addr1]) {
     beforeEach(async function () {
-        this.decoder = await NearDecoder.new();
-        this.bridge = await NearBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(10), web3.utils.toBN(20));
+        this.decoder = await TezosDecoder.new();
+        this.bridge = await TezosBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(10), web3.utils.toBN(20));
         await this.bridge.deposit({ value: web3.utils.toWei('1') });
     });
 
@@ -35,8 +35,8 @@ contract('NearBridge2', function ([_, addr1]) {
 
 contract('2020-09-09 Example', function ([_, addr1]) {
    beforeEach(async function () {
-       this.decoder = await NearDecoder.new();
-       this.bridge = await NearBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(10), web3.utils.toBN(20));
+       this.decoder = await TezosDecoder.new();
+       this.bridge = await TezosBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(10), web3.utils.toBN(20));
        await this.bridge.deposit({ value: web3.utils.toWei('1') });
    });
 
@@ -63,8 +63,8 @@ contract('Add second block in first epoch should be verifiable', function ([_, a
     });
 
     it('should be ok', async function () {
-        this.decoder = await NearDecoder.new();
-        this.bridge = await NearBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(3600), web3.utils.toBN(7200));
+        this.decoder = await TezosDecoder.new();
+        this.bridge = await TezosBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(3600), web3.utils.toBN(7200));
         await this.bridge.deposit({ value: web3.utils.toWei('1') });
 
         // Get "initial validators" that will produce block 304
@@ -97,8 +97,8 @@ contract('Test adding blocks in new epoch when bps change', function ([_, addr1]
     });
 
     it('should be ok', async function () {
-        this.decoder = await NearDecoder.new();
-        this.bridge = await NearBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(3600), web3.utils.toBN(7200));
+        this.decoder = await TezosDecoder.new();
+        this.bridge = await TezosBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(3600), web3.utils.toBN(7200));
         await this.bridge.deposit({ value: web3.utils.toWei('1') });
 
         const block181 = require('./181.json');
@@ -140,8 +140,8 @@ contract('Test adding blocks in new epoch when bps change', function ([_, addr1]
     });
 
     it('should be ok', async function () {
-        this.decoder = await NearDecoder.new();
-        this.bridge = await NearBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(3600), web3.utils.toBN(7200));
+        this.decoder = await TezosDecoder.new();
+        this.bridge = await TezosBridge.new((await Ed25519.deployed()).address, web3.utils.toBN(1e18), web3.utils.toBN(3600), web3.utils.toBN(7200));
         await this.bridge.deposit({ value: web3.utils.toWei('1') });
 
         const block181 = require('./181.json');

@@ -14,7 +14,7 @@ docker run \
      --cap-add=SYS_PTRACE --security-opt seccomp=unconfined $userflag \
      -w /host/mintable-fungible-token \
      -e RUSTFLAGS='-C link-arg=-s' \
-     nearprotocol/contract-builder \
+     tezosprotocol/contract-builder \
      cargo +stable build --target wasm32-unknown-unknown --release
 
 cp $DIR/../target/wasm32-unknown-unknown/release/mintable_fungible_token.wasm $DIR/../res/

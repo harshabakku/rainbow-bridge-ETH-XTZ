@@ -1,12 +1,12 @@
 const ProcessManager = require('pm2')
-const { Near2EthRelay } = require('rainbow-bridge-lib/near2eth-relay')
+const { Tezos2EthRelay } = require('rainbow-bridge-lib/tezos2eth-relay')
 
-class DangerSubmitInvalidNearBlock {
+class DangerSubmitInvalidTezosBlock {
   static async execute() {
-    const relay = new Near2EthRelay()
+    const relay = new Tezos2EthRelay()
     await relay.initialize()
-    await relay.DANGER_submitInvalidNearBlock()
+    await relay.DANGER_submitInvalidTezosBlock()
   }
 }
 
-exports.DangerSubmitInvalidNearBlock = DangerSubmitInvalidNearBlock
+exports.DangerSubmitInvalidTezosBlock = DangerSubmitInvalidTezosBlock

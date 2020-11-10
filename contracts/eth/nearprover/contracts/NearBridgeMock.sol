@@ -1,9 +1,9 @@
 pragma solidity ^0.6;
 
-import "../../nearbridge/contracts/INearBridge.sol";
+import "../../tezosbridge/contracts/ITezosBridge.sol";
 
 
-contract NearBridgeMock is INearBridge {
+contract TezosBridgeMock is ITezosBridge {
     mapping(uint64 => bytes32) override public blockHashes;
     mapping(uint64 => bytes32) override public blockMerkleRoots;
 

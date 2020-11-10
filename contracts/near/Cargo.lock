@@ -653,7 +653,7 @@ dependencies = [
  "hex",
  "indicatif",
  "lazy_static",
- "near-sdk",
+ "tezos-sdk",
  "primal",
  "rlp",
  "rustc-hex",
@@ -672,10 +672,10 @@ dependencies = [
  "hex",
  "indicatif",
  "lazy_static",
- "near-crypto",
- "near-primitives",
- "near-runtime-standalone",
- "near-sdk",
+ "tezos-crypto",
+ "tezos-primitives",
+ "tezos-runtime-standalone",
+ "tezos-sdk",
  "rlp",
  "serde",
  "serde_json",
@@ -689,7 +689,7 @@ dependencies = [
  "borsh",
  "derive_more 0.99.8",
  "ethereum-types 0.9.2",
- "near-sdk",
+ "tezos-sdk",
  "rlp",
  "rlp-derive",
  "serde",
@@ -727,7 +727,7 @@ dependencies = [
 [[package]]
 name = "ethash"
 version = "0.4.0"
-source = "git+https://github.com/nearprotocol/rust-ethash?branch=upgrade-eth-types#d1dd3efad109498189c03957dc1cf80b4f410632"
+source = "git+https://github.com/tezosprotocol/rust-ethash?branch=upgrade-eth-types#d1dd3efad109498189c03957dc1cf80b4f410632"
 dependencies = [
  "byteorder",
  "ethereum-types 0.9.2",
@@ -1386,7 +1386,7 @@ dependencies = [
  "eth-types",
  "ethabi 12.0.0",
  "hex",
- "near-sdk",
+ "tezos-sdk",
  "rlp",
  "serde",
  "serde_json",
@@ -1454,9 +1454,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-crypto"
+name = "tezos-crypto"
 version = "0.1.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "arrayref",
  "blake2",
@@ -1478,9 +1478,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-metrics"
+name = "tezos-metrics"
 version = "0.1.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "lazy_static",
  "log 0.4.8",
@@ -1488,20 +1488,20 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-pool"
+name = "tezos-pool"
 version = "0.1.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "borsh",
- "near-crypto",
- "near-primitives",
+ "tezos-crypto",
+ "tezos-primitives",
  "rand 0.7.3",
 ]
 
 [[package]]
-name = "near-primitives"
+name = "tezos-primitives"
 version = "0.1.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "base64 0.11.0",
  "borsh",
@@ -1513,9 +1513,9 @@ dependencies = [
  "hex",
  "jemallocator",
  "lazy_static",
- "near-crypto",
- "near-rpc-error-macro 0.1.0 (git+https://github.com/nearprotocol/nearcore.git)",
- "near-vm-errors 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
+ "tezos-crypto",
+ "tezos-rpc-error-macro 0.1.0 (git+https://github.com/tezosprotocol/tezoscore.git)",
+ "tezos-vm-errors 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
  "num-rational",
  "primitive-types 0.7.2",
  "rand 0.7.3",
@@ -1530,9 +1530,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-rpc-error-core"
+name = "tezos-rpc-error-core"
 version = "0.1.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "proc-macro2 1.0.18",
  "quote 1.0.7",
@@ -1541,7 +1541,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-rpc-error-core"
+name = "tezos-rpc-error-core"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ffa8dbf8437a28ac40fcb85859ab0d0b8385013935b000c7a51ae79631dd74d9"
@@ -1554,11 +1554,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-rpc-error-macro"
+name = "tezos-rpc-error-macro"
 version = "0.1.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
- "near-rpc-error-core 0.1.0 (git+https://github.com/nearprotocol/nearcore.git)",
+ "tezos-rpc-error-core 0.1.0 (git+https://github.com/tezosprotocol/tezoscore.git)",
  "proc-macro2 1.0.18",
  "quote 1.0.7",
  "serde",
@@ -1567,12 +1567,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-rpc-error-macro"
+name = "tezos-rpc-error-macro"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c6111d713e90c7c551dee937f4a06cb9ea2672243455a4454cc7566387ba2d9"
 dependencies = [
- "near-rpc-error-core 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tezos-rpc-error-core 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "proc-macro2 1.0.18",
  "quote 1.0.7",
  "serde",
@@ -1581,27 +1581,27 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-runtime-configs"
+name = "tezos-runtime-configs"
 version = "0.1.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
- "near-primitives",
- "near-runtime-fees 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
- "near-vm-logic 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
+ "tezos-primitives",
+ "tezos-runtime-fees 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
+ "tezos-vm-logic 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
  "serde",
 ]
 
 [[package]]
-name = "near-runtime-fees"
+name = "tezos-runtime-fees"
 version = "0.9.1"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "num-rational",
  "serde",
 ]
 
 [[package]]
-name = "near-runtime-fees"
+name = "tezos-runtime-fees"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f4992274c8acb33fa1246715d3aafbce5688ae82243c779b561f8eaff1bb6f1"
@@ -1611,20 +1611,20 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-runtime-standalone"
+name = "tezos-runtime-standalone"
 version = "0.9.1"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
- "near-crypto",
- "near-pool",
- "near-primitives",
- "near-runtime-configs",
- "near-store",
+ "tezos-crypto",
+ "tezos-pool",
+ "tezos-primitives",
+ "tezos-runtime-configs",
+ "tezos-store",
  "node-runtime",
 ]
 
 [[package]]
-name = "near-sdk"
+name = "tezos-sdk"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "81319d4d44283f63467e4f02b6209297b10643c7aeb62e2ee41e0c31b43e2375"
@@ -1632,14 +1632,14 @@ dependencies = [
  "base64 0.11.0",
  "borsh",
  "bs58",
- "near-runtime-fees 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "near-sdk-macros",
- "near-vm-logic 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tezos-runtime-fees 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tezos-sdk-macros",
+ "tezos-vm-logic 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
 ]
 
 [[package]]
-name = "near-sdk-core"
+name = "tezos-sdk-core"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1f3767fc2a61e6577f1336e06d6962a6c61fc39299573b8a25696fd09ce96ffb"
@@ -1651,29 +1651,29 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-sdk-macros"
+name = "tezos-sdk-macros"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "27c06b45c56028b0e1241b2196397d449091665f3f08d543415373505df5e05f"
 dependencies = [
- "near-sdk-core",
+ "tezos-sdk-core",
  "proc-macro2 1.0.18",
  "quote 1.0.7",
  "syn 1.0.31",
 ]
 
 [[package]]
-name = "near-store"
+name = "tezos-store"
 version = "0.1.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "borsh",
  "byteorder",
  "cached",
  "derive_more 0.99.8",
  "elastic-array",
- "near-crypto",
- "near-primitives",
+ "tezos-crypto",
+ "tezos-primitives",
  "num_cpus",
  "rand 0.7.3",
  "rocksdb",
@@ -1684,43 +1684,43 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-vm-errors"
+name = "tezos-vm-errors"
 version = "0.9.1"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "borsh",
- "near-rpc-error-macro 0.1.0 (git+https://github.com/nearprotocol/nearcore.git)",
+ "tezos-rpc-error-macro 0.1.0 (git+https://github.com/tezosprotocol/tezoscore.git)",
  "serde",
 ]
 
 [[package]]
-name = "near-vm-errors"
+name = "tezos-vm-errors"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "386c2c07ef37ae52ad43860ef69c6322bbc1e610ae0c08c1d7f5ff56f4c28e6a"
 dependencies = [
  "borsh",
- "near-rpc-error-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tezos-rpc-error-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
 ]
 
 [[package]]
-name = "near-vm-logic"
+name = "tezos-vm-logic"
 version = "0.9.1"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "base64 0.11.0",
  "bs58",
  "byteorder",
- "near-runtime-fees 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
- "near-vm-errors 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
+ "tezos-runtime-fees 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
+ "tezos-vm-errors 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
  "serde",
  "sha2",
  "sha3",
 ]
 
 [[package]]
-name = "near-vm-logic"
+name = "tezos-vm-logic"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a6da6c80d3428f45248577820bfc943b8261a6f11d6721037e5c3f43484047cd"
@@ -1728,22 +1728,22 @@ dependencies = [
  "base64 0.11.0",
  "bs58",
  "byteorder",
- "near-runtime-fees 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "near-vm-errors 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tezos-runtime-fees 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tezos-vm-errors 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "sha2",
  "sha3",
 ]
 
 [[package]]
-name = "near-vm-runner"
+name = "tezos-vm-runner"
 version = "0.9.1"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "cached",
- "near-runtime-fees 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
- "near-vm-errors 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
- "near-vm-logic 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
+ "tezos-runtime-fees 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
+ "tezos-vm-errors 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
+ "tezos-vm-logic 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
  "parity-wasm",
  "pwasm-utils",
  "wasmer-runtime",
@@ -1777,22 +1777,22 @@ dependencies = [
 [[package]]
 name = "node-runtime"
 version = "0.9.0"
-source = "git+https://github.com/nearprotocol/nearcore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
+source = "git+https://github.com/tezosprotocol/tezoscore.git#06674af003f0031d1ec2dbd226c309bde5b5d200"
 dependencies = [
  "borsh",
  "byteorder",
  "cached",
  "lazy_static",
  "log 0.4.8",
- "near-crypto",
- "near-metrics",
- "near-primitives",
- "near-runtime-configs",
- "near-runtime-fees 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
- "near-store",
- "near-vm-errors 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
- "near-vm-logic 0.9.1 (git+https://github.com/nearprotocol/nearcore.git)",
- "near-vm-runner",
+ "tezos-crypto",
+ "tezos-metrics",
+ "tezos-primitives",
+ "tezos-runtime-configs",
+ "tezos-runtime-fees 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
+ "tezos-store",
+ "tezos-vm-errors 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
+ "tezos-vm-logic 0.9.1 (git+https://github.com/tezosprotocol/tezoscore.git)",
+ "tezos-vm-runner",
  "num-rational",
  "rand 0.7.3",
  "rocksdb",

@@ -58,8 +58,8 @@ func cacheSize(block uint64) uint64 {
 	return calcCacheSize(epoch)
 }
 
-// calcCacheSize calculates the cache size for epoch. The cache size grows linearly,
-// however, we always take the highest prime below the linearly growing threshold in order
+// calcCacheSize calculates the cache size for epoch. The cache size grows litezosly,
+// however, we always take the highest prime below the litezosly growing threshold in order
 // to reduce the risk of accidental regularities leading to cyclic behavior.
 func calcCacheSize(epoch int) uint64 {
 	size := cacheInitBytes + cacheGrowthBytes*uint64(epoch) - hashBytes
@@ -79,8 +79,8 @@ func datasetSize(block uint64) uint64 {
 	return calcDatasetSize(epoch)
 }
 
-// calcDatasetSize calculates the dataset size for epoch. The dataset size grows linearly,
-// however, we always take the highest prime below the linearly growing threshold in order
+// calcDatasetSize calculates the dataset size for epoch. The dataset size grows litezosly,
+// however, we always take the highest prime below the litezosly growing threshold in order
 // to reduce the risk of accidental regularities leading to cyclic behavior.
 func calcDatasetSize(epoch int) uint64 {
 	size := datasetInitBytes + datasetGrowthBytes*uint64(epoch) - mixBytes

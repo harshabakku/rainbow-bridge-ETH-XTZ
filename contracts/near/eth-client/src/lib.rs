@@ -1,8 +1,8 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 use eth_types::*;
-use near_sdk::collections::UnorderedMap;
-use near_sdk::AccountId;
-use near_sdk::{env, near_bindgen};
+use tezos_sdk::collections::UnorderedMap;
+use tezos_sdk::AccountId;
+use tezos_sdk::{env, tezos_bindgen};
 
 #[cfg(target_arch = "wasm32")]
 #[global_allocator]
@@ -29,7 +29,7 @@ impl DoubleNodeWithMerkleProof {
         let mut data = [0u8; 64];
         data[16..32].copy_from_slice(&(l.0).0);
         data[48..64].copy_from_slice(&(r.0).0);
-        Self::truncate_to_h128(near_sha256(&data).into())
+        Self::truncate_to_h128(tezos_sha256(&data).into())
     }
 
     pub fn apply_merkle_proof(&self, index: u64) -> H128 {
@@ -37,7 +37,7 @@ impl DoubleNodeWithMerkleProof {
         data[..64].copy_from_slice(&(self.dag_nodes[0].0).0);
         data[64..].copy_from_slice(&(self.dag_nodes[1].0).0);
 
-        let mut leaf = Self::truncate_to_h128(near_sha256(&data).into());
+        let mut leaf = Self::truncate_to_h128(tezos_sha256(&data).into());
 
         for i in 0..self.proof.len() {
             if (index >> i as u64) % 2 == 0 {
@@ -58,7 +58,7 @@ pub struct HeaderInfo {
     pub number: u64,
 }
 
-#[near_bindgen]
+#[tezos_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct EthClient {
     /// Whether client validates the PoW when accepting the header. Should only be set to `false`
@@ -106,7 +106,7 @@ impl Default for EthClient {
     }
 }
 
-#[near_bindgen]
+#[tezos_bindgen]
 impl EthClient {
     #[init]
     pub fn init(
@@ -413,8 +413,8 @@ impl EthClient {
                 data[32..].reverse();
                 data.into()
             },
-            near_keccak256,
-            near_keccak512,
+            tezos_keccak256,
+            tezos_keccak512,
         );
 
         (H256(pair.0), H256(pair.1))

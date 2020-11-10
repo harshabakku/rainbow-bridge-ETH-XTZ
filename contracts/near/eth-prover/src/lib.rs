@@ -1,6 +1,6 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 use eth_types::*;
-use near_sdk::{env, ext_contract, near_bindgen, PromiseOrValue};
+use tezos_sdk::{env, ext_contract, tezos_bindgen, PromiseOrValue};
 use rlp::Rlp;
 
 #[cfg(test)]
@@ -12,7 +12,7 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 type AccountId = String;
 
-#[near_bindgen]
+#[tezos_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct EthProver {
     bridge_smart_contract: AccountId,
@@ -45,7 +45,7 @@ impl Default for EthProver {
     }
 }
 
-#[near_bindgen]
+#[tezos_bindgen]
 impl EthProver {
     #[init]
     pub fn init(#[serializer(borsh)] bridge_smart_contract: AccountId) -> Self {
@@ -205,12 +205,12 @@ impl EthProver {
 
         if key_index == 0 {
             // trie root is always a hash
-            assert_eq!(near_keccak256(node), (expected_root.0).0);
+            assert_eq!(tezos_keccak256(node), (expected_root.0).0);
         } else if node.len() < 32 {
             // if rlp < 32 bytes, then it is not hashed
             assert_eq!(dec.as_raw(), (expected_root.0).0);
         } else {
-            assert_eq!(near_keccak256(node), (expected_root.0).0);
+            assert_eq!(tezos_keccak256(node), (expected_root.0).0);
         }
 
         if dec.iter().count() == 17 {

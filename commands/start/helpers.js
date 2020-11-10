@@ -1,7 +1,7 @@
 const ProcessManager = require('pm2')
 const util = require('util')
 
-const NEAR_PORT = 3030
+const TEZOS_PORT = 3030
 const GANACHE_PORT = 9545
 
 function spawnProcess(name, config) {
@@ -31,7 +31,7 @@ function spawnProcess(name, config) {
   })
 }
 
-function getLocalNearNodeURL(port = NEAR_PORT) {
+function getLocalTezosNodeURL(port = TEZOS_PORT) {
   return util.format('http://localhost:%d', port)
 }
 
@@ -39,8 +39,8 @@ function getLocalGanacheNodeURL(port = GANACHE_PORT) {
   return util.format('ws://localhost:%d', port)
 }
 
-exports.NEAR_PORT = NEAR_PORT
+exports.TEZOS_PORT = TEZOS_PORT
 exports.GANACHE_PORT = GANACHE_PORT
 exports.spawnProcess = spawnProcess
-exports.getLocalNearNodeURL = getLocalNearNodeURL
+exports.getLocalTezosNodeURL = getLocalTezosNodeURL
 exports.getLocalGanacheNodeURL = getLocalGanacheNodeURL

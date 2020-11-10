@@ -1,5 +1,4 @@
 const Web3 = require('web3')
-const tezoslib = require('tezos-api-js')
 const fetch = require('node-fetch')
 const fs = require('fs')
 const ProcessManager = require('pm2-promise')

@@ -2,7 +2,7 @@
 mod tests {
     use crate::EthProver;
     use hex::{FromHex, ToHex};
-    use near_sdk::PromiseOrValue;
+    use tezos_sdk::PromiseOrValue;
     use rlp::RlpStream;
     use serde::{Deserialize, Deserializer};
 
@@ -30,15 +30,15 @@ mod tests {
     // TESTS
 
     use borsh::BorshSerialize;
-    use near_sdk::MockedBlockchain;
-    use near_sdk::{testing_env, VMContext};
+    use tezos_sdk::MockedBlockchain;
+    use tezos_sdk::{testing_env, VMContext};
 
     fn get_context(input: Vec<u8>, is_view: bool) -> VMContext {
         VMContext {
-            current_account_id: "alice.near".to_string(),
-            signer_account_id: "bob.near".to_string(),
+            current_account_id: "alice.tezos".to_string(),
+            signer_account_id: "bob.tezos".to_string(),
             signer_account_pk: vec![0, 1, 2],
-            predecessor_account_id: "carol.near".to_string(),
+            predecessor_account_id: "carol.tezos".to_string(),
             input,
             block_index: 0,
             block_timestamp: 0,
@@ -388,7 +388,7 @@ mod tests {
     #[test]
     fn verify_dumped_log_entries() {
         use indicatif::{ProgressBar, ProgressStyle};
-        use near_sdk::VMConfig;
+        use tezos_sdk::VMConfig;
         use std::env;
         use std::fs;
 
