@@ -4,7 +4,7 @@ const fs = require('fs')
 const ProcessManager = require('pm2-promise')
 
 const { verifyAccountGently } = require('rainbow-bridge-lib/rainbow/helpers')
-const { RainbowConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('rainbow-bridge-lib/config')
 const { normalizeEthKey } = require('rainbow-bridge-lib/rainbow/robust')
 
 // Verdicts
@@ -54,24 +54,24 @@ class Status {
 class TezosContracts {
   // TODO put it into constructor if possible
   async init(tezos) {
-    const masterAccount = RainbowConfig.getParam('tezos-master-account')
+    const masterAccount = BridgeConfig.getParam('tezos-master-account')
     if (!masterAccount) {
       return
     }
     this.client = await this.checkContract(
       tezos,
       masterAccount,
-      RainbowConfig.getParam('tezos-client-account')
+      BridgeConfig.getParam('tezos-client-account')
     )
     this.prover = await this.checkContract(
       tezos,
       masterAccount,
-      RainbowConfig.getParam('tezos-prover-account')
+      BridgeConfig.getParam('tezos-prover-account')
     )
     this.funToken = await this.checkContract(
       tezos,
       masterAccount,
-      RainbowConfig.getParam('tezos-token-factory-account')
+      BridgeConfig.getParam('tezos-token-factory-account')
     )
   }
 
@@ -108,17 +108,17 @@ class TezosContracts {
 class TezosStatus {
   // TODO put it into constructor if possible
   async init() {
-    const networkId = RainbowConfig.getParam('tezos-network-id')
+    const networkId = BridgeConfig.getParam('tezos-network-id')
     this.networkLocation = networkId
       ? new Status(networkId, Info)
       : new Status(Unknown)
 
-    const masterAccount = RainbowConfig.getParam('tezos-master-account')
-    const masterKey = RainbowConfig.getParam('tezos-master-sk')
-    const clientAccount = RainbowConfig.getParam('tezos-client-account')
-    const clientKey = RainbowConfig.getParam('tezos-client-sk')
-    const proverAccount = RainbowConfig.getParam('tezos-prover-account')
-    const proverKey = RainbowConfig.getParam('tezos-prover-sk')
+    const masterAccount = BridgeConfig.getParam('tezos-master-account')
+    const masterKey = BridgeConfig.getParam('tezos-master-sk')
+    const clientAccount = BridgeConfig.getParam('tezos-client-account')
+    const clientKey = BridgeConfig.getParam('tezos-client-sk')
+    const proverAccount = BridgeConfig.getParam('tezos-prover-account')
+    const proverKey = BridgeConfig.getParam('tezos-prover-sk')
 
     // Init with basic data
     this.masterAccount = masterAccount
@@ -140,7 +140,7 @@ class TezosStatus {
       ? new Status(proverKey, Info)
       : new Status(Unknown, Info, UsingMaster)
 
-    const url = RainbowConfig.getParam('tezos-node-url')
+    const url = BridgeConfig.getParam('tezos-node-url')
     if (url) {
       const [verdict, explanation, lastBlock] = await request(url + '/status')
       this.networkConnection = new Status(url, verdict, explanation)
@@ -216,28 +216,28 @@ class EthContracts {
   async init(web3) {
     this.ed25519 = await this.checkContract(
       web3,
-      RainbowConfig.getParam('eth-ed25519-abi-path'),
-      RainbowConfig.getParam('eth-ed25519-address')
+      BridgeConfig.getParam('eth-ed25519-abi-path'),
+      BridgeConfig.getParam('eth-ed25519-address')
     )
     this.erc20 = await this.checkContract(
       web3,
-      RainbowConfig.getParam('eth-erc20-abi-path'),
-      RainbowConfig.getParam('eth-erc20-address')
+      BridgeConfig.getParam('eth-erc20-abi-path'),
+      BridgeConfig.getParam('eth-erc20-address')
     )
     this.locker = await this.checkContract(
       web3,
-      RainbowConfig.getParam('eth-locker-abi-path'),
-      RainbowConfig.getParam('eth-locker-address')
+      BridgeConfig.getParam('eth-locker-abi-path'),
+      BridgeConfig.getParam('eth-locker-address')
     )
     this.client = await this.checkContract(
       web3,
-      RainbowConfig.getParam('eth-client-abi-path'),
-      RainbowConfig.getParam('eth-client-address')
+      BridgeConfig.getParam('eth-client-abi-path'),
+      BridgeConfig.getParam('eth-client-address')
     )
     this.prover = await this.checkContract(
       web3,
-      RainbowConfig.getParam('eth-prover-abi-path'),
-      RainbowConfig.getParam('eth-prover-address')
+      BridgeConfig.getParam('eth-prover-abi-path'),
+      BridgeConfig.getParam('eth-prover-address')
     )
   }
 
@@ -266,9 +266,9 @@ class EthContracts {
 class EthStatus {
   // TODO put it into constructor if possible
   async init() {
-    const url = RainbowConfig.getParam('eth-node-url')
+    const url = BridgeConfig.getParam('eth-node-url')
 
-    const masterKey = RainbowConfig.getParam('eth-master-sk')
+    const masterKey = BridgeConfig.getParam('eth-master-sk')
 
     // Init with basic data
     this.masterAccount = new Status(Unknown, Info, NotVerified)

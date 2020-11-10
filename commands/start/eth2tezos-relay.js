@@ -4,7 +4,7 @@ const { Eth2TezosRelay } = require('../../lib/eth2tezos-relay')
 // const {
 //   EthOnTezosClientContract,
 // } = require('rainbow-bridge-lib/eth-on-tezos-client')
-const { RainbowConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('rainbow-bridge-lib/config')
 const path = require('path')
 const os = require('os')
 const { TezosToolkit } = require("@taquito/taquito")
@@ -13,7 +13,7 @@ const BigNumber = require('bignumber.js');
 
 class StartEth2TezosRelayCommand {
   static async execute() {
-    // if (RainbowConfig.getParam('daemon') === 'true') {
+    // if (BridgeConfig.getParam('daemon') === 'true') {
     //   console.log("rainbow config param daemon true ")
     //   ProcessManager.connect((err) => {
     //     if (err) {
@@ -28,7 +28,7 @@ class StartEth2TezosRelayCommand {
     //       interpreter: 'node',
     //       error_file: '~/.rainbow/logs/eth2tezos-relay/err.log',
     //       out_file: '~/.rainbow/logs/eth2tezos-relay/out.log',
-    //       args: ['start', 'eth2tezos-relay', ...RainbowConfig.getArgsNoDaemon()],
+    //       args: ['start', 'eth2tezos-relay', ...BridgeConfig.getArgsNoDaemon()],
     //       wait_ready: true,
     //       kill_timeout: 60000,
     //       logDateFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
@@ -39,17 +39,17 @@ class StartEth2TezosRelayCommand {
 
       // Below are tezos node details that should be replaced with tezos node details 
       
-      // const masterAccount = RainbowConfig.getParam('tezos-master-account')
-      // const masterSk = RainbowConfig.getParam('tezos-master-sk')
+      // const masterAccount = BridgeConfig.getParam('tezos-master-account')
+      // const masterSk = BridgeConfig.getParam('tezos-master-sk')
       // const keyStore = new tezoslib.keyStores.InMemoryKeyStore()
       // await keyStore.setKey(
-        //   RainbowConfig.getParam('tezos-network-id'),
+        //   BridgeConfig.getParam('tezos-network-id'),
         //   masterAccount,
         //   tezoslib.KeyPair.fromString(masterSk)
         // )
         // const tezos = await tezoslib.connect({
-          //   nodeUrl: RainbowConfig.getParam('tezos-node-url'),
-          //   networkId: RainbowConfig.getParam('tezos-network-id'),
+          //   nodeUrl: BridgeConfig.getParam('tezos-node-url'),
+          //   networkId: BridgeConfig.getParam('tezos-network-id'),
           //   masterAccount: masterAccount,
           //   deps: {
             //     keyStore: keyStore,
@@ -61,7 +61,7 @@ class StartEth2TezosRelayCommand {
             
             // const clientContract = new EthOnTezosClientContract(
               //   new tezoslib.Account(tezos.connection, masterAccount),
-              //   RainbowConfig.getParam('tezos-client-account')
+              //   BridgeConfig.getParam('tezos-client-account')
               // )
               // await clientContract.accessKeyInit()
       
@@ -90,7 +90,7 @@ class StartEth2TezosRelayCommand {
 
     const clientContract = null;
       console.log('Initializing eth2tezos-relay...')
-      relay.initialize(clientContract, RainbowConfig.getParam('eth-node-url'))
+      relay.initialize(clientContract, BridgeConfig.getParam('eth-node-url'))
       console.log('Starting eth2tezos-relay...')
       await relay.run()
     }

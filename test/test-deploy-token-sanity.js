@@ -1,6 +1,6 @@
 const Web3 = require('web3')
 const { tezoslib } = require('rainbow-bridge-lib')
-const { RainbowConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('rainbow-bridge-lib/config')
 const { BN } = require('ethereumjs-util')
 const fs = require('fs')
 const path = require('path')
@@ -19,95 +19,95 @@ const LIBS_TC_SRC_DIR = path.join(
 )
 
 async function init() {
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'tezos-token-factory-contract-path',
     'The path to the Wasm file containing the fungible contract. Note, this version of fungible contract should support minting.',
     path.join(LIBS_TC_SRC_DIR, 'res/bridge_token_factory.wasm')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'tezos-token-factory-init-balance',
     'The initial balance of fungible token contract in femtoTEZOS.',
     '1000000000000000000000000000'
   )
-  RainbowConfig.declareOption('eth-gas-multiplier', '', '1')
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption('eth-gas-multiplier', '', '1')
+  BridgeConfig.declareOption(
     'eth-erc20-abi-path',
     'Path to the .abi file defining Ethereum ERC20 contract.',
     path.join(LIBS_TC_SRC_DIR, 'res/TToken.full.abi')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'eth-erc20-bin-path',
     'Path to the .bin file defining Ethereum ERC20 contract.',
     path.join(LIBS_TC_SRC_DIR, 'res/TToken.full.bin')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'eth-ed25519-abi-path',
     '',
     path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/Ed25519.full.abi')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'eth-ed25519-bin-path',
     '',
     path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/Ed25519.full.bin')
   )
-  RainbowConfig.declareOption('eth-client-lock-eth-amount', '', '1e18')
-  RainbowConfig.declareOption('eth-client-lock-duration', '', '30')
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption('eth-client-lock-eth-amount', '', '1e18')
+  BridgeConfig.declareOption('eth-client-lock-duration', '', '30')
+  BridgeConfig.declareOption(
     'eth-client-abi-path',
     'Path to the .abi file defining Ethereum Client contract.',
     path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/TezosBridge.full.abi')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'eth-client-bin-path',
     'Path to the .bin file defining Ethereum Client contract.',
     path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/TezosBridge.full.bin')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'eth-prover-abi-path',
     'Path to the .abi file defining Ethereum Prover contract.',
     path.join(LIBS_SOL_SRC_DIR, 'tezosprover/dist/TezosProver.full.abi')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'eth-prover-bin-path',
     'Path to the .bin file defining Ethereum Prover contract.',
     path.join(LIBS_SOL_SRC_DIR, 'tezosprover/dist/TezosProver.full.bin')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'tezos-token-factory-account',
     '',
     'tezostokenfactory'
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'eth-locker-abi-path',
     'Path to the .abi file defining Ethereum locker contract. This contract works in pair with mintable fungible token on TEZOS blockchain.',
     path.join(LIBS_TC_SRC_DIR, 'res/BridgeTokenFactory.full.abi')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'eth-locker-bin-path',
     'Path to the .bin file defining Ethereum locker contract. This contract works in pair with mintable fungible token on TEZOS blockchain.',
     path.join(LIBS_TC_SRC_DIR, 'res/BridgeTokenFactory.full.bin')
   )
-  RainbowConfig.declareOption(
+  BridgeConfig.declareOption(
     'tezos-prover-account',
     'The account of the Tezos Prover contract that can be used to accept ETH headers.',
     'rainbow_bridge_eth_on_tezos_prover'
   )
-  RainbowConfig.saveConfig()
+  BridgeConfig.saveConfig()
 }
 
 async function testDeployToken() {
   await init()
 
-  const web3 = new Web3(RainbowConfig.getParam('eth-node-url'))
+  const web3 = new Web3(BridgeConfig.getParam('eth-node-url'))
   let ethMasterAccount = web3.eth.accounts.privateKeyToAccount(
-    normalizeEthKey(RainbowConfig.getParam('eth-master-sk'))
+    normalizeEthKey(BridgeConfig.getParam('eth-master-sk'))
   )
   web3.eth.accounts.wallet.add(ethMasterAccount)
   web3.eth.defaultAccount = ethMasterAccount.address
   ethMasterAccount = ethMasterAccount.address
 
   // use default ERC20 ABI
-  const abiPath = RainbowConfig.getParam('eth-erc20-abi-path')
+  const abiPath = BridgeConfig.getParam('eth-erc20-abi-path')
   const binPath = './MyERC20.full.bin'
 
   const tokenContract = new web3.eth.Contract(
@@ -122,7 +122,7 @@ async function testDeployToken() {
       from: ethMasterAccount,
       gas: 3000000,
       gasPrice: new BN(await web3.eth.getGasPrice()).mul(
-        new BN(RainbowConfig.getParam('eth-gas-multiplier'))
+        new BN(BridgeConfig.getParam('eth-gas-multiplier'))
       ),
     })
 
@@ -134,11 +134,11 @@ async function testDeployToken() {
 
   console.log(
     'tezos-myerc20-account set to ' +
-      RainbowConfig.getParam('tezos-myerc20-account')
+      BridgeConfig.getParam('tezos-myerc20-account')
   )
   console.log(
     'eth-myerc20-address set to ' +
-      RainbowConfig.getParam('eth-myerc20-address')
+      BridgeConfig.getParam('eth-myerc20-address')
   )
 }
 

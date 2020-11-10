@@ -27,7 +27,7 @@ const {
 } = require('rainbow-bridge-lib/transfer-eth-erc20')
 const { ETHDump } = require('./commands/eth-dump')
 const { TezosDump } = require('rainbow-bridge-lib/rainbow/tezos-dump')
-const { RainbowConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('rainbow-bridge-lib/config')
 const {
   InitTezosContracts,
   InitTezosTokenFactory,
@@ -53,233 +53,233 @@ const LIBS_TC_SRC_DIR = path.join(
   'node_modules/rainbow-token-connector'
 )
 
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-network-id',
   'The identifier of the TEZOS network that the given TEZOS node is expected to represent.'
 )
-RainbowConfig.declareOption('tezos-node-url', 'The URL of the TEZOS node.')
-RainbowConfig.declareOption('eth-node-url', 'The URL of the Ethereum node.')
-RainbowConfig.declareOption(
+BridgeConfig.declareOption('tezos-node-url', 'The URL of the TEZOS node.')
+BridgeConfig.declareOption('eth-node-url', 'The URL of the Ethereum node.')
+BridgeConfig.declareOption(
   'tezos-master-account',
   'The account of the master account on TEZOS blockchain that can be used to deploy and initialize the test contracts.' +
     ' This account will also own the initial supply of the fungible tokens.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-master-sk',
   'The secret key of the master account on TEZOS blockchain.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-master-sk',
   'The secret key of the master account on Ethereum blockchain.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-client-account',
   'The account of the Tezos Client contract that can be used to accept ETH headers.',
   'rainbow_bridge_eth_on_tezos_client'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-client-sk',
   'The secret key of the Tezos Client account. If not specified will use master SK.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-client-contract-path',
   'The path to the Wasm file containing the Tezos Client contract.',
   path.join(LIBS_RS_SRC_DIR, 'res/eth_client.wasm')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-client-init-balance',
   'The initial balance of Tezos Client contract in femtoTEZOS.',
   '100000000000000000000000000'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-client-validate-ethash',
   'Whether validate ethash of submitted eth block, should set to true on mainnet and false on PoA testnets',
   'true'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-client-trusted-signer',
   'When non empty, deploy as trusted-signer mode where only tursted signer can submit blocks to client',
   ''
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-prover-account',
   'The account of the Tezos Prover contract that can be used to accept ETH headers.',
   'rainbow_bridge_eth_on_tezos_prover'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-prover-sk',
   'The secret key of the Tezos Prover account. If not specified will use master SK.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-prover-contract-path',
   'The path to the Wasm file containing the Tezos Prover contract.',
   path.join(LIBS_RS_SRC_DIR, 'res/eth_prover.wasm')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-prover-init-balance',
   'The initial balance of Tezos Prover contract in femtoTEZOS.',
   '100000000000000000000000000'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'daemon',
   'Whether the process should be launched as a daemon.',
   'true',
   true
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'core-src',
   'Path to the tezoscore source. It will be downloaded if not provided.',
   ''
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezosup-src',
   'Path to the tezosup source. It will be downloaded if not provided.',
   ''
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-gas-multiplier',
   'How many times more in Ethereum gas are we willing to overpay.',
   '1'
 )
 
 // User-specific arguments.
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-token-factory-account',
   'The account of the token factory contract that will be used to mint tokens locked on Ethereum.',
   'tezostokenfactory'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-token-factory-sk',
   'The secret key of the token factory account. If not specified will use master SK.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-token-factory-contract-path',
   'The path to the Wasm file containing the token factory contract.',
   path.join(LIBS_TC_SRC_DIR, 'res/bridge_token_factory.wasm')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos-token-factory-init-balance',
   'The initial balance of token factory contract in yoctoTEZOS.',
   '1000000000000000000000000000'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-locker-address',
   'ETH address of the locker contract.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-locker-abi-path',
   'Path to the .abi file defining Ethereum locker contract. This contract works in pair with mintable fungible token on TEZOS blockchain.',
   path.join(LIBS_TC_SRC_DIR, 'res/BridgeTokenFactory.full.abi')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-locker-bin-path',
   'Path to the .bin file defining Ethereum locker contract. This contract works in pair with mintable fungible token on TEZOS blockchain.',
   path.join(LIBS_TC_SRC_DIR, 'res/BridgeTokenFactory.full.bin')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-erc20-address',
   'ETH address of the ERC20 contract.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-erc20-abi-path',
   'Path to the .abi file defining Ethereum ERC20 contract.',
   path.join(LIBS_TC_SRC_DIR, 'res/TToken.full.abi')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-erc20-bin-path',
   'Path to the .bin file defining Ethereum ERC20 contract.',
   path.join(LIBS_TC_SRC_DIR, 'res/TToken.full.bin')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-ed25519-address',
   'ETH address of the ED25519 contract.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-ed25519-abi-path',
   'Path to the .abi file defining Ethereum ED25519 contract.',
   path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/Ed25519.full.abi')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-ed25519-bin-path',
   'Path to the .bin file defining Ethereum ED25519 contract.',
   path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/Ed25519.full.bin')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-client-lock-eth-amount',
   'Amount of Ether that should be temporarily locked when submitting a new header to EthClient, in wei.',
   '100000000000000000000'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-client-lock-duration',
   'The challenge window during which anyone can challenge an incorrect ED25519 signature of the Tezos block, in EthClient, in seconds.',
   14400
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-client-replace-duration',
   'Minimum time difference required to replace a block during challenge period, in EthClient, in seconds.',
   18000
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-client-address',
   'ETH address of the EthClient contract.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-client-abi-path',
   'Path to the .abi file defining Ethereum Client contract.',
   path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/TezosBridge.full.abi')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-client-bin-path',
   'Path to the .bin file defining Ethereum Client contract.',
   path.join(LIBS_SOL_SRC_DIR, 'tezosbridge/dist/TezosBridge.full.bin')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-prover-address',
   'ETH address of the EthProver contract.'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-prover-abi-path',
   'Path to the .abi file defining Ethereum Prover contract.',
   path.join(LIBS_SOL_SRC_DIR, 'tezosprover/dist/TezosProver.full.abi')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'eth-prover-bin-path',
   'Path to the .bin file defining Ethereum Prover contract.',
   path.join(LIBS_SOL_SRC_DIR, 'tezosprover/dist/TezosProver.full.bin')
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos2eth-relay-min-delay',
   'Minimum number of seconds to wait if the relay can\'t submit a block right away.',
   '1'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos2eth-relay-max-delay',
   'Maximum number of seconds to wait if the relay can\'t submit a block right away.',
   '600'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'tezos2eth-relay-error-delay',
   'Number of seconds to wait before retrying if there is an error.',
   '1'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'watchdog-delay',
   'Number of seconds to wait after validating all signatures.',
   '300'
 )
-RainbowConfig.declareOption(
+BridgeConfig.declareOption(
   'watchdog-error-delay',
   'Number of seconds to wait before retrying if there is an error.',
   '1'
 )
-RainbowConfig.declareOption('tezos-erc20-account', 'Must be declared before set')
+BridgeConfig.declareOption('tezos-erc20-account', 'Must be declared before set')
 
 program.version('0.1.0')
 
 // General-purpose commands.
 program.command('clean').action(CleanCommand.execute)
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program.command('prepare').action(PrepareCommand.execute),
   ['core-src', 'tezosup-src']
 )
@@ -292,12 +292,12 @@ const startCommand = program.command('start')
 
 startCommand.command('tezos-node').action(StartLocalTezosNodeCommand.execute)
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   startCommand.command('ganache').action(StartGanacheNodeCommand.execute),
   ['daemon']
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   startCommand
     .command('eth2tezos-relay')
     .action(StartEth2TezosRelayCommand.execute),
@@ -311,7 +311,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   startCommand
     .command('tezos2eth-relay')
     .action(StartTezos2EthRelayCommand.execute),
@@ -330,7 +330,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   startCommand.command('bridge-watchdog').action(StartWatchdogCommand.execute),
   [
     'eth-node-url',
@@ -356,7 +356,7 @@ stopCommand.command('tezos2eth-relay').action(StopManagedProcessCommand.execute)
 
 stopCommand.command('bridge-watchdog').action(StopManagedProcessCommand.execute)
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('init-tezos-contracts')
     .description(
@@ -382,7 +382,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('init-eth-ed25519')
     .description(
@@ -398,7 +398,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('init-eth-client')
     .description('Deploys and initializes EthClient.')
@@ -416,7 +416,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('init-eth-prover')
     .description('Deploys and initializes EthProver.')
@@ -433,7 +433,7 @@ RainbowConfig.addOptions(
 
 // User commands.
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('init-tezos-token-factory')
     .description(
@@ -449,7 +449,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('deploy-token <token_name> <token_address>')
     .description('Deploys and initializes token on TEZOS.')
@@ -457,7 +457,7 @@ RainbowConfig.addOptions(
   ['tezos-token-factory-account']
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('init-eth-locker')
     .description(
@@ -476,7 +476,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('init-eth-erc20')
     .description(
@@ -492,7 +492,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('transfer-eth-erc20-to-tezos')
     .action(TransferETHERC20ToTezos.execute)
@@ -525,7 +525,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('transfer-eth-erc20-from-tezos')
     .action(TransferEthERC20FromTezos.execute)
@@ -571,7 +571,7 @@ const dangerCommand = program
     'Dangerous commands that should only be used for testing purpose.'
   )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   dangerCommand
     .command('submit_invalid_tezos_block')
     .description(
@@ -592,7 +592,7 @@ RainbowConfig.addOptions(
   ]
 )
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   dangerCommand
     .command('deploy_test_erc20')
     .description('Deploys MyERC20')
@@ -619,7 +619,7 @@ program
   )
   .action(ETHDump.execute)
 
-RainbowConfig.addOptions(
+BridgeConfig.addOptions(
   program
     .command('tezos-dump <kind_of_data>')
     .option('--path <path>', 'Dir path to dump tezos data')

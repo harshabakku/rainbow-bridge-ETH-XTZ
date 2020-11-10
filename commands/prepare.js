@@ -1,6 +1,6 @@
 const { exec } = require('child_process')
 const path = require('path')
-const { RainbowConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('rainbow-bridge-lib/config')
 
 class PrepareCommand {
   static execute() {
@@ -14,11 +14,11 @@ class PrepareCommand {
     }
 
     env.LOCAL_CORE_SRC =
-      RainbowConfig.getParam('core-src') &&
-      path.resolve(RainbowConfig.getParam('core-src'))
+      BridgeConfig.getParam('core-src') &&
+      path.resolve(BridgeConfig.getParam('core-src'))
     env.LOCAL_TEZOSUP_SRC =
-      RainbowConfig.getParam('tezosup-src') &&
-      path.resolve(RainbowConfig.getParam('tezosup-src'))
+      BridgeConfig.getParam('tezosup-src') &&
+      path.resolve(BridgeConfig.getParam('tezosup-src'))
 
     // @ts-ignore
     var prepareScript = exec(shell, { env: env })

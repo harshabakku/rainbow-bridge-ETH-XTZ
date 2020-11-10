@@ -1,21 +1,21 @@
 const Web3 = require('web3')
-const { RainbowConfig } = require('rainbow-bridge-lib/config')
+const { BridgeConfig } = require('rainbow-bridge-lib/config')
 const { BN } = require('ethereumjs-util')
 const fs = require('fs')
 const { normalizeEthKey } = require('rainbow-bridge-lib/rainbow/robust')
 
 class DangerDeployMyERC20 {
   static async execute() {
-    const web3 = new Web3(RainbowConfig.getParam('eth-node-url'))
+    const web3 = new Web3(BridgeConfig.getParam('eth-node-url'))
     let ethMasterAccount = web3.eth.accounts.privateKeyToAccount(
-      normalizeEthKey(RainbowConfig.getParam('eth-master-sk'))
+      normalizeEthKey(BridgeConfig.getParam('eth-master-sk'))
     )
     web3.eth.accounts.wallet.add(ethMasterAccount)
     web3.eth.defaultAccount = ethMasterAccount.address
     ethMasterAccount = ethMasterAccount.address
 
     // use default ERC20 ABI
-    const abiPath = RainbowConfig.getParam('eth-erc20-abi-path')
+    const abiPath = BridgeConfig.getParam('eth-erc20-abi-path')
     const binPath = './test/MyERC20.full.bin'
 
     const tokenContract = new web3.eth.Contract(
@@ -30,7 +30,7 @@ class DangerDeployMyERC20 {
         from: ethMasterAccount,
         gas: 3000000,
         gasPrice: new BN(await web3.eth.getGasPrice()).mul(
-          new BN(RainbowConfig.getParam('eth-gas-multiplier'))
+          new BN(BridgeConfig.getParam('eth-gas-multiplier'))
         ),
       })
 
