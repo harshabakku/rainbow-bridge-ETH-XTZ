@@ -1,5 +1,5 @@
 const Web3 = require('web3')
-const nearlib = require('near-api-js')
+const tezoslib = require('tezos-api-js')
 const fetch = require('node-fetch')
 const fs = require('fs')
 const ProcessManager = require('pm2-promise')
@@ -52,41 +52,41 @@ class Status {
   }
 }
 
-class NearContracts {
+class TezosContracts {
   // TODO put it into constructor if possible
-  async init(near) {
-    const masterAccount = RainbowConfig.getParam('near-master-account')
+  async init(tezos) {
+    const masterAccount = RainbowConfig.getParam('tezos-master-account')
     if (!masterAccount) {
       return
     }
     this.client = await this.checkContract(
-      near,
+      tezos,
       masterAccount,
-      RainbowConfig.getParam('near-client-account')
+      RainbowConfig.getParam('tezos-client-account')
     )
     this.prover = await this.checkContract(
-      near,
+      tezos,
       masterAccount,
-      RainbowConfig.getParam('near-prover-account')
+      RainbowConfig.getParam('tezos-prover-account')
     )
     this.funToken = await this.checkContract(
-      near,
+      tezos,
       masterAccount,
-      RainbowConfig.getParam('near-token-factory-account')
+      RainbowConfig.getParam('tezos-token-factory-account')
     )
   }
 
-  async checkContract(near, masterAccount, contractAccount) {
+  async checkContract(tezos, masterAccount, contractAccount) {
     if (!contractAccount) {
       return new Status(Unknown, Error, ContractNotFound)
     }
     try {
-      const nearAccount = new nearlib.Account(near.connection, masterAccount)
-      const contract = new nearlib.Contract(nearAccount, contractAccount, {
+      const tezosAccount = new tezoslib.Account(tezos.connection, masterAccount)
+      const contract = new tezoslib.Contract(tezosAccount, contractAccount, {
         changeMethods: ['boo'],
         viewMethods: [],
       })
-      // TODO #270 implement `initialized` method to NEAR contracts
+      // TODO #270 implement `initialized` method to TEZOS contracts
       // TODO #257 check the code deployed if possible
       try {
         await contract.boo()
@@ -106,20 +106,20 @@ class NearContracts {
   }
 }
 
-class NearStatus {
+class TezosStatus {
   // TODO put it into constructor if possible
   async init() {
-    const networkId = RainbowConfig.getParam('near-network-id')
+    const networkId = RainbowConfig.getParam('tezos-network-id')
     this.networkLocation = networkId
       ? new Status(networkId, Info)
       : new Status(Unknown)
 
-    const masterAccount = RainbowConfig.getParam('near-master-account')
-    const masterKey = RainbowConfig.getParam('near-master-sk')
-    const clientAccount = RainbowConfig.getParam('near-client-account')
-    const clientKey = RainbowConfig.getParam('near-client-sk')
-    const proverAccount = RainbowConfig.getParam('near-prover-account')
-    const proverKey = RainbowConfig.getParam('near-prover-sk')
+    const masterAccount = RainbowConfig.getParam('tezos-master-account')
+    const masterKey = RainbowConfig.getParam('tezos-master-sk')
+    const clientAccount = RainbowConfig.getParam('tezos-client-account')
+    const clientKey = RainbowConfig.getParam('tezos-client-sk')
+    const proverAccount = RainbowConfig.getParam('tezos-prover-account')
+    const proverKey = RainbowConfig.getParam('tezos-prover-sk')
 
     // Init with basic data
     this.masterAccount = masterAccount
@@ -141,35 +141,35 @@ class NearStatus {
       ? new Status(proverKey, Info)
       : new Status(Unknown, Info, UsingMaster)
 
-    const url = RainbowConfig.getParam('near-node-url')
+    const url = RainbowConfig.getParam('tezos-node-url')
     if (url) {
       const [verdict, explanation, lastBlock] = await request(url + '/status')
       this.networkConnection = new Status(url, verdict, explanation)
       this.networkLastBlock = new Status(lastBlock, verdict)
       if (verdict === Ok) {
-        // Connected to NEAR node
+        // Connected to TEZOS node
         if (masterAccount && masterKey) {
-          const keyStore = new nearlib.keyStores.InMemoryKeyStore()
+          const keyStore = new tezoslib.keyStores.InMemoryKeyStore()
           await keyStore.setKey(
             networkId,
             masterAccount,
-            nearlib.KeyPair.fromString(masterKey)
+            tezoslib.KeyPair.fromString(masterKey)
           )
           if (clientAccount && clientKey) {
             await keyStore.setKey(
               networkId,
               clientAccount,
-              nearlib.KeyPair.fromString(clientKey)
+              tezoslib.KeyPair.fromString(clientKey)
             )
           }
           if (proverAccount && proverKey) {
             await keyStore.setKey(
               networkId,
               proverAccount,
-              nearlib.KeyPair.fromString(proverKey)
+              tezoslib.KeyPair.fromString(proverKey)
             )
           }
-          const near = await nearlib.connect({
+          const tezos = await tezoslib.connect({
             nodeUrl: url,
             networkId,
             masterAccount: masterAccount,
@@ -177,13 +177,13 @@ class NearStatus {
               keyStore: keyStore,
             },
           })
-          this.masterAccount = (await verifyAccountGently(near, masterAccount))
+          this.masterAccount = (await verifyAccountGently(tezos, masterAccount))
             ? new Status(masterAccount, Ok, Valid)
             : new Status(masterAccount, Error, Invalid)
           this.masterKey.verdict = this.masterAccount.verdict
           if (clientAccount && clientKey) {
             this.clientAccount = (await verifyAccountGently(
-              near,
+              tezos,
               clientAccount
             ))
               ? new Status(clientAccount, Ok, Valid)
@@ -192,7 +192,7 @@ class NearStatus {
           }
           if (proverAccount && proverKey) {
             this.proverAccount = (await verifyAccountGently(
-              near,
+              tezos,
               proverAccount
             ))
               ? new Status(proverAccount, Ok, Valid)
@@ -200,9 +200,9 @@ class NearStatus {
             this.proverKey.verdict = this.proverAccount.verdict
           }
 
-          const nearContracts = new NearContracts()
-          await nearContracts.init(near)
-          this.contracts = nearContracts
+          const tezosContracts = new TezosContracts()
+          await tezosContracts.init(tezos)
+          this.contracts = tezosContracts
         }
       }
     } else {
@@ -331,8 +331,8 @@ class EthStatus {
 
 class ServicesStatus {
   async init() {
-    this.eth2nearRelay = await this.running('eth2near-relay')
-    this.near2ethRelay = await this.running('near2eth-relay')
+    this.eth2tezosRelay = await this.running('eth2tezos-relay')
+    this.tezos2ethRelay = await this.running('tezos2eth-relay')
     this.watchdog = await this.running('bridge-watchdog')
   }
 
@@ -408,8 +408,8 @@ class StatusCommand {
     // A cool hack to avoid annoying Web3 printing to stderr
     console.error = function () {}
 
-    const nearStatus = new NearStatus()
-    await nearStatus.init()
+    const tezosStatus = new TezosStatus()
+    await tezosStatus.init()
 
     const ethStatus = new EthStatus()
     await ethStatus.init()
@@ -420,29 +420,29 @@ class StatusCommand {
     // Return console.error back
     console.error = consoleError
 
-    printHeader('NEAR node status')
-    printLine('Location', nearStatus.networkLocation)
-    printLine('Connection', nearStatus.networkConnection)
-    printLine('Latest block height', nearStatus.networkLastBlock)
-    printLine('Bridge master account', nearStatus.masterAccount)
-    printLine('Master account secret key', nearStatus.masterKey)
+    printHeader('TEZOS node status')
+    printLine('Location', tezosStatus.networkLocation)
+    printLine('Connection', tezosStatus.networkConnection)
+    printLine('Latest block height', tezosStatus.networkLastBlock)
+    printLine('Bridge master account', tezosStatus.masterAccount)
+    printLine('Master account secret key', tezosStatus.masterKey)
     printLine(
       'Account used for Client contract deployment',
-      nearStatus.clientAccount
+      tezosStatus.clientAccount
     )
-    printLine('Client account secret key', nearStatus.clientKey)
+    printLine('Client account secret key', tezosStatus.clientKey)
     printLine(
       'Account used for Prover contract deployment',
-      nearStatus.proverAccount
+      tezosStatus.proverAccount
     )
-    printLine('Prover account secret key', nearStatus.proverKey)
+    printLine('Prover account secret key', tezosStatus.proverKey)
     printFooter()
 
-    printHeader('NEAR contracts status')
-    if (nearStatus.contracts) {
-      printLine('fungible token', nearStatus.contracts.funToken)
-      printLine('client', nearStatus.contracts.client)
-      printLine('prover', nearStatus.contracts.prover)
+    printHeader('TEZOS contracts status')
+    if (tezosStatus.contracts) {
+      printLine('fungible token', tezosStatus.contracts.funToken)
+      printLine('client', tezosStatus.contracts.client)
+      printLine('prover', tezosStatus.contracts.prover)
     } else {
       printLine('Contracts')
     }
@@ -469,8 +469,8 @@ class StatusCommand {
     printFooter()
 
     printHeader('Services')
-    printLine('ETH-2-NEAR relay', servicesStatus.eth2nearRelay)
-    printLine('NEAR-2-ETH relay', servicesStatus.near2ethRelay)
+    printLine('ETH-2-TEZOS relay', servicesStatus.eth2tezosRelay)
+    printLine('TEZOS-2-ETH relay', servicesStatus.tezos2ethRelay)
     printLine('Bridge Watchdog', servicesStatus.watchdog)
 
     ProcessManager.disconnect()

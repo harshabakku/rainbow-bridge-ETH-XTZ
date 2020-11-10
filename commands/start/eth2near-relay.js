@@ -1,10 +1,10 @@
 const ProcessManager = require('pm2')
-const nearlib = require('near-api-js')
+const tezoslib = require('tezos-api-js')
 const { spawnProcess } = require('./helpers')
-const { Eth2NearRelay } = require('../../lib/eth2near-relay')
+const { Eth2TezosRelay } = require('../../lib/eth2tezos-relay')
 const {
-  EthOnNearClientContract,
-} = require('rainbow-bridge-lib/eth-on-near-client')
+  EthOnTezosClientContract,
+} = require('rainbow-bridge-lib/eth-on-tezos-client')
 const { RainbowConfig } = require('rainbow-bridge-lib/config')
 const path = require('path')
 const os = require('os')
@@ -12,7 +12,7 @@ const { TezosToolkit } = require("@taquito/taquito")
 const BigNumber = require('bignumber.js');
 
 
-class StartEth2NearRelayCommand {
+class StartEth2TezosRelayCommand {
   static async execute() {
     // if (RainbowConfig.getParam('daemon') === 'true') {
     //   console.log("rainbow config param daemon true ")
@@ -23,13 +23,13 @@ class StartEth2NearRelayCommand {
     //       )
     //       return
     //     }
-    //     spawnProcess('eth2near-relay', {
-    //       name: 'eth2near-relay',
+    //     spawnProcess('eth2tezos-relay', {
+    //       name: 'eth2tezos-relay',
     //       script: path.join(__dirname, '../../index.js'),
     //       interpreter: 'node',
-    //       error_file: '~/.rainbow/logs/eth2near-relay/err.log',
-    //       out_file: '~/.rainbow/logs/eth2near-relay/out.log',
-    //       args: ['start', 'eth2near-relay', ...RainbowConfig.getArgsNoDaemon()],
+    //       error_file: '~/.rainbow/logs/eth2tezos-relay/err.log',
+    //       out_file: '~/.rainbow/logs/eth2tezos-relay/out.log',
+    //       args: ['start', 'eth2tezos-relay', ...RainbowConfig.getArgsNoDaemon()],
     //       wait_ready: true,
     //       kill_timeout: 60000,
     //       logDateFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
@@ -38,31 +38,31 @@ class StartEth2NearRelayCommand {
     // } else {
     //   console.log("rainbow config param daemon false ")
 
-      // Below are near node details that should be replaced with tezos node details 
+      // Below are tezos node details that should be replaced with tezos node details 
       
-      // const masterAccount = RainbowConfig.getParam('near-master-account')
-      // const masterSk = RainbowConfig.getParam('near-master-sk')
-      // const keyStore = new nearlib.keyStores.InMemoryKeyStore()
+      // const masterAccount = RainbowConfig.getParam('tezos-master-account')
+      // const masterSk = RainbowConfig.getParam('tezos-master-sk')
+      // const keyStore = new tezoslib.keyStores.InMemoryKeyStore()
       // await keyStore.setKey(
-        //   RainbowConfig.getParam('near-network-id'),
+        //   RainbowConfig.getParam('tezos-network-id'),
         //   masterAccount,
-        //   nearlib.KeyPair.fromString(masterSk)
+        //   tezoslib.KeyPair.fromString(masterSk)
         // )
-        // const near = await nearlib.connect({
-          //   nodeUrl: RainbowConfig.getParam('near-node-url'),
-          //   networkId: RainbowConfig.getParam('near-network-id'),
+        // const tezos = await tezoslib.connect({
+          //   nodeUrl: RainbowConfig.getParam('tezos-node-url'),
+          //   networkId: RainbowConfig.getParam('tezos-network-id'),
           //   masterAccount: masterAccount,
           //   deps: {
             //     keyStore: keyStore,
             //   },
             // })
             // 
-             const relay = new Eth2NearRelay()
-            // below should be replaced from  eth-on-near client to eth-on-xtz client contract on tezos
+             const relay = new Eth2TezosRelay()
+            // below should be replaced from  eth-on-tezos client to eth-on-xtz client contract on tezos
             
-            // const clientContract = new EthOnNearClientContract(
-              //   new nearlib.Account(near.connection, masterAccount),
-              //   RainbowConfig.getParam('near-client-account')
+            // const clientContract = new EthOnTezosClientContract(
+              //   new tezoslib.Account(tezos.connection, masterAccount),
+              //   RainbowConfig.getParam('tezos-client-account')
               // )
               // await clientContract.accessKeyInit()
       
@@ -90,12 +90,12 @@ class StartEth2NearRelayCommand {
     //  console.log ( "ethClient contract storage value "+ new BigNumber(storage.latest_block).toString())
 
     const clientContract = null;
-      console.log('Initializing eth2near-relay...')
+      console.log('Initializing eth2tezos-relay...')
       relay.initialize(clientContract, RainbowConfig.getParam('eth-node-url'))
-      console.log('Starting eth2near-relay...')
+      console.log('Starting eth2tezos-relay...')
       await relay.run()
     }
   }
 // }
 
-exports.StartEth2NearRelayCommand = StartEth2NearRelayCommand
+exports.StartEth2TezosRelayCommand = StartEth2TezosRelayCommand
